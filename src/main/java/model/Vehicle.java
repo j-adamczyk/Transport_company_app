@@ -1,4 +1,59 @@
 package model;
 
+import java.time.LocalDate;
+
 public class Vehicle {
+    private String model;
+    private String registrationNo;
+    private LocalDate manufactureDate;
+    private Double cargoVolume;
+    private Double cargoWeight;
+
+    public Vehicle(String model, String registrationNo, LocalDate manufactureDate, Double cargoVolume, Double cargoWeight) {
+        this.model = model;
+        this.registrationNo = registrationNo;
+        this.manufactureDate = manufactureDate;
+        this.cargoVolume = cargoVolume;
+        this.cargoWeight = cargoWeight;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public String getRegistrationNo() {
+        return registrationNo;
+    }
+
+    public void setRegistrationNo(String registrationNo) {
+        this.registrationNo = registrationNo;
+    }
+
+    public LocalDate getManufactureDate() {
+        return manufactureDate;
+    }
+
+    public void setManufactureDate(LocalDate manufactureDate) {
+        this.manufactureDate = manufactureDate;
+    }
+
+    public Double getCargoVolume() {
+        return cargoVolume;
+    }
+
+    public void setCargoVolume(Double cargoVolume) {
+        this.cargoVolume = cargoVolume;
+    }
+
+    public Double getCargoWeight() {
+        return cargoWeight;
+    }
+
+    public void setCargoWeight(Double cargoWeight) {
+        this.cargoWeight = cargoWeight;
+    }
 }

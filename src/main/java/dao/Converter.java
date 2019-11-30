@@ -11,81 +11,85 @@ import java.time.format.DateTimeFormatter;
 public class Converter {
     public static Document toDocument(Address address) {
         Document doc = new Document();
-        doc.append("country", address.country);
-        doc.append("city", address.city);
-        doc.append("postalCode", address.postalCode);
-        doc.append("street", address.street);
+        doc.append("country", address.getCountry());
+        doc.append("city", address.getCity());
+        doc.append("postalCode", address.getPostalCode());
+        doc.append("street", address.getStreet());
         return doc;
     }
 
     public static Document toDocument(Cargo cargo) {
         Document doc = new Document();
-        doc.append("name", cargo.name);
-        doc.append("volume", cargo.volume.toString());
-        doc.append("weight", cargo.weight.toString());
+        doc.append("name", cargo.getName());
+        doc.append("volume", cargo.getVolume().toString());
+        doc.append("weight", cargo.getWeight().toString());
         return doc;
     }
 
     public static Document toDocument(Company company) {
         Document doc = new Document();
-        doc.append("name", company.name);
-        doc.append("address", toDocument(company.address));
-        doc.append("phone", company.phone);
-        doc.append("mail", company.mail);
-        doc.append("representative", company.representative);
+        doc.append("name", company.getName());
+        doc.append("address", toDocument(company.getAddress()));
+        doc.append("phone", company.getPhone());
+        doc.append("mail", company.getMail());
+        doc.append("representative", company.getRepresentative());
         return doc;
     }
 
     public static Document toDocument(CurrentTransaction currTransaction) {
         Document doc = new Document();
-        doc.append("transaction", toDocument(currTransaction.transaction));
-        doc.append("cargoLeft", new Document(currTransaction.cargoLeft));
+        doc.append("transaction", toDocument(currTransaction.getTransaction()));
+        Document cargoLeft = new Document();
+        cargoLeft.putAll(currTransaction.getCargoLeft());
+        doc.append("cargoLeft", cargoLeft);
         return doc;
     }
 
     public static Document toDocument(Driver driver) {
         Document doc = new Document();
-        doc.append("name", driver.name);
+        doc.append("name", driver.getName());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY");
-        doc.append("birthDate", formatter.format(driver.birthDate));
-        doc.append("hiringDate", formatter.format(driver.hiringDate));
-        doc.append("phone", driver.phone);
-        doc.append("address", toDocument(driver.address));
-        doc.append("salary", salary.toString());
+        doc.append("birthDate", formatter.format(driver.getBirthDate()));
+        doc.append("hiringDate", formatter.format(driver.getHireDate()));
+        doc.append("phone", driver.getPhone());
+        doc.append("address", toDocument(driver.getAddress()));
+        doc.append("salary", driver.getSalary().toString());
         return doc;
     }
 
     public static Document toDocument(Transaction transaction) {
         Document doc = new Document();
-        doc.append("contractor", toDocument(transaction.contractor));
-        doc.append("cargo", new Document(transaction.cargo));
-        doc.append("from", toDocument(transaction.from));
-        doc.append("destination", toDocument(transaction.destination));
-        doc.append("money", transaction.money.toString());
+        doc.append("contractor", toDocument(transaction.getContractor()));
+        Document cargo = new Document();
+        cargo.putAll(transaction.getCargo());
+        doc.append("cargo", cargo);
+        doc.append("from", toDocument(transaction.getFrom()));
+        doc.append("destination", toDocument(transaction.getDestination()));
+        doc.append("money", transaction.getMoney().toString());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY");
-        doc.append("transactionDate", formatter.format(transaction.transactionDate));
+        doc.append("transactionDate", formatter.format(transaction.getTransactionDate()));
         return doc;
     }
 
     public static Document toDocument(Transport transport) {
         Document doc = new Document();
-        doc.append("currentTransaction", toDocument(transport.currentTransaction));
-        doc.append("driver", toDocument(transport.driver));
-        doc.append("vehicle", toDocument(transport.vehicle));
-        doc.append("cargoUnits", transport.cargoUnits.toString());
+        doc.append("currentTransaction", toDocument(transport.getCurrentTransaction()));
+        doc.append("driver", toDocument(transport.getDriver()));
+        doc.append("vehicle", toDocument(transport.getVehicle()));
+        doc.append("cargoUnits", transport.getCargoUnits().toString());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY HH:mm:ss");
-        doc.append("departureDate", formatter.format(transport.departureDate));
-        doc.append("expectedTime", transport.expectedTime.toString());
+        doc.append("departureDate", formatter.format(transport.getDepartureDate()));
+        doc.append("expectedTime", transport.getExpectedTime().toString());
         return doc;
     }
 
     public static Document toDocument(Vehicle vehicle) {
         Document doc = new Document();
-        doc.append("model", vehicle.model);
-        doc.append("registrationNo", vehicle.registrationNo);
-        doc.append("manufactureDate", vehicle.manufactureDate.getYear());
-        doc.append("cargoVolume", vehicle.cargoVolume);
-        doc.append("cargoWeight", vehicle.cargoWeight);
+        doc.append("model", vehicle.getModel());
+        doc.append("registrationNo", vehicle.getRegistrationNo());
+        doc.append("manufactureDate", vehicle.getManufactureDate().getYear());
+        doc.append("cargoVolume", vehicle.getCargoVolume());
+        doc.append("cargoWeight", vehicle.getCargoWeight());
         return doc;
     }
 }
