@@ -84,7 +84,7 @@ public class Converter {
         doc.append("driver", toDocument(transport.getDriver()));
         doc.append("vehicle", toDocument(transport.getVehicle()));
         doc.append("cargoUnits", transport.getCargoUnits().toString());
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY HH:mm:ss");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY HH");
         doc.append("departureDate", formatter.format(transport.getDepartureDate()));
         doc.append("expectedTime", transport.getExpectedTime().toString());
         return doc;

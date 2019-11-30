@@ -7,9 +7,9 @@ import com.mongodb.client.MongoDatabase;
 /**
  * Singleton class existing to encapsulate access to the only existing database instance.
  */
-public class dbConnector
+public class DbConnector
 {
-    private static final dbConnector DB = new dbConnector();
+    private static final DbConnector DB = new DbConnector();
 
     private MongoClient mainMongoClient = MongoClients.create(
             "mongodb+srv://mainuser:MainUser10@maincluster-af4rk.gcp.mongodb.net/test?retryWrites=true&w=majority");
@@ -19,7 +19,7 @@ public class dbConnector
     private MongoDatabase database;
     private boolean usedDB = true;
 
-    private dbConnector() {
+    private DbConnector() {
         DB.setUsedDB(true);
     }
 

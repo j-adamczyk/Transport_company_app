@@ -1,10 +1,11 @@
 package dao;
 
 import model.Company;
-import model.CurrentTransaction;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -12,9 +13,11 @@ import static com.mongodb.client.model.Filters.eq;
 public class CompanyDAO extends GenericDAO<Company> {
     String collName = "companies";
 
+    // basic CRUD operations
+
     @Override
     public void delete(UUID id) {
-        dbConnector
+        DbConnector
                 .getDB()
                 .getCollection(collName)
                 .deleteOne(eq("_id", new ObjectId(String.valueOf(id))));
@@ -22,7 +25,7 @@ public class CompanyDAO extends GenericDAO<Company> {
 
     @Override
     public Company find(UUID id) {
-        return dbConnector
+        return DbConnector
                 .getDB()
                 .getCollection(collName)
                 .find(
@@ -34,7 +37,7 @@ public class CompanyDAO extends GenericDAO<Company> {
     @Override
     public void save(Company toSave) {
         Document doc = Converter.toDocument(toSave);
-        dbConnector
+        DbConnector
                 .getDB()
                 .getCollection(collName)
                 .insertOne(doc);
@@ -43,11 +46,53 @@ public class CompanyDAO extends GenericDAO<Company> {
     @Override
     public void update(UUID id, Company toUpdate) {
         Document doc = Converter.toDocument(toUpdate);
-        dbConnector
+        DbConnector
                 .getDB()
                 .getCollection(collName)
                 .replaceOne(
                         eq("_id", new ObjectId(String.valueOf(id))),
                         doc);
+    }
+
+    // other methods
+
+    public List<Company> findAllCompanies() {
+        return DbConnector
+                .getDB()
+                .getCollection(collName)
+                .find(Company.class)
+                .into(new ArrayList<>());
+    }
+
+    public List<Company> findByName(String name) {
+        return DbConnector
+                .getDB()
+                .getCollection(collName)
+                .find(
+                        eq("name", name),
+                        Company.class)
+                .into(new ArrayList<>());
+    }
+
+    public List<Company> findCompaniesFromCity(String cityName) {
+        return DbConnector
+                .getDB()
+                .getCollection(collName)
+                .find(
+                        eq("city", cityName),
+                        Company.class
+                )
+                .into(new ArrayList<>());
+    }
+
+    public List<Company> findCompaniesFromCountry(String countryName) {
+        return DbConnector
+                .getDB()
+                .getCollection(collName)
+                .find(
+                        eq("country", countryName),
+                        Company.class
+                )
+                .into(new ArrayList<>());
     }
 }

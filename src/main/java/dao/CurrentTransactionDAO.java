@@ -1,10 +1,12 @@
 package dao;
 
+import model.Company;
 import model.CurrentTransaction;
-import model.Driver;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -12,9 +14,11 @@ import static com.mongodb.client.model.Filters.eq;
 public class CurrentTransactionDAO extends GenericDAO<CurrentTransaction> {
     String collName = "currentTransactions";
 
+    // CRUD operations
+
     @Override
     public void delete(UUID id) {
-        dbConnector
+        DbConnector
                 .getDB()
                 .getCollection(collName)
                 .deleteOne(eq("_id", new ObjectId(String.valueOf(id))));
@@ -22,7 +26,7 @@ public class CurrentTransactionDAO extends GenericDAO<CurrentTransaction> {
 
     @Override
     public CurrentTransaction find(UUID id) {
-        return dbConnector
+        return DbConnector
                 .getDB()
                 .getCollection(collName)
                 .find(
@@ -34,7 +38,7 @@ public class CurrentTransactionDAO extends GenericDAO<CurrentTransaction> {
     @Override
     public void save(CurrentTransaction toSave) {
         Document doc = Converter.toDocument(toSave);
-        dbConnector
+        DbConnector
                 .getDB()
                 .getCollection(collName)
                 .insertOne(doc);
@@ -43,11 +47,21 @@ public class CurrentTransactionDAO extends GenericDAO<CurrentTransaction> {
     @Override
     public void update(UUID id, CurrentTransaction toUpdate) {
         Document doc = Converter.toDocument(toUpdate);
-        dbConnector
+        DbConnector
                 .getDB()
                 .getCollection(collName)
                 .replaceOne(
                         eq("_id", new ObjectId(String.valueOf(id))),
                         doc);
+    }
+
+    // other methods
+
+    public List<CurrentTransaction> findAllCurrentTransactions() {
+        return DbConnector
+                .getDB()
+                .getCollection(collName)
+                .find(CurrentTransaction.class)
+                .into(new ArrayList<>());
     }
 }
