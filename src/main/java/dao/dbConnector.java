@@ -16,30 +16,36 @@ public class dbConnector
     private MongoClient testMongoClient = MongoClients.create(
             "mongodb+srv://mainuser:MainUser10@testcluster-5qtaz.gcp.mongodb.net/test?retryWrites=true&w=majority");
 
-    private MongoDatabase mainDatabase;
-    private MongoDatabase testDatabase;
+    private MongoDatabase database;
+    private boolean usedDB = true;
 
     private dbConnector() {
+        DB.setUsedDB(true);
+    }
+
+    public boolean getUsedDB() {
+        return DB.usedDB;
     }
 
     /**
-     * Return instance of appropriate database.
+     * Set which database to use (main - true, test - false).
+     * @param usedDB true - use main database, false - use test database
+     */
+    public void setUsedDB(boolean usedDB) {
+        DB.usedDB = usedDB;
+        if (usedDB)
+            DB.database = DB.mainMongoClient.getDatabase("mainDB");
+        else
+            DB.database = DB.testMongoClient.getDatabase("testDB");
+    }
+
+    /**
+     * Return instance of currently used database (default - main, can be changed with
+     * {@link #setUsedDB(boolean)}).
      *
-     * @param mainCluster if true, return main database instance; else return test database instance
      * @return database instance
      */
-    public static MongoDatabase getDB(boolean mainCluster) {
-        if (mainCluster) {
-            if (DB.mainDatabase == null)
-                DB.mainDatabase = DB.mainMongoClient.getDatabase("mainDB");
-
-            return DB.mainDatabase;
-        }
-        else {
-            if (DB.testDatabase == null)
-                DB.testDatabase = DB.mainMongoClient.getDatabase("testDB");
-
-            return DB.testDatabase;
-        }
+    public static MongoDatabase getDB() {
+        return DB.database;
     }
 }

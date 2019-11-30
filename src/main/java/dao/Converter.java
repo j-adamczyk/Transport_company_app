@@ -11,6 +11,7 @@ import java.time.format.DateTimeFormatter;
 public class Converter {
     public static Document toDocument(Address address) {
         Document doc = new Document();
+        doc.append("_id", address.get_id());
         doc.append("country", address.getCountry());
         doc.append("city", address.getCity());
         doc.append("postalCode", address.getPostalCode());
@@ -20,6 +21,7 @@ public class Converter {
 
     public static Document toDocument(Cargo cargo) {
         Document doc = new Document();
+        doc.append("_id", cargo.get_id());
         doc.append("name", cargo.getName());
         doc.append("volume", cargo.getVolume().toString());
         doc.append("weight", cargo.getWeight().toString());
@@ -28,6 +30,7 @@ public class Converter {
 
     public static Document toDocument(Company company) {
         Document doc = new Document();
+        doc.append("_id", company.get_id());
         doc.append("name", company.getName());
         doc.append("address", toDocument(company.getAddress()));
         doc.append("phone", company.getPhone());
@@ -38,6 +41,7 @@ public class Converter {
 
     public static Document toDocument(CurrentTransaction currTransaction) {
         Document doc = new Document();
+        doc.append("_id", currTransaction.get_id());
         doc.append("transaction", toDocument(currTransaction.getTransaction()));
         Document cargoLeft = new Document();
         cargoLeft.putAll(currTransaction.getCargoLeft());
@@ -47,6 +51,7 @@ public class Converter {
 
     public static Document toDocument(Driver driver) {
         Document doc = new Document();
+        doc.append("_id", driver.get_id());
         doc.append("name", driver.getName());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-YYYY");
         doc.append("birthDate", formatter.format(driver.getBirthDate()));
@@ -59,6 +64,7 @@ public class Converter {
 
     public static Document toDocument(Transaction transaction) {
         Document doc = new Document();
+        doc.append("_id", transaction.get_id());
         doc.append("contractor", toDocument(transaction.getContractor()));
         Document cargo = new Document();
         cargo.putAll(transaction.getCargo());
@@ -73,6 +79,7 @@ public class Converter {
 
     public static Document toDocument(Transport transport) {
         Document doc = new Document();
+        doc.append("_id", transport.get_id());
         doc.append("currentTransaction", toDocument(transport.getCurrentTransaction()));
         doc.append("driver", toDocument(transport.getDriver()));
         doc.append("vehicle", toDocument(transport.getVehicle()));
@@ -85,6 +92,7 @@ public class Converter {
 
     public static Document toDocument(Vehicle vehicle) {
         Document doc = new Document();
+        doc.append("_id", vehicle.get_id());
         doc.append("model", vehicle.getModel());
         doc.append("registrationNo", vehicle.getRegistrationNo());
         doc.append("manufactureDate", vehicle.getManufactureDate().getYear());

@@ -2,8 +2,10 @@ package model;
 
 import java.time.LocalDate;
 import java.util.Map;
+import java.util.UUID;
 
 public class Transaction {
+    private UUID _id;
     private Company contractor;
     private Map<String, Integer> cargo;
     private Address from;
@@ -12,12 +14,17 @@ public class Transaction {
     private LocalDate transactionDate;
 
     public Transaction(Company contractor, Map<String, Integer> cargo, Address from, Address destination, Double money, LocalDate transactionDate) {
+        this._id = UUID.randomUUID();
         this.contractor = contractor;
         this.cargo = cargo;
         this.from = from;
         this.destination = destination;
         this.money = money;
         this.transactionDate = transactionDate;
+    }
+
+    public UUID get_id() {
+        return _id;
     }
 
     public Company getContractor() {

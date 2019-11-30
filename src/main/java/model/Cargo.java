@@ -1,14 +1,22 @@
 package model;
 
+import java.util.UUID;
+
 public class Cargo {
+    private UUID _id;
     private String name;
     private Double volume;
     private Double weight;
 
     public Cargo(String name, Double volume, Double weight) {
+        this._id = UUID.randomUUID();
         this.name = name;
         this.volume = volume;
         this.weight = weight;
+    }
+
+    public UUID get_id() {
+        return _id;
     }
 
     public String getName() {

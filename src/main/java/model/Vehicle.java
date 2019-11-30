@@ -1,8 +1,10 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class Vehicle {
+    private UUID _id;
     private String model;
     private String registrationNo;
     private LocalDate manufactureDate;
@@ -10,11 +12,16 @@ public class Vehicle {
     private Double cargoWeight;
 
     public Vehicle(String model, String registrationNo, LocalDate manufactureDate, Double cargoVolume, Double cargoWeight) {
+        this._id = UUID.randomUUID();
         this.model = model;
         this.registrationNo = registrationNo;
         this.manufactureDate = manufactureDate;
         this.cargoVolume = cargoVolume;
         this.cargoWeight = cargoWeight;
+    }
+
+    public UUID get_id() {
+        return _id;
     }
 
     public String getModel() {

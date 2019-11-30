@@ -1,6 +1,9 @@
 package model;
 
+import java.util.UUID;
+
 public class Company {
+    private UUID _id;
     private String name;
     private Address address;
     private String phone;
@@ -8,11 +11,16 @@ public class Company {
     private String representative;
 
     public Company(String name, Address address, String phone, String mail, String representative) {
+        this._id = UUID.randomUUID();
         this.name = name;
         this.address = address;
         this.phone = phone;
         this.mail = mail;
         this.representative = representative;
+    }
+
+    public UUID get_id() {
+        return _id;
     }
 
     public String getName() {

@@ -1,8 +1,10 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 public class Driver {
+    private UUID _id;
     private String name;
     private LocalDate birthDate;
     private LocalDate hireDate;
@@ -11,12 +13,17 @@ public class Driver {
     private Double salary;
 
     public Driver(String name, LocalDate birthDate, LocalDate hireDate, String phone, Address address, Double salary) {
+        this._id = UUID.randomUUID();
         this.name = name;
         this.birthDate = birthDate;
         this.hireDate = hireDate;
         this.phone = phone;
         this.address = address;
         this.salary = salary;
+    }
+
+    public UUID get_id() {
+        return _id;
     }
 
     public String getName() {
