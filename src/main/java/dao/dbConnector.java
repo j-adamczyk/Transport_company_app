@@ -1,6 +1,5 @@
 package dao;
 
-import com.mongodb.ConnectionString;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
@@ -8,9 +7,9 @@ import com.mongodb.client.MongoDatabase;
 /**
  * Singleton class existing to encapsulate access to the only existing database instance.
  */
-public class DatabaseConnector
+public class dbConnector
 {
-    private static final DatabaseConnector DB = new DatabaseConnector();
+    private static final dbConnector DB = new dbConnector();
 
     private MongoClient mainMongoClient = MongoClients.create(
             "mongodb+srv://mainuser:MainUser10@maincluster-af4rk.gcp.mongodb.net/test?retryWrites=true&w=majority");
@@ -20,7 +19,7 @@ public class DatabaseConnector
     private MongoDatabase mainDatabase;
     private MongoDatabase testDatabase;
 
-    private DatabaseConnector() {
+    private dbConnector() {
     }
 
     /**
