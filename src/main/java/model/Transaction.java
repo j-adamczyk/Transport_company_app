@@ -1,12 +1,14 @@
 package model;
 
+import org.bson.types.ObjectId;
+
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
 public class Transaction {
-    private UUID _id;
+    private ObjectId _id;
     private Company contractor;
     private Map<String, Integer> cargo;
     private Address from;
@@ -15,7 +17,7 @@ public class Transaction {
     private LocalDate transactionDate;
 
     public Transaction(Company contractor, Map<String, Integer> cargo, Address from, Address destination, Double money, LocalDate transactionDate) {
-        this._id = UUID.randomUUID();
+        this._id = new ObjectId();
         this.contractor = contractor;
         this.cargo = cargo;
         this.from = from;
@@ -24,7 +26,7 @@ public class Transaction {
         this.transactionDate = transactionDate;
     }
 
-    public UUID get_id() {
+    public ObjectId get_id() {
         return _id;
     }
 

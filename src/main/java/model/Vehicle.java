@@ -1,11 +1,13 @@
 package model;
 
+import org.bson.types.ObjectId;
+
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
 public class Vehicle {
-    private UUID _id;
+    private ObjectId _id;
     private String model;
     private String registrationNo;
     private LocalDate manufactureDate;
@@ -13,7 +15,7 @@ public class Vehicle {
     private Double cargoWeight;
 
     public Vehicle(String model, String registrationNo, LocalDate manufactureDate, Double cargoVolume, Double cargoWeight) {
-        this._id = UUID.randomUUID();
+        this._id = new ObjectId();
         this.model = model;
         this.registrationNo = registrationNo;
         this.manufactureDate = manufactureDate;
@@ -21,7 +23,7 @@ public class Vehicle {
         this.cargoWeight = cargoWeight;
     }
 
-    public UUID get_id() {
+    public ObjectId get_id() {
         return _id;
     }
 

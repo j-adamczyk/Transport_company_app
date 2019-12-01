@@ -1,22 +1,24 @@
 package model;
 
+import org.bson.types.ObjectId;
+
 import java.util.Objects;
 import java.util.UUID;
 
 public class Cargo {
-    private UUID _id;
+    private ObjectId _id;
     private String name;
     private Double volume;
     private Double weight;
 
     public Cargo(String name, Double volume, Double weight) {
-        this._id = UUID.randomUUID();
+        this._id = new ObjectId();
         this.name = name;
         this.volume = volume;
         this.weight = weight;
     }
 
-    public UUID get_id() {
+    public ObjectId get_id() {
         return _id;
     }
 

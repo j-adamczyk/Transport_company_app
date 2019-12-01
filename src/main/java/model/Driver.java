@@ -1,11 +1,13 @@
 package model;
 
+import org.bson.types.ObjectId;
+
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.UUID;
 
 public class Driver {
-    private UUID _id;
+    private ObjectId _id;
     private String name;
     private LocalDate birthDate;
     private LocalDate hireDate;
@@ -14,7 +16,7 @@ public class Driver {
     private Double salary;
 
     public Driver(String name, LocalDate birthDate, LocalDate hireDate, String phone, Address address, Double salary) {
-        this._id = UUID.randomUUID();
+        this._id = new ObjectId();
         this.name = name;
         this.birthDate = birthDate;
         this.hireDate = hireDate;
@@ -23,7 +25,7 @@ public class Driver {
         this.salary = salary;
     }
 
-    public UUID get_id() {
+    public ObjectId get_id() {
         return _id;
     }
 

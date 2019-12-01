@@ -1,12 +1,14 @@
 package model;
 
+import org.bson.types.ObjectId;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
 
 public class Transport {
-    private UUID _id;
+    private ObjectId _id;
     private CurrentTransaction currentTransaction;
     private Driver driver;
     private Vehicle vehicle;
@@ -15,7 +17,7 @@ public class Transport {
     private Duration expectedTime;
 
     public Transport(CurrentTransaction currentTransaction, Driver driver, Vehicle vehicle, Integer cargoUnits, LocalDateTime departureDate, Duration expectedTime) {
-        this._id = UUID.randomUUID();
+        this._id = new ObjectId();
         this.currentTransaction = currentTransaction;
         this.driver = driver;
         this.vehicle = vehicle;
@@ -24,7 +26,7 @@ public class Transport {
         this.expectedTime = expectedTime;
     }
 
-    public UUID get_id() {
+    public ObjectId get_id() {
         return _id;
     }
 

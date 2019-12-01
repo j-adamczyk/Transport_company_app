@@ -1,24 +1,26 @@
 package model;
 
+import org.bson.types.ObjectId;
+
 import java.util.Objects;
 import java.util.UUID;
 
 public class Address {
-    private UUID _id;
+    private ObjectId _id;
     private String country;
     private String city;
     private String postalCode;
     private String street;
 
     public Address(String country, String city, String postalCode, String street) {
-        this._id = UUID.randomUUID();
+        this._id = new ObjectId();
         this.setCountry(country);
         this.setCity(city);
         this.setPostalCode(postalCode);
         this.setStreet(street);
     }
 
-    public UUID get_id() {
+    public ObjectId get_id() {
         return _id;
     }
 

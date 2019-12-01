@@ -13,6 +13,7 @@ public class CompanyDAOTests {
 
     MongoDatabase db;
     Company c1;
+    CompanyDAO companyDAO;
 
     @BeforeClass
     public void testConnection()
@@ -31,6 +32,8 @@ public class CompanyDAOTests {
     {
         c1 = new Company("Company1", new Address("Poland", "Krakow", "33-333", "Krakowska 17"),
                 "444555666", "xxx@xxx.pl", "Adam Kowalski");
+        companyDAO = new CompanyDAO();
+        companyDAO.save(c1);
 
     }
 

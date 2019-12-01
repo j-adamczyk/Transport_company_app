@@ -1,10 +1,12 @@
 package model;
 
+import org.bson.types.ObjectId;
+
 import java.util.Objects;
 import java.util.UUID;
 
 public class Company {
-    private UUID _id;
+    private ObjectId _id;
     private String name;
     private Address address;
     private String phone;
@@ -12,7 +14,7 @@ public class Company {
     private String representative;
 
     public Company(String name, Address address, String phone, String mail, String representative) {
-        this._id = UUID.randomUUID();
+        this._id = new ObjectId();
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -20,7 +22,7 @@ public class Company {
         this.representative = representative;
     }
 
-    public UUID get_id() {
+    public ObjectId get_id() {
         return _id;
     }
 
