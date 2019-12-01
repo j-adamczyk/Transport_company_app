@@ -4,14 +4,13 @@ import org.bson.types.ObjectId;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
 
 public class CurrentTransaction {
-    private ObjectId _id;
+    public ObjectId _id;
     private Transaction transaction;
     private Map<String, Integer> cargoLeft;
 
-    public CurrentTransaction(){}
+    public CurrentTransaction() {}
 
     public CurrentTransaction(Transaction transaction, Map<String, Integer> cargoLeft) {
         this._id = new ObjectId();

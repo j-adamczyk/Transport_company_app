@@ -4,17 +4,16 @@ import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
 import java.util.Objects;
-import java.util.UUID;
 
 public class Vehicle {
-    private ObjectId _id;
+    public ObjectId _id;
     private String model;
     private String registrationNo;
     private LocalDate manufactureDate;
     private Double cargoVolume;
     private Double cargoWeight;
 
-    public Vehicle(){}
+    public Vehicle() {}
 
     public Vehicle(String model, String registrationNo, LocalDate manufactureDate, Double cargoVolume, Double cargoWeight) {
         this._id = new ObjectId();

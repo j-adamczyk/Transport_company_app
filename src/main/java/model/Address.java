@@ -3,16 +3,15 @@ package model;
 import org.bson.types.ObjectId;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public class Address {
-    private ObjectId _id;
+    public ObjectId _id;
     private String country;
     private String city;
     private String postalCode;
     private String street;
 
-    public Address(){}
+    public Address() {}
 
     public Address(String country, String city, String postalCode, String street) {
         this._id = new ObjectId();

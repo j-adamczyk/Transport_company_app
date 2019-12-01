@@ -3,17 +3,16 @@ package model;
 import org.bson.types.ObjectId;
 
 import java.util.Objects;
-import java.util.UUID;
 
 public class Company {
-    private ObjectId _id;
+    public ObjectId _id;
     private String name;
     private Address address;
     private String phone;
     private String mail;
     private String representative;
 
-    public Company(){}
+    public Company() {}
 
     public Company(String name, Address address, String phone, String mail, String representative) {
         this._id = new ObjectId();

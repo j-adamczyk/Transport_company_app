@@ -5,10 +5,9 @@ import org.bson.types.ObjectId;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
 
 public class Transaction {
-    private ObjectId _id;
+    public ObjectId _id;
     private Company contractor;
     private Map<String, Integer> cargo;
     private Address from;
@@ -16,7 +15,7 @@ public class Transaction {
     private Double money;
     private LocalDate transactionDate;
 
-    public Transaction(){}
+    public Transaction() {}
 
     public Transaction(Company contractor, Map<String, Integer> cargo, Address from, Address destination, Double money, LocalDate transactionDate) {
         this._id = new ObjectId();
