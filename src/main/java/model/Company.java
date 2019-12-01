@@ -13,6 +13,7 @@ public class Company {
     private String mail;
     private String representative;
 
+    public Company(){};
     public Company(String name, Address address, String phone, String mail, String representative) {
         this._id = new ObjectId();
         this.name = name;

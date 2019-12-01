@@ -12,6 +12,7 @@ public class Address {
     private String postalCode;
     private String street;
 
+    public Address(){};
     public Address(String country, String city, String postalCode, String street) {
         this._id = new ObjectId();
         this.setCountry(country);

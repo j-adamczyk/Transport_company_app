@@ -15,6 +15,8 @@ public class Driver {
     private Address address;
     private Double salary;
 
+    public Driver(){};
+
     public Driver(String name, LocalDate birthDate, LocalDate hireDate, String phone, Address address, Double salary) {
         this._id = new ObjectId();
         this.name = name;

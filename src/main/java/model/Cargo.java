@@ -11,6 +11,7 @@ public class Cargo {
     private Double volume;
     private Double weight;
 
+    public Cargo(){};
     public Cargo(String name, Double volume, Double weight) {
         this._id = new ObjectId();
         this.name = name;

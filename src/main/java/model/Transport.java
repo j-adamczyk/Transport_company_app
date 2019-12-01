@@ -16,6 +16,7 @@ public class Transport {
     private LocalDateTime departureDate;
     private Duration expectedTime;
 
+    public Transport(){};
     public Transport(CurrentTransaction currentTransaction, Driver driver, Vehicle vehicle, Integer cargoUnits, LocalDateTime departureDate, Duration expectedTime) {
         this._id = new ObjectId();
         this.currentTransaction = currentTransaction;
