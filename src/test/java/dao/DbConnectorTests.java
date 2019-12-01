@@ -2,6 +2,7 @@ package dao;
 
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -19,7 +20,7 @@ public class DbConnectorTests
         db.getName();
     }
 
-    @Before
+    @After
     public void setupDatabase()
     {
         this.db = DbConnector.getDB();
