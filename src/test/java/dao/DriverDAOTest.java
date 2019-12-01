@@ -4,13 +4,12 @@ import com.mongodb.client.MongoDatabase;
 import model.Address;
 import model.Driver;
 import org.bson.Document;
-import org.bson.types.ObjectId;
 import org.junit.*;
 import org.junit.runners.MethodSorters;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
@@ -48,14 +47,15 @@ public class DriverDAOTest {
 
     @Test
     public void testAFind() {
-        Assert.assertTrue(d1.equals(driverDAO.find(d1.get_id())));
+        Assert.assertEquals(d1, driverDAO.find(d1.get_id()));
+        Assert.assertNotEquals(d1, driverDAO.find(d2.get_id()));
     }
 
     @Test
     public void testBUpdate(){
         d1.setName("Aleksander Poniatowski");
         driverDAO.update(d1.get_id(), d1);
-        Assert.assertTrue(driverDAO.find(d1.get_id()).getName().equals(d2.getName()));
+        Assert.assertEquals(driverDAO.find(d1.get_id()).getName(), d2.getName());
     }
 
     @Test
@@ -65,8 +65,11 @@ public class DriverDAOTest {
 
     @Test
     public void testDFindAllDrivers(){
-        driverDAO.save(d2);
         List<Driver> actual = driverDAO.findAllDrivers();
+        Assert.assertEquals(actual.size(), 1);
+        Assert.assertEquals(actual, Collections.singletonList(d1));
+        driverDAO.save(d2);
+        actual = driverDAO.findAllDrivers();
         List<Driver> expected = Arrays.asList(d1, d2);
         Assert.assertEquals(actual.size(), 2);
         Assert.assertEquals(actual, expected);
@@ -76,6 +79,8 @@ public class DriverDAOTest {
     public void testEDelete(){
         driverDAO.delete(d2.get_id());
         Assert.assertEquals(Arrays.asList(d1), driverDAO.findAllDrivers());
+        driverDAO.delete(d1.get_id());
+        Assert.assertTrue(driverDAO.findAllDrivers().isEmpty());
     }
 
     @After

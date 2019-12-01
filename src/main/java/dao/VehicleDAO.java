@@ -59,18 +59,4 @@ public class VehicleDAO extends GenericDAO<Vehicle> {
                 .find()
                 .into(new ArrayList<>());
     }
-
-    public List<Vehicle> findAvailableVehicles() {
-        ArrayList<Vehicle> inUse = DbConnector
-                .getDB()
-                .getCollection(collName, Vehicle.class)
-                .find()
-                .projection(fields(include("vehicle"), excludeId()))
-                .into(new ArrayList<>());
-
-        Set<Vehicle> allVehicles = new HashSet<>(findAllVehicles());
-        allVehicles.removeAll(inUse);
-
-        return new ArrayList<>(allVehicles);
-    }
 }
