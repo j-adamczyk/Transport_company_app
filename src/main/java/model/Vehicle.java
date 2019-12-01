@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Vehicle {
@@ -62,5 +63,23 @@ public class Vehicle {
 
     public void setCargoWeight(Double cargoWeight) {
         this.cargoWeight = cargoWeight;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Vehicle)) return false;
+        Vehicle vehicle = (Vehicle) o;
+        return get_id().equals(vehicle.get_id()) &&
+                Objects.equals(getModel(), vehicle.getModel()) &&
+                Objects.equals(getRegistrationNo(), vehicle.getRegistrationNo()) &&
+                Objects.equals(getManufactureDate(), vehicle.getManufactureDate()) &&
+                Objects.equals(getCargoVolume(), vehicle.getCargoVolume()) &&
+                Objects.equals(getCargoWeight(), vehicle.getCargoWeight());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(get_id(), getModel(), getRegistrationNo(), getManufactureDate(), getCargoVolume(), getCargoWeight());
     }
 }

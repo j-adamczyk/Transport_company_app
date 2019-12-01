@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class Company {
@@ -61,5 +62,23 @@ public class Company {
 
     public void setRepresentative(String representative) {
         this.representative = representative;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Company)) return false;
+        Company company = (Company) o;
+        return get_id().equals(company.get_id()) &&
+                Objects.equals(getName(), company.getName()) &&
+                Objects.equals(getAddress(), company.getAddress()) &&
+                Objects.equals(getPhone(), company.getPhone()) &&
+                Objects.equals(getMail(), company.getMail()) &&
+                Objects.equals(getRepresentative(), company.getRepresentative());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(get_id(), getName(), getAddress(), getPhone(), getMail(), getRepresentative());
     }
 }

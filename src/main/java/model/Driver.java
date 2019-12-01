@@ -1,6 +1,7 @@
 package model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Driver {
@@ -72,5 +73,24 @@ public class Driver {
 
     public void setSalary(Double salary) {
         this.salary = salary;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Driver)) return false;
+        Driver driver = (Driver) o;
+        return get_id().equals(driver.get_id()) &&
+                Objects.equals(getName(), driver.getName()) &&
+                Objects.equals(getBirthDate(), driver.getBirthDate()) &&
+                Objects.equals(getHireDate(), driver.getHireDate()) &&
+                Objects.equals(getPhone(), driver.getPhone()) &&
+                Objects.equals(getAddress(), driver.getAddress()) &&
+                Objects.equals(getSalary(), driver.getSalary());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(get_id(), getName(), getBirthDate(), getHireDate(), getPhone(), getAddress(), getSalary());
     }
 }

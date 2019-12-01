@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class Address {
@@ -51,5 +52,22 @@ public class Address {
 
     public void setStreet(String street) {
         this.street = street;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Address)) return false;
+        Address address = (Address) o;
+        return get_id().equals(address.get_id()) &&
+                Objects.equals(getCountry(), address.getCountry()) &&
+                Objects.equals(getCity(), address.getCity()) &&
+                Objects.equals(getPostalCode(), address.getPostalCode()) &&
+                Objects.equals(getStreet(), address.getStreet());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(get_id(), getCountry(), getCity(), getPostalCode(), getStreet());
     }
 }

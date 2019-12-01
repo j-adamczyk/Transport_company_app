@@ -2,6 +2,7 @@ package model;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Transport {
@@ -73,5 +74,24 @@ public class Transport {
 
     public void setExpectedTime(Duration expectedTime) {
         this.expectedTime = expectedTime;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Transport)) return false;
+        Transport transport = (Transport) o;
+        return get_id().equals(transport.get_id()) &&
+                Objects.equals(getCurrentTransaction(), transport.getCurrentTransaction()) &&
+                Objects.equals(getDriver(), transport.getDriver()) &&
+                Objects.equals(getVehicle(), transport.getVehicle()) &&
+                Objects.equals(getCargoUnits(), transport.getCargoUnits()) &&
+                Objects.equals(getDepartureDate(), transport.getDepartureDate()) &&
+                Objects.equals(getExpectedTime(), transport.getExpectedTime());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(get_id(), getCurrentTransaction(), getDriver(), getVehicle(), getCargoUnits(), getDepartureDate(), getExpectedTime());
     }
 }

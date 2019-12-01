@@ -1,6 +1,7 @@
 package model;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class CurrentTransaction {
@@ -32,5 +33,20 @@ public class CurrentTransaction {
 
     public void setCargoLeft(Map<String, Integer> cargoLeft) {
         this.cargoLeft = cargoLeft;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CurrentTransaction)) return false;
+        CurrentTransaction that = (CurrentTransaction) o;
+        return get_id().equals(that.get_id()) &&
+                Objects.equals(getTransaction(), that.getTransaction()) &&
+                Objects.equals(getCargoLeft(), that.getCargoLeft());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(get_id(), getTransaction(), getCargoLeft());
     }
 }

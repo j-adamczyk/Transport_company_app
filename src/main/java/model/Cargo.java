@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Objects;
 import java.util.UUID;
 
 public class Cargo {
@@ -41,5 +42,21 @@ public class Cargo {
 
     public void setWeight(Double weight) {
         this.weight = weight;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cargo)) return false;
+        Cargo cargo = (Cargo) o;
+        return get_id().equals(cargo.get_id()) &&
+                Objects.equals(getName(), cargo.getName()) &&
+                Objects.equals(getVolume(), cargo.getVolume()) &&
+                Objects.equals(getWeight(), cargo.getWeight());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(get_id(), getName(), getVolume(), getWeight());
     }
 }

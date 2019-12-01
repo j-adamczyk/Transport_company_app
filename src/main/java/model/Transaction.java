@@ -2,6 +2,7 @@ package model;
 
 import java.time.LocalDate;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public class Transaction {
@@ -73,5 +74,24 @@ public class Transaction {
 
     public void setTransactionDate(LocalDate transactionDate) {
         this.transactionDate = transactionDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Transaction)) return false;
+        Transaction that = (Transaction) o;
+        return Objects.equals(get_id(), that.get_id()) &&
+                Objects.equals(getContractor(), that.getContractor()) &&
+                Objects.equals(getCargo(), that.getCargo()) &&
+                Objects.equals(getFrom(), that.getFrom()) &&
+                Objects.equals(getDestination(), that.getDestination()) &&
+                Objects.equals(getMoney(), that.getMoney()) &&
+                Objects.equals(getTransactionDate(), that.getTransactionDate());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(get_id(), getContractor(), getCargo(), getFrom(), getDestination(), getMoney(), getTransactionDate());
     }
 }
