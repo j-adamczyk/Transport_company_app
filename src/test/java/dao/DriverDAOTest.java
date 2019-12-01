@@ -1,15 +1,10 @@
 package dao;
 
 import com.mongodb.client.MongoDatabase;
-import jdk.vm.ci.meta.Local;
 import model.Address;
 import model.Driver;
 import org.bson.Document;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.*;
 
 import java.time.LocalDate;
 
@@ -20,7 +15,7 @@ public class DriverDAOTest {
 
     @BeforeClass
     public static void testConnection() {
-//        DbConnector.getInstance().setDbType(false);
+        DbConnector.getInstance().setDbTypeAndLoad(false);
         MongoDatabase db = DbConnector.getDB();
         // will throw an exception if connection could not be made (= db is null)
         db.getName();
@@ -28,10 +23,6 @@ public class DriverDAOTest {
 
     @Before
     public void setupDatabase() {
-        this.db = DbConnector.getDB();
-        // clear all collections with empty Document filter
-        for (String collectionName: db.listCollectionNames())
-            db.getCollection(collectionName).deleteMany(new Document());
         d1 = new Driver("Jan Kowalski",
                 LocalDate.of(1960, 2, 20),
                 LocalDate.of(2019, 10, 20),
@@ -43,8 +34,20 @@ public class DriverDAOTest {
     }
 
     @Test
-    public void testFind(){
-//        Assert.assertEquals(d1, driverDAO.find(d1.get_id()));
+    public void testFind() {
+        Assert.assertEquals(d1, driverDAO.find(d1.get_id()));
     }
 
+    @Test
+    public void findByName(){
+        Assert.assertEquals(d1, driverDAO.findByName(d1.getName()));
+    }
+
+    @After
+    public void cleanDatabase() {
+        this.db = DbConnector.getDB();
+        // clear all collections with empty Document filter
+        for (String collectionName : db.listCollectionNames())
+            db.getCollection(collectionName).deleteMany(new Document());
+    }
 }
