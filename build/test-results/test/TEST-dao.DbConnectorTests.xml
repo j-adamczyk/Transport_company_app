@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="dao.DbConnectorTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2019-12-01T11:26:22" hostname="DESKTOP-TMBFKEF" time="1.814">
+  <properties/>
+  <testcase name="tmp" classname="dao.DbConnectorTests" time="1.814"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[gru 01, 2019 12:26:22 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Cluster created with settings {hosts=[127.0.0.1:27017], srvHost=maincluster-af4rk.gcp.mongodb.net, mode=MULTIPLE, requiredClusterType=REPLICA_SET, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500, requiredReplicaSetName='MainCluster-shard-0'}
+gru 01, 2019 12:26:22 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Adding discovered server maincluster-shard-00-01-af4rk.gcp.mongodb.net:27017 to client view of cluster
+gru 01, 2019 12:26:22 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Cluster created with settings {hosts=[127.0.0.1:27017], srvHost=testcluster-5qtaz.gcp.mongodb.net, mode=MULTIPLE, requiredClusterType=REPLICA_SET, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500, requiredReplicaSetName='TestCluster-shard-0'}
+gru 01, 2019 12:26:22 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Cluster description not yet available. Waiting for 30000 ms before timing out
+gru 01, 2019 12:26:22 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Adding discovered server maincluster-shard-00-02-af4rk.gcp.mongodb.net:27017 to client view of cluster
+gru 01, 2019 12:26:22 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Adding discovered server maincluster-shard-00-00-af4rk.gcp.mongodb.net:27017 to client view of cluster
+gru 01, 2019 12:26:22 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Adding discovered server testcluster-shard-00-01-5qtaz.gcp.mongodb.net:27017 to client view of cluster
+gru 01, 2019 12:26:22 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Adding discovered server testcluster-shard-00-02-5qtaz.gcp.mongodb.net:27017 to client view of cluster
+gru 01, 2019 12:26:22 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Adding discovered server testcluster-shard-00-00-5qtaz.gcp.mongodb.net:27017 to client view of cluster
+gru 01, 2019 12:26:22 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: No server chosen by com.mongodb.client.internal.MongoClientDelegate$1@2d5a6db4 from cluster description ClusterDescription{type=REPLICA_SET, connectionMode=MULTIPLE, serverDescriptions=[ServerDescription{address=testcluster-shard-00-02-5qtaz.gcp.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}, ServerDescription{address=testcluster-shard-00-01-5qtaz.gcp.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}, ServerDescription{address=testcluster-shard-00-00-5qtaz.gcp.mongodb.net:27017, type=UNKNOWN, state=CONNECTING}]}. Waiting for 30000 ms before timing out
+gru 01, 2019 12:26:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:5, serverValue:560927}] to testcluster-shard-00-00-5qtaz.gcp.mongodb.net:27017
+gru 01, 2019 12:26:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:2, serverValue:277997}] to maincluster-shard-00-02-af4rk.gcp.mongodb.net:27017
+gru 01, 2019 12:26:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:3, serverValue:97070}] to testcluster-shard-00-02-5qtaz.gcp.mongodb.net:27017
+gru 01, 2019 12:26:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:4, serverValue:107849}] to testcluster-shard-00-01-5qtaz.gcp.mongodb.net:27017
+gru 01, 2019 12:26:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:6, serverValue:1469440}] to maincluster-shard-00-00-af4rk.gcp.mongodb.net:27017
+gru 01, 2019 12:26:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:1, serverValue:281629}] to maincluster-shard-00-01-af4rk.gcp.mongodb.net:27017
+gru 01, 2019 12:26:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Monitor thread successfully connected to server with description ServerDescription{address=maincluster-shard-00-01-af4rk.gcp.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 13]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=37222400, setName='MainCluster-shard-0', canonicalAddress=maincluster-shard-00-01-af4rk.gcp.mongodb.net:27017, hosts=[maincluster-shard-00-00-af4rk.gcp.mongodb.net:27017, maincluster-shard-00-01-af4rk.gcp.mongodb.net:27017, maincluster-shard-00-02-af4rk.gcp.mongodb.net:27017], passives=[], arbiters=[], primary='maincluster-shard-00-00-af4rk.gcp.mongodb.net:27017', tagSet=TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='GCP'}, Tag{name='region', value='WESTERN_EUROPE'}]}, electionId=null, setVersion=1, lastWriteDate=Sun Dec 01 12:26:54 CET 2019, lastUpdateTimeNanos=319500703952000}
+gru 01, 2019 12:26:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Monitor thread successfully connected to server with description ServerDescription{address=maincluster-shard-00-02-af4rk.gcp.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 13]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=47661300, setName='MainCluster-shard-0', canonicalAddress=maincluster-shard-00-02-af4rk.gcp.mongodb.net:27017, hosts=[maincluster-shard-00-00-af4rk.gcp.mongodb.net:27017, maincluster-shard-00-01-af4rk.gcp.mongodb.net:27017, maincluster-shard-00-02-af4rk.gcp.mongodb.net:27017], passives=[], arbiters=[], primary='maincluster-shard-00-00-af4rk.gcp.mongodb.net:27017', tagSet=TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='GCP'}, Tag{name='region', value='WESTERN_EUROPE'}]}, electionId=null, setVersion=1, lastWriteDate=Sun Dec 01 12:26:54 CET 2019, lastUpdateTimeNanos=319500707623400}
+gru 01, 2019 12:26:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Monitor thread successfully connected to server with description ServerDescription{address=maincluster-shard-00-00-af4rk.gcp.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 13]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=43698900, setName='MainCluster-shard-0', canonicalAddress=maincluster-shard-00-00-af4rk.gcp.mongodb.net:27017, hosts=[maincluster-shard-00-00-af4rk.gcp.mongodb.net:27017, maincluster-shard-00-01-af4rk.gcp.mongodb.net:27017, maincluster-shard-00-02-af4rk.gcp.mongodb.net:27017], passives=[], arbiters=[], primary='maincluster-shard-00-00-af4rk.gcp.mongodb.net:27017', tagSet=TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='GCP'}, Tag{name='region', value='WESTERN_EUROPE'}]}, electionId=7fffffff0000000000000001, setVersion=1, lastWriteDate=Sun Dec 01 12:26:54 CET 2019, lastUpdateTimeNanos=319500709236000}
+gru 01, 2019 12:26:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Monitor thread successfully connected to server with description ServerDescription{address=testcluster-shard-00-00-5qtaz.gcp.mongodb.net:27017, type=REPLICA_SET_PRIMARY, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 13]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=51327800, setName='TestCluster-shard-0', canonicalAddress=testcluster-shard-00-00-5qtaz.gcp.mongodb.net:27017, hosts=[testcluster-shard-00-00-5qtaz.gcp.mongodb.net:27017, testcluster-shard-00-01-5qtaz.gcp.mongodb.net:27017, testcluster-shard-00-02-5qtaz.gcp.mongodb.net:27017], passives=[], arbiters=[], primary='testcluster-shard-00-00-5qtaz.gcp.mongodb.net:27017', tagSet=TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='GCP'}, Tag{name='region', value='WESTERN_EUROPE'}]}, electionId=7fffffff0000000000000001, setVersion=1, lastWriteDate=Sun Dec 01 12:26:49 CET 2019, lastUpdateTimeNanos=319500708672300}
+gru 01, 2019 12:26:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Setting max election id to 7fffffff0000000000000001 from replica set primary maincluster-shard-00-00-af4rk.gcp.mongodb.net:27017
+gru 01, 2019 12:26:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Setting max set version to 1 from replica set primary maincluster-shard-00-00-af4rk.gcp.mongodb.net:27017
+gru 01, 2019 12:26:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Setting max election id to 7fffffff0000000000000001 from replica set primary testcluster-shard-00-00-5qtaz.gcp.mongodb.net:27017
+gru 01, 2019 12:26:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Setting max set version to 1 from replica set primary testcluster-shard-00-00-5qtaz.gcp.mongodb.net:27017
+gru 01, 2019 12:26:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Discovered replica set primary testcluster-shard-00-00-5qtaz.gcp.mongodb.net:27017
+gru 01, 2019 12:26:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Monitor thread successfully connected to server with description ServerDescription{address=testcluster-shard-00-02-5qtaz.gcp.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 13]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=40903900, setName='TestCluster-shard-0', canonicalAddress=testcluster-shard-00-02-5qtaz.gcp.mongodb.net:27017, hosts=[testcluster-shard-00-00-5qtaz.gcp.mongodb.net:27017, testcluster-shard-00-01-5qtaz.gcp.mongodb.net:27017, testcluster-shard-00-02-5qtaz.gcp.mongodb.net:27017], passives=[], arbiters=[], primary='testcluster-shard-00-00-5qtaz.gcp.mongodb.net:27017', tagSet=TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='GCP'}, Tag{name='region', value='WESTERN_EUROPE'}]}, electionId=null, setVersion=1, lastWriteDate=Sun Dec 01 12:26:49 CET 2019, lastUpdateTimeNanos=319500702952300}
+gru 01, 2019 12:26:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Monitor thread successfully connected to server with description ServerDescription{address=testcluster-shard-00-01-5qtaz.gcp.mongodb.net:27017, type=REPLICA_SET_SECONDARY, state=CONNECTED, ok=true, version=ServerVersion{versionList=[4, 0, 13]}, minWireVersion=0, maxWireVersion=7, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=30, roundTripTimeNanos=42679800, setName='TestCluster-shard-0', canonicalAddress=testcluster-shard-00-01-5qtaz.gcp.mongodb.net:27017, hosts=[testcluster-shard-00-00-5qtaz.gcp.mongodb.net:27017, testcluster-shard-00-01-5qtaz.gcp.mongodb.net:27017, testcluster-shard-00-02-5qtaz.gcp.mongodb.net:27017], passives=[], arbiters=[], primary='testcluster-shard-00-00-5qtaz.gcp.mongodb.net:27017', tagSet=TagSet{[Tag{name='nodeType', value='ELECTABLE'}, Tag{name='provider', value='GCP'}, Tag{name='region', value='WESTERN_EUROPE'}]}, electionId=null, setVersion=1, lastWriteDate=Sun Dec 01 12:26:49 CET 2019, lastUpdateTimeNanos=319500707459700}
+gru 01, 2019 12:26:23 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Discovered replica set primary maincluster-shard-00-00-af4rk.gcp.mongodb.net:27017
+gru 01, 2019 12:26:24 PM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:7, serverValue:560927}] to testcluster-shard-00-00-5qtaz.gcp.mongodb.net:27017
+]]></system-err>
+</testsuite>
