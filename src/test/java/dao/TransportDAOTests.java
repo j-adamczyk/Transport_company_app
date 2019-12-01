@@ -92,7 +92,7 @@ public class TransportDAOTests {
     }
 
     @Test
-    public void companyUpdateTest(){
+    public void transportUpdateTest(){
         t1.setDepartureDate(LocalDateTime.of(2019, 2, 7, 13, 0));
         transportDAO.update(t1.get_id(), t1);
         Transport foundTransport = transportDAO.find(t1.get_id());
