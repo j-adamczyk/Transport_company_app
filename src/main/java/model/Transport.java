@@ -2,7 +2,7 @@ package model;
 
 import org.bson.types.ObjectId;
 
-import java.time.Duration;
+
 import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.UUID;
@@ -96,5 +96,18 @@ public class Transport {
     @Override
     public int hashCode() {
         return Objects.hash(get_id(), getCurrentTransaction(), getDriver(), getVehicle(), getCargoUnits(), getDepartureDate(), getExpectedTime());
+    }
+
+    @Override
+    public String toString() {
+        return "Transport{" +
+                "_id=" + _id +
+                ", currentTransaction=" + currentTransaction +
+                ", driver=" + driver +
+                ", vehicle=" + vehicle +
+                ", cargoUnits=" + cargoUnits +
+                ", departureDate=" + departureDate +
+                ", expectedTime=" + expectedTime +
+                '}';
     }
 }

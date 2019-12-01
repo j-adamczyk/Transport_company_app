@@ -72,7 +72,7 @@ public class CompanyDAO extends GenericDAO<Company> {
         return DbConnector
                 .getDB()
                 .getCollection(collName, Company.class)
-                .find(eq("city", cityName))
+                .find(eq("address.city", cityName))
                 .into(new ArrayList<>());
     }
 
@@ -80,7 +80,7 @@ public class CompanyDAO extends GenericDAO<Company> {
         return DbConnector
                 .getDB()
                 .getCollection(collName, Company.class)
-                .find(eq("country", countryName))
+                .find(eq("address.country", countryName))
                 .into(new ArrayList<>());
     }
 }

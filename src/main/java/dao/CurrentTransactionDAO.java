@@ -35,7 +35,6 @@ public class CurrentTransactionDAO extends GenericDAO<CurrentTransaction> {
 
     @Override
     public void save(CurrentTransaction toSave) {
-        Document doc = Converter.toDocument(toSave);
         DbConnector
                 .getDB()
                 .getCollection(collName, CurrentTransaction.class)
@@ -44,7 +43,6 @@ public class CurrentTransactionDAO extends GenericDAO<CurrentTransaction> {
 
     @Override
     public void update(ObjectId id, CurrentTransaction toUpdate) {
-        Document doc = Converter.toDocument(toUpdate);
         DbConnector
                 .getDB()
                 .getCollection(collName, CurrentTransaction.class)
