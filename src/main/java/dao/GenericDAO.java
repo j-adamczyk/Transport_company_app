@@ -1,5 +1,7 @@
 package dao;
 
+import org.bson.types.ObjectId;
+
 import java.util.UUID;
 
 /**
@@ -13,7 +15,7 @@ public abstract class GenericDAO<Object> {
      *
      * @param id _id of object/document (they're the same)
      */
-    public abstract void delete(UUID id);
+    public abstract void delete(ObjectId id);
 
     /**
      * Implementation of "Read" CRUD operation.
@@ -21,7 +23,7 @@ public abstract class GenericDAO<Object> {
      * @param id _id of object/document (they're the same)
      * @return object of class specific to DAO
      */
-    public abstract Object find(UUID id);
+    public abstract Object find(ObjectId id);
 
     /**
      * Implementation of "Create" CRUD operation.
@@ -36,5 +38,5 @@ public abstract class GenericDAO<Object> {
      * @param id _id of object/document (they're the same)
      * @param toUpdate object of class specific to DAO
      */
-    public abstract void update(UUID id, Object toUpdate);
+    public abstract void update(ObjectId id, Object toUpdate);
 }

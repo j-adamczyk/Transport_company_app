@@ -15,43 +15,39 @@ public class VehicleDAO extends GenericDAO<Vehicle> {
     // basic CRUD operations
 
     @Override
-    public void delete(UUID id) {
+    public void delete(ObjectId id) {
         DbConnector
                 .getDB()
-                .getCollection(collName)
-                .deleteOne(eq("_id", new ObjectId(String.valueOf(id))));
+                .getCollection(collName, Vehicle.class)
+                .deleteOne(eq("_id", id));
     }
 
     @Override
-    public Vehicle find(UUID id) {
+    public Vehicle find(ObjectId id) {
         return DbConnector
                 .getDB()
-                .getCollection(collName)
-                .find(
-                        eq("_id", new ObjectId(String.valueOf(id))),
-                        Vehicle.class)
+                .getCollection(collName, Vehicle.class)
+                .find(eq("_id", id))
                 .first();
 
     }
 
     @Override
     public void save(Vehicle toSave) {
-        Document doc = Converter.toDocument(toSave);
         DbConnector
                 .getDB()
-                .getCollection(collName)
-                .insertOne(doc);
+                .getCollection(collName, Vehicle.class)
+                .insertOne(toSave);
     }
 
     @Override
-    public void update(UUID id, Vehicle toUpdate) {
-        Document doc = Converter.toDocument(toUpdate);
+    public void update(ObjectId id, Vehicle toUpdate) {
         DbConnector
                 .getDB()
-                .getCollection(collName)
+                .getCollection(collName, Vehicle.class)
                 .replaceOne(
-                        eq("_id", new ObjectId(String.valueOf(id))),
-                        doc);
+                        eq("_id", id),
+                        toUpdate);
     }
 
     // other methods
@@ -59,16 +55,16 @@ public class VehicleDAO extends GenericDAO<Vehicle> {
     public List<Vehicle> findAllVehicles() {
         return DbConnector
                 .getDB()
-                .getCollection(collName)
-                .find(Vehicle.class)
+                .getCollection(collName, Vehicle.class)
+                .find()
                 .into(new ArrayList<>());
     }
 
     public List<Vehicle> findAvailableVehicles() {
         ArrayList<Vehicle> inUse = DbConnector
                 .getDB()
-                .getCollection("transports")
-                .find(Vehicle.class)
+                .getCollection(collName, Vehicle.class)
+                .find()
                 .projection(fields(include("vehicle"), excludeId()))
                 .into(new ArrayList<>());
 

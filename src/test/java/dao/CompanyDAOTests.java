@@ -23,7 +23,7 @@ public class CompanyDAOTests {
     @BeforeClass
     public static void testConnection()
     {
-        DbConnector.getInstance().setDbType(false);
+        DbConnector.getInstance().setDbTypeAndLoad(false);
         MongoDatabase db = DbConnector.getDB();
         // will throw an exception if connection could not be made (= db is null)
         db.getName();

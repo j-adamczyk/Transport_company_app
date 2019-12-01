@@ -18,42 +18,38 @@ public class TransportDAO extends GenericDAO<Transport>{
     // basic CRUD operations
 
     @Override
-    public void delete(UUID id) {
+    public void delete(ObjectId id) {
         DbConnector
                 .getDB()
-                .getCollection(collName)
-                .deleteOne(eq("_id", new ObjectId(String.valueOf(id))));
+                .getCollection(collName, Transport.class)
+                .deleteOne(eq("_id", id));
     }
 
     @Override
-    public Transport find(UUID id) {
+    public Transport find(ObjectId id) {
         return DbConnector
                 .getDB()
-                .getCollection(collName)
-                .find(
-                        eq("_id", new ObjectId(String.valueOf(id))),
-                        Transport.class)
+                .getCollection(collName, Transport.class)
+                .find(eq("_id", id))
                 .first();
     }
 
     @Override
     public void save(Transport toSave) {
-        Document doc = Converter.toDocument(toSave);
         DbConnector
                 .getDB()
-                .getCollection(collName)
-                .insertOne(doc);
+                .getCollection(collName, Transport.class)
+                .insertOne(toSave);
     }
 
     @Override
-    public void update(UUID id, Transport toUpdate) {
-        Document doc = Converter.toDocument(toUpdate);
+    public void update(ObjectId id, Transport toUpdate) {
         DbConnector
                 .getDB()
-                .getCollection(collName)
+                .getCollection(collName, Transport.class)
                 .replaceOne(
-                        eq("_id", new ObjectId(String.valueOf(id))),
-                        doc);
+                        eq("_id", id),
+                        toUpdate);
     }
 
     // other methods
@@ -61,8 +57,8 @@ public class TransportDAO extends GenericDAO<Transport>{
     public List<Transport> findAllTransports() {
         return DbConnector
                 .getDB()
-                .getCollection(collName)
-                .find(Transport.class)
+                .getCollection(collName, Transport.class)
+                .find()
                 .into(new ArrayList<>());
     }
 }

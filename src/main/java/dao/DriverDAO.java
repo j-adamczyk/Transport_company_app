@@ -17,42 +17,40 @@ public class DriverDAO extends GenericDAO<Driver> {
     // basic CRUD operations
 
     @Override
-    public void delete(UUID id) {
+    public void delete(ObjectId id) {
         DbConnector
                 .getDB()
-                .getCollection(collName)
-                .deleteOne(eq("_id", new ObjectId(String.valueOf(id))));
+                .getCollection(collName, Driver.class)
+                .deleteOne(eq("_id", id));
     }
 
     @Override
-    public Driver find(UUID id) {
+    public Driver find(ObjectId id) {
         return DbConnector
                 .getDB()
-                .getCollection(collName)
+                .getCollection(collName, Driver.class)
                 .find(
-                        eq("_id", new ObjectId(String.valueOf(id))),
+                        eq("_id", id),
                         Driver.class)
                 .first();
     }
 
     @Override
     public void save(Driver toSave) {
-        Document doc = Converter.toDocument(toSave);
         DbConnector
                 .getDB()
-                .getCollection(collName)
-                .insertOne(doc);
+                .getCollection(collName, Driver.class)
+                .insertOne(toSave);
     }
 
     @Override
-    public void update(UUID id, Driver toUpdate) {
-        Document doc = Converter.toDocument(toUpdate);
+    public void update(ObjectId id, Driver toUpdate) {
         DbConnector
                 .getDB()
-                .getCollection(collName)
+                .getCollection(collName, Driver.class)
                 .replaceOne(
-                        eq("_id", new ObjectId(String.valueOf(id))),
-                        doc);
+                        eq("_id", id),
+                        toUpdate);
     }
 
     // other methods
@@ -60,18 +58,16 @@ public class DriverDAO extends GenericDAO<Driver> {
     public List<Driver> findAllDrivers() {
         return DbConnector
                 .getDB()
-                .getCollection(collName)
-                .find(Driver.class)
+                .getCollection(collName, Driver.class)
+                .find()
                 .into(new ArrayList<>());
     }
 
     public List<Driver> findByName(String name) {
         return DbConnector
                 .getDB()
-                .getCollection(collName)
-                .find(
-                        eq("name", name),
-                        Driver.class)
+                .getCollection(collName, Driver.class)
+                .find(eq("name", name))
                 .into(new ArrayList<>());
     }
 }

@@ -1,13 +1,11 @@
 package dao;
 
-import model.Company;
 import model.CurrentTransaction;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -17,20 +15,20 @@ public class CurrentTransactionDAO extends GenericDAO<CurrentTransaction> {
     // CRUD operations
 
     @Override
-    public void delete(UUID id) {
+    public void delete(ObjectId id) {
         DbConnector
                 .getDB()
-                .getCollection(collName)
-                .deleteOne(eq("_id", new ObjectId(String.valueOf(id))));
+                .getCollection(collName, CurrentTransaction.class)
+                .deleteOne(eq("_id", id));
     }
 
     @Override
-    public CurrentTransaction find(UUID id) {
+    public CurrentTransaction find(ObjectId id) {
         return DbConnector
                 .getDB()
-                .getCollection(collName)
+                .getCollection(collName, CurrentTransaction.class)
                 .find(
-                        eq("_id", new ObjectId(String.valueOf(id))),
+                        eq("_id", id),
                         CurrentTransaction.class)
                 .first();
     }
@@ -40,19 +38,19 @@ public class CurrentTransactionDAO extends GenericDAO<CurrentTransaction> {
         Document doc = Converter.toDocument(toSave);
         DbConnector
                 .getDB()
-                .getCollection(collName)
-                .insertOne(doc);
+                .getCollection(collName, CurrentTransaction.class)
+                .insertOne(toSave);
     }
 
     @Override
-    public void update(UUID id, CurrentTransaction toUpdate) {
+    public void update(ObjectId id, CurrentTransaction toUpdate) {
         Document doc = Converter.toDocument(toUpdate);
         DbConnector
                 .getDB()
-                .getCollection(collName)
+                .getCollection(collName, CurrentTransaction.class)
                 .replaceOne(
-                        eq("_id", new ObjectId(String.valueOf(id))),
-                        doc);
+                        eq("_id", id),
+                        toUpdate);
     }
 
     // other methods
@@ -60,8 +58,8 @@ public class CurrentTransactionDAO extends GenericDAO<CurrentTransaction> {
     public List<CurrentTransaction> findAllCurrentTransactions() {
         return DbConnector
                 .getDB()
-                .getCollection(collName)
-                .find(CurrentTransaction.class)
+                .getCollection(collName, CurrentTransaction.class)
+                .find()
                 .into(new ArrayList<>());
     }
 }
