@@ -3,15 +3,15 @@ package model;
 import org.bson.types.ObjectId;
 
 import java.util.Objects;
+import java.util.UUID;
 
 public class Cargo {
-    public ObjectId _id;
+    private ObjectId _id;
     private String name;
     private Double volume;
     private Double weight;
 
-    public Cargo() {}
-
+    public Cargo(){};
     public Cargo(String name, Double volume, Double weight) {
         this._id = new ObjectId();
         this.name = name;

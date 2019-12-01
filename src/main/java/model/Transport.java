@@ -5,9 +5,10 @@ import org.bson.types.ObjectId;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Transport {
-    public ObjectId _id;
+    private ObjectId _id;
     private CurrentTransaction currentTransaction;
     private Driver driver;
     private Vehicle vehicle;
@@ -15,8 +16,7 @@ public class Transport {
     private LocalDateTime departureDate;
     private Duration expectedTime;
 
-    public Transport() {}
-
+    public Transport(){};
     public Transport(CurrentTransaction currentTransaction, Driver driver, Vehicle vehicle, Integer cargoUnits, LocalDateTime departureDate, Duration expectedTime) {
         this._id = new ObjectId();
         this.currentTransaction = currentTransaction;

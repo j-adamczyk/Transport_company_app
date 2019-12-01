@@ -4,9 +4,10 @@ import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
 import java.util.Objects;
+import java.util.UUID;
 
 public class Driver {
-    public ObjectId _id;
+    private ObjectId _id;
     private String name;
     private LocalDate birthDate;
     private LocalDate hireDate;
@@ -14,7 +15,7 @@ public class Driver {
     private Address address;
     private Double salary;
 
-    public Driver() {}
+    public Driver(){};
 
     public Driver(String name, LocalDate birthDate, LocalDate hireDate, String phone, Address address, Double salary) {
         this._id = new ObjectId();
