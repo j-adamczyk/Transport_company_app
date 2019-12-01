@@ -1,9 +1,12 @@
 package model;
 
+import org.bson.types.ObjectId;
+
+import java.util.Objects;
 import java.util.UUID;
 
 public class Company {
-    private UUID _id;
+    private ObjectId _id;
     private String name;
     private Address address;
     private String phone;
@@ -11,7 +14,7 @@ public class Company {
     private String representative;
 
     public Company(String name, Address address, String phone, String mail, String representative) {
-        this._id = UUID.randomUUID();
+        this._id = new ObjectId();
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -19,7 +22,7 @@ public class Company {
         this.representative = representative;
     }
 
-    public UUID get_id() {
+    public ObjectId get_id() {
         return _id;
     }
 
@@ -61,5 +64,23 @@ public class Company {
 
     public void setRepresentative(String representative) {
         this.representative = representative;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Company)) return false;
+        Company company = (Company) o;
+        return get_id().equals(company.get_id()) &&
+                Objects.equals(getName(), company.getName()) &&
+                Objects.equals(getAddress(), company.getAddress()) &&
+                Objects.equals(getPhone(), company.getPhone()) &&
+                Objects.equals(getMail(), company.getMail()) &&
+                Objects.equals(getRepresentative(), company.getRepresentative());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(get_id(), getName(), getAddress(), getPhone(), getMail(), getRepresentative());
     }
 }
