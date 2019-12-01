@@ -7,13 +7,11 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class DbConnectorTests
-{
+public class DbConnectorTests {
     MongoDatabase db;
 
     @BeforeClass
-    public static void testConnection()
-    {
+    public static void testConnection() {
         DbConnector.getInstance().setDbType(false);
         MongoDatabase db = DbConnector.getDB();
         // will throw an exception if connection could not be made (= db is null)
@@ -21,8 +19,7 @@ public class DbConnectorTests
     }
 
     @After
-    public void setupDatabase()
-    {
+    public void setupDatabase() {
         this.db = DbConnector.getDB();
         // clear all collections with empty Document filter
         for (String collectionName: db.listCollectionNames())
@@ -30,7 +27,5 @@ public class DbConnectorTests
     }
 
     @Test
-    public void tmp()
-    {
-    }
+    public void tmp() {}
 }
