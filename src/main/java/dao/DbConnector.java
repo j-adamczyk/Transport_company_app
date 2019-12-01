@@ -10,30 +10,32 @@ import com.mongodb.client.MongoDatabase;
 public class DbConnector
 {
     private static final DbConnector DB = new DbConnector();
+    private MongoDatabase database;
+    private boolean dbType = true;
 
     private MongoClient mainMongoClient = MongoClients.create(
             "mongodb+srv://mainuser:MainUser10@maincluster-af4rk.gcp.mongodb.net/test?retryWrites=true&w=majority");
     private MongoClient testMongoClient = MongoClients.create(
             "mongodb+srv://mainuser:MainUser10@testcluster-5qtaz.gcp.mongodb.net/test?retryWrites=true&w=majority");
 
-    private MongoDatabase database;
-    private boolean usedDB = true;
-
     private DbConnector() {
-        DB.setUsedDB(true);
     }
 
-    public boolean getUsedDB() {
-        return DB.usedDB;
+    public static DbConnector getInstance() {
+        return DB;
+    }
+
+    public boolean getDbType() {
+        return DB.dbType;
     }
 
     /**
      * Set which database to use (main - true, test - false).
-     * @param usedDB true - use main database, false - use test database
+     * @param dbType true - use main database, false - use test database
      */
-    public void setUsedDB(boolean usedDB) {
-        DB.usedDB = usedDB;
-        if (usedDB)
+    public void setDbType(boolean dbType) {
+        DB.dbType = dbType;
+        if (dbType)
             DB.database = DB.mainMongoClient.getDatabase("mainDB");
         else
             DB.database = DB.testMongoClient.getDatabase("testDB");
@@ -41,7 +43,7 @@ public class DbConnector
 
     /**
      * Return instance of currently used database (default - main, can be changed with
-     * {@link #setUsedDB(boolean)}).
+     * {@link #setDbType(boolean)}).
      *
      * @return database instance
      */

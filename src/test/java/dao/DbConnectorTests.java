@@ -6,13 +6,14 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-public class dbConnectorTests
+public class DbConnectorTests
 {
     MongoDatabase db;
 
     @BeforeClass
     public static void testConnection()
     {
+        DbConnector.getInstance().setDbType(false);
         MongoDatabase db = DbConnector.getDB();
         // will throw an exception if connection could not be made (= db is null)
         db.getName();
