@@ -84,4 +84,16 @@ public class Company {
     public int hashCode() {
         return Objects.hash(get_id(), getName(), getAddress(), getPhone(), getMail(), getRepresentative());
     }
+
+    @Override
+    public String toString() {
+        return "Company{" +
+                "_id=" + _id +
+                ", name='" + name + '\'' +
+                ", address=" + address +
+                ", phone='" + phone + '\'' +
+                ", mail='" + mail + '\'' +
+                ", representative='" + representative + '\'' +
+                '}';
+    }
 }

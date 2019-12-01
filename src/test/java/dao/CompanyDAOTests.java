@@ -59,27 +59,63 @@ public class CompanyDAOTests {
         companyDAO.delete(c1.get_id());
         List<Company> allCompanies = companyDAO.findAllCompanies();
         for(Company c : allCompanies){
-            System.out.println(c.get_id());
+            System.out.println(c);
         }
-        System.out.println(c1.get_id());
+        System.out.println(c1);
         assertEquals(allCompanies.size(), 1);
         assertTrue(allCompanies.contains(c2));
         assertFalse(allCompanies.contains(c1));
     }
 
-//    @Test
-//    public void companyFindTest(){
-//        Company found = companyDAO.find(c1.get_id());
-//        System.out.println(found);
-//        assertEquals(found, c1);
-//    }
-//
-//    @Test
-//    public void companyUpdateTest(){
-//        Company changedC1 = new Company("Inna nazwa Company 1", new Address("Poland", "Krakow", "33-333", "Krakowska 17"),
-//                "444555666", "xxx@xxx.pl", "Adam Kowalski");
-//        companyDAO.update(c1.get_id(), changedC1);
-//    }
+    @Test
+    public void companyFindTest(){
+        Company found = companyDAO.find(c1.get_id());
+        System.out.println(found);
+        assertEquals(found, c1);
+    }
+
+    @Test
+    public void companyUpdateTest(){
+        Company changedC1 = new Company("Inna nazwa Company 1", new Address("Poland", "Krakow", "33-333", "Krakowska 17"),
+                "444555666", "xxx@xxx.pl", "Adam Kowalski");
+        companyDAO.update(c1.get_id(), changedC1);
+        Company foundCompany = companyDAO.find(c1.get_id());
+        assertEquals(foundCompany, changedC1);
+    }
+    @Test
+    public void findAllCompaniesTest(){
+        List<Company> allCompanies = companyDAO.findAllCompanies();
+        assertEquals(allCompanies.size(), 2);
+        assertTrue(allCompanies.contains(c2));
+        assertTrue(allCompanies.contains(c1));
+    }
+
+    @Test
+    public void findByName(){
+        List<Company> foundCompany = companyDAO.findByName("Company1");
+        assertEquals(foundCompany.size(), 1);
+        assertTrue(foundCompany.contains(c1));
+    }
+
+    @Test
+    public void findCompaniesFromCityTest(){
+        List<Company> foundCompany = companyDAO.findCompaniesFromCity("Berlin");
+        Company c3 = new Company("Company3", new Address("Germany", "Berlin", "G33-333", "Gute Strasse 88"),
+                "123123123", "www@xxx.pl", "Bernard Krausse");
+        assertEquals(foundCompany.size(), 2);
+        assertTrue(foundCompany.contains(c2));
+        assertTrue(foundCompany.contains(c3));
+    }
+
+    @Test
+    public void findCompaniesFromCountryTest(){
+        List<Company> foundCompany = companyDAO.findCompaniesFromCountry("Germany");
+        Company c3 = new Company("Company3", new Address("Germany", "Berlin", "G33-333", "Gute Strasse 88"),
+                "123123123", "www@xxx.pl", "Bernard Krausse");
+        assertEquals(foundCompany.size(), 2);
+        assertTrue(foundCompany.contains(c2));
+        assertTrue(foundCompany.contains(c3));
+    }
 
 
 }
