@@ -4,10 +4,7 @@ import com.mongodb.client.MongoDatabase;
 import model.Address;
 import model.Driver;
 import org.bson.Document;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 
 import java.time.LocalDate;
 
@@ -26,10 +23,6 @@ public class DriverDAOTest {
 
     @Before
     public void setupDatabase() {
-        this.db = DbConnector.getDB();
-        // clear all collections with empty Document filter
-        for (String collectionName: db.listCollectionNames())
-            db.getCollection(collectionName).deleteMany(new Document());
         d1 = new Driver("Jan Kowalski",
                 LocalDate.of(1960, 2, 20),
                 LocalDate.of(2019, 10, 20),
@@ -45,4 +38,16 @@ public class DriverDAOTest {
         Assert.assertEquals(d1, driverDAO.find(d1.get_id()));
     }
 
+    @Test
+    public void findByName(){
+        Assert.assertEquals(d1, driverDAO.findByName(d1.getName()));
+    }
+
+    @After
+    public void cleanDatabase() {
+        this.db = DbConnector.getDB();
+        // clear all collections with empty Document filter
+        for (String collectionName : db.listCollectionNames())
+            db.getCollection(collectionName).deleteMany(new Document());
+    }
 }

@@ -16,6 +16,8 @@ public class Transaction {
     private Double money;
     private LocalDate transactionDate;
 
+    public Transaction(){}
+
     public Transaction(Company contractor, Map<String, Integer> cargo, Address from, Address destination, Double money, LocalDate transactionDate) {
         this._id = new ObjectId();
         this.contractor = contractor;

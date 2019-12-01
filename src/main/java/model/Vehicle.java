@@ -14,6 +14,8 @@ public class Vehicle {
     private Double cargoVolume;
     private Double cargoWeight;
 
+    public Vehicle(){}
+
     public Vehicle(String model, String registrationNo, LocalDate manufactureDate, Double cargoVolume, Double cargoWeight) {
         this._id = new ObjectId();
         this.model = model;
