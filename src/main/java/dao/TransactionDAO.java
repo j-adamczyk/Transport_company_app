@@ -2,6 +2,7 @@ package dao;
 
 import model.Company;
 import model.Transaction;
+import model.Transport;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
@@ -17,42 +18,38 @@ public class TransactionDAO extends GenericDAO<Transaction>{
     // basic CRUD operations
 
     @Override
-    public void delete(UUID id) {
+    public void delete(ObjectId id) {
         DbConnector
                 .getDB()
-                .getCollection(collName)
-                .deleteOne(eq("_id", new ObjectId(String.valueOf(id))));
+                .getCollection(collName, Transaction.class)
+                .deleteOne(eq("_id", id));
     }
 
     @Override
-    public Transaction find(UUID id) {
+    public Transaction find(ObjectId id) {
         return DbConnector
                 .getDB()
-                .getCollection(collName)
-                .find(
-                        eq("_id", new ObjectId(String.valueOf(id))),
-                        Transaction.class)
+                .getCollection(collName, Transaction.class)
+                .find(eq("_id", id))
                 .first();
     }
 
     @Override
     public void save(Transaction toSave) {
-        Document doc = Converter.toDocument(toSave);
         DbConnector
                 .getDB()
-                .getCollection(collName)
-                .insertOne(doc);
+                .getCollection(collName, Transaction.class)
+                .insertOne(toSave);
     }
 
     @Override
-    public void update(UUID id, Transaction toUpdate) {
-        Document doc = Converter.toDocument(toUpdate);
+    public void update(ObjectId id, Transaction toUpdate) {
         DbConnector
                 .getDB()
-                .getCollection(collName)
+                .getCollection(collName, Transaction.class)
                 .replaceOne(
-                        eq("_id", new ObjectId(String.valueOf(id))),
-                        doc);
+                        eq("_id", id),
+                        toUpdate);
     }
 
     // other methods
@@ -60,8 +57,8 @@ public class TransactionDAO extends GenericDAO<Transaction>{
     public List<Transaction> findAllTransactions() {
         return DbConnector
                 .getDB()
-                .getCollection(collName)
-                .find(Transaction.class)
+                .getCollection(collName, Transaction.class)
+                .find()
                 .into(new ArrayList<>());
     }
 }

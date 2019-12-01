@@ -1,12 +1,10 @@
 package dao;
 
 import model.Company;
-import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -16,42 +14,40 @@ public class CompanyDAO extends GenericDAO<Company> {
     // basic CRUD operations
 
     @Override
-    public void delete(UUID id) {
+    public void delete(ObjectId id) {
         DbConnector
                 .getDB()
-                .getCollection(collName)
-                .deleteOne(eq("_id", new ObjectId(String.valueOf(id))));
+                .getCollection(collName, Company.class)
+                .deleteOne(eq("_id", id));
     }
 
     @Override
-    public Company find(UUID id) {
+    public Company find(ObjectId id) {
         return DbConnector
                 .getDB()
-                .getCollection(collName)
+                .getCollection(collName, Company.class)
                 .find(
-                        eq("_id", new ObjectId(String.valueOf(id))),
+                        eq("_id", id),
                         Company.class)
                 .first();
     }
 
     @Override
     public void save(Company toSave) {
-        Document doc = Converter.toDocument(toSave);
         DbConnector
                 .getDB()
-                .getCollection(collName)
-                .insertOne(doc);
+                .getCollection(collName, Company.class)
+                .insertOne(toSave);
     }
 
     @Override
-    public void update(UUID id, Company toUpdate) {
-        Document doc = Converter.toDocument(toUpdate);
+    public void update(ObjectId id, Company toUpdate) {
         DbConnector
                 .getDB()
-                .getCollection(collName)
+                .getCollection(collName, Company.class)
                 .replaceOne(
-                        eq("_id", new ObjectId(String.valueOf(id))),
-                        doc);
+                        eq("_id", id),
+                        toUpdate);
     }
 
     // other methods
@@ -59,40 +55,32 @@ public class CompanyDAO extends GenericDAO<Company> {
     public List<Company> findAllCompanies() {
         return DbConnector
                 .getDB()
-                .getCollection(collName)
-                .find(Company.class)
+                .getCollection(collName, Company.class)
+                .find()
                 .into(new ArrayList<>());
     }
 
     public List<Company> findByName(String name) {
         return DbConnector
                 .getDB()
-                .getCollection(collName)
-                .find(
-                        eq("name", name),
-                        Company.class)
+                .getCollection(collName, Company.class)
+                .find(eq("name", name))
                 .into(new ArrayList<>());
     }
 
     public List<Company> findCompaniesFromCity(String cityName) {
         return DbConnector
                 .getDB()
-                .getCollection(collName)
-                .find(
-                        eq("city", cityName),
-                        Company.class
-                )
+                .getCollection(collName, Company.class)
+                .find(eq("city", cityName))
                 .into(new ArrayList<>());
     }
 
     public List<Company> findCompaniesFromCountry(String countryName) {
         return DbConnector
                 .getDB()
-                .getCollection(collName)
-                .find(
-                        eq("country", countryName),
-                        Company.class
-                )
+                .getCollection(collName, Company.class)
+                .find(eq("country", countryName))
                 .into(new ArrayList<>());
     }
 }

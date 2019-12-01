@@ -1,8 +1,14 @@
 package dao;
 
+import com.mongodb.MongoClientSettings;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
+import org.bson.codecs.configuration.CodecRegistry;
+import org.bson.codecs.pojo.PojoCodecProvider;
+
+import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
+import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
 
 /**
  * Singleton class existing to encapsulate access to the only existing database instance.
@@ -17,6 +23,9 @@ public class DbConnector
             "mongodb+srv://mainuser:MainUser10@maincluster-af4rk.gcp.mongodb.net/test?retryWrites=true&w=majority");
     private MongoClient testMongoClient = MongoClients.create(
             "mongodb+srv://mainuser:MainUser10@testcluster-5qtaz.gcp.mongodb.net/test?retryWrites=true&w=majority");
+
+    private CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
+            fromProviders(PojoCodecProvider.builder().automatic(true).build()));
 
     private DbConnector() {
     }
@@ -33,7 +42,7 @@ public class DbConnector
      * Set which database to use (main - true, test - false).
      * @param dbType true - use main database, false - use test database
      */
-    public void setDbType(boolean dbType) {
+    public void setDbTypeAndLoad(boolean dbType) {
         DB.dbType = dbType;
         if (dbType)
             DB.database = DB.mainMongoClient.getDatabase("mainDB");
@@ -43,11 +52,18 @@ public class DbConnector
 
     /**
      * Return instance of currently used database (default - main, can be changed with
-     * {@link #setDbType(boolean)}).
+     * {@link #setDbTypeAndLoad(boolean)}).
      *
      * @return database instance
      */
     public static MongoDatabase getDB() {
-        return DB.database;
+        if (DB.database == null)
+        {
+            if (DB.dbType)
+                DB.setDbTypeAndLoad(true);
+            else
+                DB.setDbTypeAndLoad(false);
+        }
+        return DB.database.withCodecRegistry(DB.pojoCodecRegistry);
     }
 }
