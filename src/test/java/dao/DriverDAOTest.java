@@ -19,8 +19,7 @@ public class DriverDAOTest {
     private Driver d1;
 
     @BeforeClass
-    public static void testConnection()
-    {
+    public static void testConnection() {
         DbConnector.getInstance().setDbType(false);
         MongoDatabase db = DbConnector.getDB();
         // will throw an exception if connection could not be made (= db is null)
@@ -28,8 +27,7 @@ public class DriverDAOTest {
     }
 
     @Before
-    public void setupDatabase()
-    {
+    public void setupDatabase() {
         this.db = DbConnector.getDB();
         // clear all collections with empty Document filter
         for (String collectionName: db.listCollectionNames())
