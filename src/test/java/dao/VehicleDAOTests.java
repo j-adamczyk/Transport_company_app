@@ -1,21 +1,16 @@
 package dao;
 
 import com.mongodb.client.MongoDatabase;
-import jdk.vm.ci.meta.Local;
-import model.Address;
-import model.Driver;
 import org.bson.Document;
-import org.bson.types.ObjectId;
-import org.junit.*;
-
-import static org.junit.Assert.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
 
 import java.time.LocalDate;
 
-public class DriverDAOTest {
+public class VehicleDAOTests {
     private MongoDatabase db;
-    private DriverDAO driverDAO;
-    private Driver d1;
 
     @BeforeClass
     public static void testConnection() {
@@ -27,20 +22,11 @@ public class DriverDAOTest {
 
     @Before
     public void setupDatabase() {
-        d1 = new Driver("Jan Kowalski",
-                LocalDate.of(1960, 2, 20),
-                LocalDate.of(2019, 10, 20),
-                "123456789",
-                new Address("Poland", "Krakow", "12-345", "krakowska"),
-                2000.0);
-        driverDAO = new DriverDAO();
-        driverDAO.save(d1);
     }
 
     @Test
     public void testFind(){
-        //assertEquals(d1, driverDAO.find(d1.get_id()));
-        //assertNotEquals(d1, new ObjectId());
+
     }
 
 
