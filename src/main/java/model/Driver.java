@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Driver {
-    private ObjectId _id;
+    public ObjectId _id;
     private String name;
     private LocalDate birthDate;
     private LocalDate hireDate;

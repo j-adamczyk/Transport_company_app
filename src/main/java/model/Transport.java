@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Transport {
-    private ObjectId _id;
+    public ObjectId _id;
     private CurrentTransaction currentTransaction;
     private Driver driver;
     private Vehicle vehicle;

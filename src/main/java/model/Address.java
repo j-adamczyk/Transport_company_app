@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Address {
-    private ObjectId _id;
+    public ObjectId _id;
     private String country;
     private String city;
     private String postalCode;

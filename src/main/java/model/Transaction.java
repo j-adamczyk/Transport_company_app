@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Transaction {
-    private ObjectId _id;
+    public ObjectId _id;
     private Company contractor;
     private Map<String, Integer> cargo;
     private Address from;

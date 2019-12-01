@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Cargo {
-    private ObjectId _id;
+    public ObjectId _id;
     private String name;
     private Double volume;
     private Double weight;

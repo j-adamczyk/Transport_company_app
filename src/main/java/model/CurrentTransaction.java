@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class CurrentTransaction {
-    private ObjectId _id;
+    public ObjectId _id;
     private Transaction transaction;
     private Map<String, Integer> cargoLeft;
 
