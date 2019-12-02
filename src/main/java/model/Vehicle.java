@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.UUID;
 
 public class Vehicle {
-    private ObjectId _id;
+    public ObjectId _id;
     private String model;
     private String registrationNo;
     private LocalDate manufactureDate;
