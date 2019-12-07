@@ -13,7 +13,8 @@ import java.util.Objects;
 public class Transaction {
     public ObjectId _id;
     private Company contractor;
-    private Map<String, Integer> cargo;  // map Cargo.name -> Cargo units
+    private Map<String, Cargo> cargoTypes;  // map Cargo.nam -> Cargo
+    private Map<String, Integer> cargo;     // map Cargo.name -> Cargo units
     private Address from;
     private Address destination;
     private Double money;
@@ -22,10 +23,11 @@ public class Transaction {
     // for MongoDB serializer
     public Transaction() {}
 
-    public Transaction(Company contractor, Map<String, Integer> cargo,
+    public Transaction(Company contractor, Map<String, Cargo> cargoTypes, Map<String, Integer> cargo,
                        Address from, Address destination, Double money, LocalDate transactionDate) {
         this._id = new ObjectId();
         this.contractor = contractor;
+        this.cargoTypes = cargoTypes;
         this.cargo = cargo;
         this.from = from;
         this.destination = destination;
@@ -43,6 +45,14 @@ public class Transaction {
 
     public void setContractor(Company contractor) {
         this.contractor = contractor;
+    }
+
+    public Map<String, Cargo> getCargoTypes() {
+        return cargoTypes;
+    }
+
+    public void setCargoTypes(Map<String, Cargo> cargoTypes) {
+        this.cargoTypes = cargoTypes;
     }
 
     public Map<String, Integer> getCargo() {
