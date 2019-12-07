@@ -5,20 +5,25 @@ import org.bson.types.ObjectId;
 import java.time.LocalDate;
 import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
 
+/**
+ * Invoice/deal with given company.
+ * Requires defining Cargo types for given Transaction before creating the Transaction object.
+ */
 public class Transaction {
     public ObjectId _id;
     private Company contractor;
-    private Map<String, Integer> cargo;
+    private Map<String, Integer> cargo;  // map Cargo.name -> Cargo units
     private Address from;
     private Address destination;
     private Double money;
     private LocalDate transactionDate;
 
-    public Transaction(){};
+    // for MongoDB serializer
+    public Transaction() {}
 
-    public Transaction(Company contractor, Map<String, Integer> cargo, Address from, Address destination, Double money, LocalDate transactionDate) {
+    public Transaction(Company contractor, Map<String, Integer> cargo,
+                       Address from, Address destination, Double money, LocalDate transactionDate) {
         this._id = new ObjectId();
         this.contractor = contractor;
         this.cargo = cargo;

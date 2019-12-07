@@ -3,8 +3,11 @@ package model;
 import org.bson.types.ObjectId;
 
 import java.util.Objects;
-import java.util.UUID;
 
+/**
+ * Address of company, pickup, delivery etc.
+ * Used for embedding in other classes.
+ */
 public class Address {
     public ObjectId _id;
     private String country;
@@ -12,7 +15,9 @@ public class Address {
     private String postalCode;
     private String street;
 
-    public Address(){};
+    // for MongoDB serializer
+    public Address() {}
+
     public Address(String country, String city, String postalCode, String street) {
         this._id = new ObjectId();
         this.setCountry(country);

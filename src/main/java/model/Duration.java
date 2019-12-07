@@ -2,16 +2,21 @@ package model;
 
 import java.util.Objects;
 
+/**
+ * Custom simple Duration implementation. Used instead of Java Duration class because MongoDB has trouble
+ * serializing that class.
+ */
 public class Duration {
     int minutes;
     int hours;
+
+    // for MongoDB serializer
+    public Duration() {}
 
     public Duration(int hours, int minutes) {
         this.minutes = minutes;
         this.hours = hours;
     }
-
-    public Duration(){};
 
     public int getMinutes() {
         return minutes;

@@ -3,15 +3,24 @@ package model;
 import org.bson.types.ObjectId;
 
 import java.util.Objects;
-import java.util.UUID;
 
+/**
+ * Single "unit" of cargo of given type.
+ * Every transaction defines unique cargo types (though they can be identical between transactions).
+ * Requires that it can be uniquely identified by name string in a given transaction.
+ *
+ * Once created, the attributes SHOULD NOT be changed. Fields cannot be declared final, since MongoDB serializer
+ * requires an empty constructor, though technically they should be final.
+ */
 public class Cargo {
     public ObjectId _id;
     private String name;
     private Double volume;
     private Double weight;
 
-    public Cargo(){};
+    // for MongoDB serializer
+    public Cargo() {}
+
     public Cargo(String name, Double volume, Double weight) {
         this._id = new ObjectId();
         this.name = name;

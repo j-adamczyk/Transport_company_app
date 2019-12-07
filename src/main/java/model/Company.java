@@ -3,8 +3,10 @@ package model;
 import org.bson.types.ObjectId;
 
 import java.util.Objects;
-import java.util.UUID;
 
+/**
+ * Companies-contractors that Transactions are made with.
+ */
 public class Company {
     public ObjectId _id;
     private String name;
@@ -13,7 +15,9 @@ public class Company {
     private String mail;
     private String representative;
 
-    public Company(){};
+    // for MongoDB serializer
+    public Company() {}
+
     public Company(String name, Address address, String phone, String mail, String representative) {
         this._id = new ObjectId();
         this.name = name;

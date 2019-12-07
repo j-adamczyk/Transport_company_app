@@ -5,8 +5,11 @@ import org.bson.types.ObjectId;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.UUID;
 
+/**
+ * Transport from point A to point B. Realizes a part of Transaction (or an entire Transaction if cargo is small
+ * enough).
+ */
 public class Transport {
     public ObjectId _id;
     private CurrentTransaction currentTransaction;
@@ -16,7 +19,9 @@ public class Transport {
     private LocalDateTime departureDate;
     private Duration expectedTime;
 
-    public Transport(){};
+    // for MongoDB serializer
+    public Transport() {}
+
     public Transport(CurrentTransaction currentTransaction, Driver driver, Vehicle vehicle, Integer cargoUnits, LocalDateTime departureDate, Duration expectedTime) {
         this._id = new ObjectId();
         this.currentTransaction = currentTransaction;

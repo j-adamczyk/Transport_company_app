@@ -4,14 +4,18 @@ import org.bson.types.ObjectId;
 
 import java.util.Map;
 import java.util.Objects;
-import java.util.UUID;
 
+/**
+ * Current state of given Transaction.
+ * Exists until there is no cargo left to transport, when it can be deleted.
+ */
 public class CurrentTransaction {
     public ObjectId _id;
     private Transaction transaction;
     private Map<String, Integer> cargoLeft;
 
-    public CurrentTransaction(){};
+    // for MongoDB serializer
+    public CurrentTransaction() {}
 
     public CurrentTransaction(Transaction transaction, Map<String, Integer> cargoLeft) {
         this._id = new ObjectId();
