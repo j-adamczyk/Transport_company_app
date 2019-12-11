@@ -31,8 +31,10 @@ public class CurentTransactionDAOTests {
     Driver driver = new Driver("Jan Kowalski", LocalDate.of(1960, 2, 20),
             LocalDate.of(2019, 10, 20),"123456789",
             new Address("Poland", "Krakow", "12-345", "krakowska"),2000.0);
-    Transaction transaction1 = new Transaction(company, cargo, from, destination, 2000.0, LocalDate.of(2019, 2, 8));
-    Transaction transaction2 = new Transaction(company, cargo, destination, from, 5000.0, LocalDate.of(2019, 2, 8));
+    Cargo carbon = new Cargo("carbon", 100.0, 1000.0);
+    Map<String, Cargo> cargo_map = new HashMap<>();
+    Transaction transaction1 = new Transaction(company, cargo_map,cargo, from, destination, 2000.0, LocalDate.of(2019, 2, 8));
+    Transaction transaction2 = new Transaction(company, cargo_map,cargo, destination, from, 5000.0, LocalDate.of(2019, 2, 8));
     CurrentTransaction ct1;
     CurrentTransaction ct2;
 
@@ -64,6 +66,7 @@ public class CurentTransactionDAOTests {
         currentTransactionDAO = new CurrentTransactionDAO();
         currentTransactionDAO.save(ct1);
         currentTransactionDAO.save(ct2);
+        cargo_map.put("Carbon", carbon);
 
     }
 

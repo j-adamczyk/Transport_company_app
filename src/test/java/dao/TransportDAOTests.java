@@ -32,7 +32,8 @@ public class TransportDAOTests {
                 LocalDate.of(2019, 10, 20),"123456789",
                 new Address("Poland", "Krakow", "12-345", "krakowska"),2000.0);
     Vehicle vehicle = new Vehicle("Honda", "XXXXXXX", LocalDate.of(1999, 03, 26), 6.0, 70.0);
-
+    private Map<String, Cargo> cargo_map = new HashMap<>();
+    private Cargo carbon = new Cargo("carbon", 100.0, 1000.0);
 
     Map<String, Integer> cargo = new HashMap<>();
     Map<String, Integer> cargoLeft = new HashMap<>();
@@ -55,9 +56,10 @@ public class TransportDAOTests {
         this.db = DbConnector.getDB();
         cargo.put("Carbon", 200);
         cargoLeft.put("Carbon", 150);
-        t1 = new Transport(new CurrentTransaction(new Transaction(company, cargo, from, destination, 2000.0, LocalDate.of(2019, 2, 8)),
+        cargo_map.put("Carbon", carbon);
+        t1 = new Transport(new CurrentTransaction(new Transaction(company, cargo_map, cargo, from, destination, 2000.0, LocalDate.of(2019, 2, 8)),
                 cargoLeft), driver, vehicle, 1, LocalDateTime.of(2019, 2, 12, 15, 0), new Duration(10, 0));
-        t2 = new Transport(new CurrentTransaction(new Transaction(company, cargo, from, destination, 2000.0, LocalDate.of(2019, 2, 8)),
+        t2 = new Transport(new CurrentTransaction(new Transaction(company, cargo_map, cargo, from, destination, 2000.0, LocalDate.of(2019, 2, 8)),
                 cargoLeft), driver, vehicle, 1, LocalDateTime.of(2019, 2, 17, 15, 0), new Duration(10, 0));
 
         transportDAO = new TransportDAO();
