@@ -4,7 +4,6 @@ import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.junit.After;
 import org.junit.BeforeClass;
-import org.junit.Test;
 
 public class DbConnectorTests {
     MongoDatabase db;
@@ -24,7 +23,4 @@ public class DbConnectorTests {
         for (String collectionName: db.listCollectionNames())
             db.getCollection(collectionName).deleteMany(new Document());
     }
-
-    @Test
-    public void tmp() {}
 }

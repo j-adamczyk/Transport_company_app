@@ -2,8 +2,6 @@ package dao;
 
 import org.bson.types.ObjectId;
 
-import java.util.UUID;
-
 /**
  * Parent class of all DAO classes. Provides interface with basic CRUD operations.
  *

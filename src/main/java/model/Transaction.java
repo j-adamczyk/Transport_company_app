@@ -13,7 +13,7 @@ import java.util.Objects;
 public class Transaction {
     public ObjectId _id;
     private Company contractor;
-    private Map<String, Cargo> cargoTypes;  // map Cargo.nam -> Cargo
+    private Map<String, Cargo> cargoTypes;  // map Cargo.name -> Cargo
     private Map<String, Integer> cargo;     // map Cargo.name -> Cargo units
     private Address from;
     private Address destination;
