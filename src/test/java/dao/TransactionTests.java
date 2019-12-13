@@ -1,10 +1,12 @@
 package dao;
 
+import app.dao.DbConnector;
+import app.dao.TransactionDAO;
 import com.mongodb.client.MongoDatabase;
-import model.Address;
-import model.Cargo;
-import model.Company;
-import model.Transaction;
+import app.model.Address;
+import app.model.Cargo;
+import app.model.Company;
+import app.model.Transaction;
 import org.bson.Document;
 import org.junit.*;
 

@@ -1,7 +1,10 @@
 package dao;
 
+import app.dao.DbConnector;
+import app.dao.TransportDAO;
+import app.model.*;
 import com.mongodb.client.MongoDatabase;
-import model.*;
+import app.model.*;
 import org.bson.Document;
 import org.junit.After;
 import org.junit.Before;
@@ -10,8 +13,6 @@ import org.junit.Test;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.Period;
-import java.time.temporal.TemporalUnit;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

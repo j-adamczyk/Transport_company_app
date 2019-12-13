@@ -1,11 +1,11 @@
 package dao;
 
+import app.dao.DbConnector;
+import app.dao.VehicleDAO;
 import com.mongodb.client.MongoDatabase;
-import model.Address;
-import model.Vehicle;
+import app.model.Vehicle;
 import org.bson.Document;
 import org.junit.*;
-import org.junit.runners.MethodSorters;
 
 import java.time.LocalDate;
 import java.util.Arrays;

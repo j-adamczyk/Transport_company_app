@@ -1,8 +1,10 @@
 package dao;
 
+import app.dao.CompanyDAO;
+import app.dao.DbConnector;
 import com.mongodb.client.MongoDatabase;
-import model.Address;
-import model.Company;
+import app.model.Address;
+import app.model.Company;
 import org.bson.Document;
 import org.junit.After;
 import org.junit.Before;

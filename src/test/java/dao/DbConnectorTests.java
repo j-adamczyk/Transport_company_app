@@ -1,5 +1,6 @@
 package dao;
 
+import app.dao.DbConnector;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.junit.After;
