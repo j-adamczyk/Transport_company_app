@@ -8,7 +8,12 @@
 
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="app.presenter.MainViewPresenter"
             prefHeight="400.0" prefWidth="600.0">
+    <top>
+        <HBox alignment="TOP_CENTER">
+            <Label text="Transport Company Application"/>
+        </HBox>
+    </top>
     <center>
-        <Label text="Transport Company Application"/>
+        <Button text="TRANSPORTS" fx:id="transportsButton" onAction="#handleTransportsButtonAction"/>
     </center>
 </BorderPane>

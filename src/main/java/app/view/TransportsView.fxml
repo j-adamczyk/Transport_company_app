@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="app.presenter.TransportsViewPresenter"
+            prefHeight="600.0" prefWidth="900.0">
+    <top>
+        <HBox alignment="CENTER_LEFT" spacing="20">
+            <padding>
+                <Insets top="15" bottom="12" left="15" right="12" />
+            </padding>
+            <CheckBox text="future" fx:id="futureCheckBox"/>
+            <CheckBox text="present" fx:id="presentCheckBox"/>
+            <CheckBox text="past" fx:id="pastCheckBox"/>
+        </HBox>
+    </top>
+    <padding>
+        <Insets top="15" bottom="12" left="15" right="12" />
+    </padding>
+    <center>
+        <TableView fx:id="transportsTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <columns>
+                <TableColumn fx:id="cargoColumn" prefWidth="75.0" text="Cargo" />
+                <TableColumn fx:id="cargoUnitsColumn" prefWidth="75.0" text="Cargo Units" />
+                <TableColumn fx:id="driverColumn" prefWidth="75.0" text="Driver" />
+                <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date" />
+                <TableColumn fx:id="expectedTimeColumn" prefWidth="75.0" text="Expected Time" />
+                <TableColumn fx:id="fromColumn" prefWidth="75.0" text="From" />
+                <TableColumn fx:id="destinationColumn" prefWidth="75.0" text="Destination" />
+                <TableColumn fx:id="vehicleColumn" prefWidth="75.0" text="Vehicle" />
+            </columns>
+            <columnResizePolicy>
+                <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+            </columnResizePolicy>
+        </TableView>
+    </center>
+    <right>
+        <VBox spacing="10">
+            <DatePicker fx:id="datePicker" onAction="#handleDatePickerAction"/>
+            <Button text="Vehicle Details" fx:id="editTransportButton" onAction="#handleEditTransportAction"/>
+            <Button text="Vehicle Details" fx:id="deleteTransportButton" onAction="#handleDeleteTransportAction"/>
+        </VBox>
+    </right>
+    <bottom>
+        <HBox spacing="20">
+            <Button text="Driver Details" fx:id="driverDetButton" onAction="#handleDriverDetAction"/>
+            <Button text="Current Transaction Details" fx:id="currTransDetButton" onAction="#handleCurrTransDetAction"/>
+            <Button text="Vehicle Details" fx:id="vehicleDetButton" onAction="#handleVehicleDetAction"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
