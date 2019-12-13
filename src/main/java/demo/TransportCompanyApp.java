@@ -1,16 +1,22 @@
+package demo;
+
 import javafx.application.Application;
 import javafx.stage.Stage;
+import presenter.MainAppPresenter;
 
 public class TransportCompanyApp extends Application {
 
     private Stage primaryStage;
+    private MainAppPresenter presenter;
 
     @Override
     public void start(Stage primaryStage) {
 
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("My first JavaFX app");
-        this.primaryStage.show();
+        presenter = new MainAppPresenter(primaryStage);
+        this.presenter.initRootLayout();
+        //this.primaryStage.show();
 
     }
 

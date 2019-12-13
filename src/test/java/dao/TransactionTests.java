@@ -7,7 +7,6 @@ import model.Company;
 import model.Transaction;
 import org.bson.Document;
 import org.junit.*;
-import org.junit.runners.MethodSorters;
 
 import java.time.LocalDate;
 import java.util.*;
