@@ -24,3 +24,4 @@ javafx {
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
+mainClassName = "demo/TransportCompanyApp"

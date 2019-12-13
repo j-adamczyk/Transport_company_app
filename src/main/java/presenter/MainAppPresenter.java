@@ -21,7 +21,7 @@ public class MainAppPresenter {
 
             // load layout from FXML file
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(TransportCompanyApp.class
+            loader.setLocation(MainAppPresenter.class
                     .getResource("view/MainView.fxml"));
             BorderPane rootLayout = (BorderPane) loader.load();
 
