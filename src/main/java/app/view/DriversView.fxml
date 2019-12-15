@@ -33,9 +33,9 @@
             <padding>
                 <Insets top="15" bottom="12" left="15" right="12" />
             </padding>
-            <Button text="Add" prefWidth="50" onAction="#handleAddButtonAction" fx:id="addButton"/>
-            <Button text="Delete" prefWidth="50" onAction="#handleDeleteButtonAction" fx:id="deleteButton"/>
-            <Button text="Edit" prefWidth="50" onAction="#handleEditButtonAction" fx:id="editButton"/>
+            <Button text="Add" prefWidth="70" onAction="#handleAddButtonAction" fx:id="addButton"/>
+            <Button text="Delete" prefWidth="70" onAction="#handleDeleteButtonAction" fx:id="deleteButton"/>
+            <Button text="Edit" prefWidth="70" onAction="#handleEditButtonAction" fx:id="editButton"/>
         </VBox>
     </right>
 
