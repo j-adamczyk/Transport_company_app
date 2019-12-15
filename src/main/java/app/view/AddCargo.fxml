@@ -22,7 +22,7 @@
             <TextField fx:id="units"/>
             <Label text="Volume [l]"/>
             <TextField fx:id="volume"/>
-            <Label text="Weight"/>
+            <Label text="Weight[kg]"/>
             <TextField fx:id="weight"/>
         </VBox>
     </center>
