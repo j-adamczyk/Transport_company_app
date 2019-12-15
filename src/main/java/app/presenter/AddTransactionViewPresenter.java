@@ -20,8 +20,11 @@ import java.net.URL;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.Map;
 
 public class AddTransactionViewPresenter extends DialogPresenter{
+    private Map<String, Cargo> cargoTypesMap = new HashMap<>();
+    private Map<String, Integer> cargoUnitsMap = new HashMap<>();
     @FXML
     private ChoiceBox<String> contractorChoiceBox;
     @FXML
@@ -96,7 +99,7 @@ public class AddTransactionViewPresenter extends DialogPresenter{
         Company company = companyDAO.findByName(contractorName).get(0);
         // TODO - narazie puste mapy cargo!!!
         TransactionSaveCommand TSC = new TransactionSaveCommand(
-                new Transaction(company, new HashMap<>(), new HashMap<>(),
+                new Transaction(company, cargoTypesMap, cargoUnitsMap,
                         from, destination, money, transactionDate));
         TSC.execute();
         TransactionDAO transactionDAO = new TransactionDAO();
@@ -121,7 +124,10 @@ public class AddTransactionViewPresenter extends DialogPresenter{
             dialogStage2.initModality(Modality.WINDOW_MODAL);
             dialogStage2.initOwner(dialogStage);
 
-            ((AddCargoPresenter) loader.getController()).setDialogStage(dialogStage2);
+            AddCargoPresenter presenter = loader.getController();
+            presenter.setDialogStage(dialogStage2);
+            presenter.setCargoTypes(cargoTypesMap);
+            presenter.setCargoUnits(cargoUnitsMap);
             dialogStage2.setScene(scene);
             dialogStage2.showAndWait();
         }catch (IOException e){
