@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="app.presenter.CompaniesViewPresenter"
+            prefHeight="400.0" prefWidth="600.0">
+    <center>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="15" bottom="12" left="15" right="12" />
+            </padding>
+            <TableView fx:id="driverTableView">
+                <columns>
+                    <TableColumn fx:id="companyName" text="Name" prefWidth="75.0"/>
+                    <TableColumn fx:id="companyPhone" text="Phone" prefWidth="75.0"/>
+                    <TableColumn fx:id="companyMail" text="Mail" prefWidth="75.0"/>
+                    <TableColumn fx:id="companyAddress" text="Address" prefWidth="100.0"/>
+                    <TableColumn fx:id="companyRepresentative" text="Representative" prefWidth="90.0"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+    <right>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="15" bottom="12" left="15" right="12" />
+            </padding>
+            <Button text="Add" prefWidth="70" onAction="#handleAddButtonAction" fx:id="addButton"/>
+            <Button text="Delete" prefWidth="70" onAction="#handleDeleteButtonAction" fx:id="deleteButton"/>
+            <Button text="Edit" prefWidth="70" onAction="#handleEditButtonAction" fx:id="editButton"/>
+        </VBox>
+    </right>
+
+</BorderPane>
