@@ -23,7 +23,7 @@ import java.util.HashMap;
 
 public class AddTransactionViewPresenter extends DialogPresenter{
     @FXML
-    private ChoiceBox<String> contractor;
+    private ChoiceBox<String> contractorChoiceBox;
     @FXML
     private TextField purchaseField;
     @FXML
@@ -68,8 +68,15 @@ public class AddTransactionViewPresenter extends DialogPresenter{
     private Button cancelButton;
 
     @FXML
+    private void initialize(){
+        CompanyDAO companyDao = new CompanyDAO();
+        for(Company company: companyDao.findAllCompanies())
+            contractorChoiceBox.getItems().add(company.getName());
+    }
+
+    @FXML
     private void handleAcceptButtonAction(){
-        String contractorName = contractor.getValue();
+        String contractorName = contractorChoiceBox.getValue();
         Double money = Double.valueOf(purchaseField.getText()); //money money money
         LocalDate transactionDate = transactionDatePicker.getValue();
         //from
