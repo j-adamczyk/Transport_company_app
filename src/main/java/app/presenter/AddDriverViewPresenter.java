@@ -1,5 +1,6 @@
 package app.presenter;
 
+import app.command.DriverSaveCommand;
 import app.dao.DriverDAO;
 import app.model.Address;
 import app.model.Driver;
@@ -51,9 +52,10 @@ public class AddDriverViewPresenter {
         LocalDate birthDate = birthDatePicker.getValue();
         LocalDate hireDate = hireDatePicker.getValue();
         Address address = new Address(country, city, postalCode, street);
+        DriverSaveCommand DSC = new DriverSaveCommand(new Driver(name, birthDate, hireDate, phone, address, salary));
+        DSC.execute();
         DriverDAO driverDao = new DriverDAO();
-        driverDao.save(new Driver(name, birthDate, hireDate, phone, address, salary));
-        System.out.println(driverDao.findByName(name).get(0).getName());
+        System.out.println(driverDao.findAllDrivers());
 
     }
     @FXML

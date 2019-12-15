@@ -1,9 +1,16 @@
 package app.presenter;
 
+import app.command.CompanySaveCommand;
+import app.dao.CompanyDAO;
+import app.model.Address;
+import app.model.Company;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.time.LocalDate;
 
 public class AddCompanyViewPresenter {
 
@@ -30,10 +37,24 @@ public class AddCompanyViewPresenter {
 
     @FXML
     private void handleAcceptButtonAction(){
-//        TODO
+
+        String name = nameField.getText();
+        String street = streetField.getText();
+        String country = countryField.getText();
+        String city = cityField.getText();
+        String postalCode = postalCodeField.getText();
+        String phone = phoneField.getText();
+        String mail = mailField.getText();
+        String representative = representativeField.getText();
+        Address address = new Address(country, city, postalCode, street);
+        CompanySaveCommand CSP = new CompanySaveCommand(new Company(name, address, phone, mail, representative));
+        CSP.execute();
+        CompanyDAO companyDao = new CompanyDAO();
+        System.out.println(companyDao.findAllCompanies());
     }
     @FXML
     private void handleCancelButtonAction(){
-//        TODO
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
     }
 }
