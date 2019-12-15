@@ -39,6 +39,7 @@ public class AddCargoPresenter {
         Cargo cargo = new Cargo(cargoName, cargoVolume, cargoWeight);
         cargoTypesMap.put(cargoName, cargo);
         cargoUnitsMap.put(cargoName, cargoUnits);
+        dialogStage.close();
     }
     @FXML
     private void handleCancelButtonAction(){

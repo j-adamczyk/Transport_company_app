@@ -82,17 +82,19 @@ public class AddTransactionViewPresenter extends DialogPresenter{
         CompanyDAO companyDao = new CompanyDAO();
         for(Company company: companyDao.findAllCompanies())
             contractorChoiceBox.getItems().add(company.getName());
-    }
-
-    public void fillCargoTable(){
         cargoNameColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getName()));
         cargoUnitsColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(this.cargoUnitsMap.get(
                 dataValue.getValue().getName()).toString()));
         cargoVolumeColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getVolume().toString()));
         cargoWeightColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getWeight().toString()));
-//TODO - zrobilam to i zadeklarowalam wyzej observable list cargo i zrobilam jeszcze ta metode get cargoes
         this.cargoes = FXCollections.observableArrayList();
         cargoTable.setItems(cargoes);
+    }
+
+    public void updateCargoTable(){
+        for(Cargo c: cargoTypesMap.values()){
+            cargoes.add(c);
+        }
     }
 
     @FXML
@@ -119,10 +121,8 @@ public class AddTransactionViewPresenter extends DialogPresenter{
                 from, destination, money, transactionDate);
         TransactionSaveCommand TSC = new TransactionSaveCommand(transaction);
         TSC.execute();
-        //todo dodawanie tez currentTransaction
         CurrentTransaction currentTransaction = new CurrentTransaction(transaction, cargoUnitsMap);
         CurrentTransactionSaveCommand CTSC = new CurrentTransactionSaveCommand(currentTransaction);
-        fillCargoTable();
 //        System.out.println(transactionDAO.findAllTransactions());
     }
     @FXML
@@ -149,6 +149,7 @@ public class AddTransactionViewPresenter extends DialogPresenter{
             presenter.setCargoUnits(cargoUnitsMap);
             dialogStage2.setScene(scene);
             dialogStage2.showAndWait();
+            updateCargoTable();
         }catch (IOException e){
             e.printStackTrace();
         }
