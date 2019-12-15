@@ -3,7 +3,8 @@ package app.dao;
 import app.model.Vehicle;
 import org.bson.types.ObjectId;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -56,5 +57,13 @@ public class VehicleDAO extends GenericDAO<Vehicle> {
                 .getCollection(collName, Vehicle.class)
                 .find()
                 .into(new ArrayList<>());
+    }
+
+    public Vehicle findByRegistrationNo(String registrationNo) {
+        return DbConnector
+                .getDB()
+                .getCollection(collName, Vehicle.class)
+                .find(eq("registrationNo", registrationNo))
+                .first();
     }
 }
