@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * Transport from point A to point B. Realizes a part of Transaction (or an entire Transaction if cargo is small
  * enough).
  */
-public class Transport {
+public class  Transport {
     public ObjectId _id;
     private CurrentTransaction currentTransaction;
     private Driver driver;

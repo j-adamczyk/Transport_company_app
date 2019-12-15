@@ -11,7 +11,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="app.presenter.AddTransactionViewPresenter"
-            prefHeight="400.0" prefWidth="460.0">
+            maxHeight="300.0" prefHeight="300.0" prefWidth="460.0">
     <top>
         <VBox spacing="5">
             <padding>
