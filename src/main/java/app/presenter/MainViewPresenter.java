@@ -5,8 +5,6 @@ import javafx.scene.control.Button;
 
 public class MainViewPresenter extends SwitchPresenter {
 
-    private MainAppPresenter appPresenter;
-
     @FXML
     private Button transportsButton;
     @FXML
@@ -20,7 +18,7 @@ public class MainViewPresenter extends SwitchPresenter {
 
     @FXML
     private void handleTransportsButtonAction(){
-//        TODO
+        appPresenter.showTransportsView();
     }
     @FXML
     private void handleDriversButtonAction(){
@@ -28,15 +26,15 @@ public class MainViewPresenter extends SwitchPresenter {
     }
     @FXML
     private void handleVehiclesButtonAction(){
-//        TODO
+        appPresenter.showVehiclesView();
     }
     @FXML
     private void handleCompaniesButtonAction(){
-//        TODO
+        appPresenter.showCompaniesView();
     }
     @FXML
     private void handleTransactionsButtonAction(){
-//        TODO
+        appPresenter.showTransactionsView();
     }
 
     public void setAppPresenter(MainAppPresenter presenter){

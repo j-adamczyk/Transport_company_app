@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.File;
@@ -41,12 +42,28 @@ public class MainAppPresenter {
         }
     }
 
+    public void showMainView(){
+        switchScene("MainView", "");
+    }
+
     public void showDriversView(){
         switchScene("DriversView", "Drivers");
     }
 
     public void showTransportsView(){
         switchScene("TransportsView", "Transports");
+    }
+
+    public void showCompaniesView() {
+        switchScene("CompaniesView", "Companies");
+    }
+
+    public void showTransactionsView() {
+        switchScene("TransactionsView", "Transactions");
+    }
+
+    public void showVehiclesView() {
+        switchScene("VehiclesView", "Vehicles");
     }
 
     private void switchScene(String viewName, String title){
@@ -58,6 +75,27 @@ public class MainAppPresenter {
             Pane page = loader.load();
             Scene scene = new Scene(page);
             primaryStage.setScene(scene);
+            ((SwitchPresenter) loader.getController()).setAppPresenter(this);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void showAddDialogScene(String viewName, String title){
+        FXMLLoader loader = new FXMLLoader();
+        try {
+            URL url = new URL(new URL("file:"), "src/main/java/app/view/"+ viewName +".fxml");
+            loader.setLocation(url);
+            Pane page = loader.load();
+            Scene scene = new Scene(page);
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(TITLE + " - Add " + title);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+
+            ((DialogPresenter) loader.getController()).setDialogStage(dialogStage);
+            dialogStage.showAndWait();
         }catch (IOException e){
             e.printStackTrace();
         }
