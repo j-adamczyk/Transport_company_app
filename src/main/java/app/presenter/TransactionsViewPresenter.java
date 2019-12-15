@@ -48,6 +48,7 @@ public class TransactionsViewPresenter {
     @FXML
     private void handleAddButtonAction(){
 //        TODO
+//        IMPORTANT: Add Current Transaction Also!!!
     }
     @FXML
     private void handleDeleteButtonAction(){
