@@ -51,10 +51,10 @@ public class TransactionTests {
     }
 
     @Test
-    public void testUpdate(){
+    public void testUpdate() {
         t1.setMoney(40.0);
         transactionDAO.update(t1.get_id(), t1);
-        Assert.assertEquals((double) transactionDAO.find(t1.get_id()).getMoney(), 40.0, 0);
+        Assert.assertEquals(transactionDAO.find(t1.get_id()).getMoney(), 40.0, 0);
         t1.setTransactionDate(LocalDate.of(1900, 10, 10));
         Assert.assertNotEquals(transactionDAO.find(t1.get_id()).getTransactionDate(), LocalDate.of(1900, 10, 10));
         transactionDAO.update(t1.get_id(), t1);
@@ -62,7 +62,7 @@ public class TransactionTests {
     }
 
     @Test
-    public void testFindAllTransactions(){
+    public void testFindAllTransactions() {
         List<Transaction> actual = transactionDAO.findAllTransactions();
         Assert.assertEquals(actual.size(), 1);
         Assert.assertEquals(actual, Collections.singletonList(t1));
@@ -74,7 +74,7 @@ public class TransactionTests {
     }
 
     @Test
-    public void testDelete(){
+    public void testDelete() {
         transactionDAO.delete(t2.get_id());
         Assert.assertEquals(Collections.singletonList(t1), transactionDAO.findAllTransactions());
         transactionDAO.delete(t1.get_id());
@@ -82,7 +82,7 @@ public class TransactionTests {
     }
 
     @After
-    public void cleanDatabase(){
+    public void cleanDatabase() {
         for (String collectionName: db.listCollectionNames())
             db.getCollection(collectionName).deleteMany(new Document());
     }

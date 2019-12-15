@@ -59,8 +59,12 @@ public class Cargo {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Cargo)) return false;
+        if (this == o)
+            return true;
+
+        if (!(o instanceof Cargo))
+            return false;
+
         Cargo cargo = (Cargo) o;
         return get_id().equals(cargo.get_id()) &&
                 Objects.equals(getName(), cargo.getName()) &&

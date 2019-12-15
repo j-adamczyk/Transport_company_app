@@ -73,8 +73,12 @@ public class Company {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Company)) return false;
+        if (this == o)
+            return true;
+
+        if (!(o instanceof Company))
+            return false;
+
         Company company = (Company) o;
         return get_id().equals(company.get_id()) &&
                 Objects.equals(getName(), company.getName()) &&

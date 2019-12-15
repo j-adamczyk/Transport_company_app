@@ -16,15 +16,13 @@ import java.util.List;
 import static org.junit.Assert.*;
 
 public class CompanyDAOTests {
-
     MongoDatabase db;
-    Company c1;
     CompanyDAO companyDAO;
+    Company c1;
     Company c2;
 
     @BeforeClass
-    public static void testConnection()
-    {
+    public static void testConnection() {
         DbConnector.getInstance().setDbTypeAndLoad(false);
         MongoDatabase db = DbConnector.getDB();
         // will throw an exception if connection could not be made (= db is null)
@@ -35,8 +33,7 @@ public class CompanyDAOTests {
     }
 
     @Before
-    public void setupDatabase()
-    {
+    public void setupDatabase() {
         this.db = DbConnector.getDB();
         c1 = new Company("Company1", new Address("Poland", "Krakow", "33-333", "Krakowska 17"),
                 "444555666", "xxx@xxx.pl", "Adam Kowalski");
@@ -45,19 +42,17 @@ public class CompanyDAOTests {
         companyDAO = new CompanyDAO();
         companyDAO.save(c1);
         companyDAO.save(c2);
-
     }
 
     @After
-    public void cleanDatabase(){
+    public void cleanDatabase() {
         for (String collectionName: db.listCollectionNames())
             db.getCollection(collectionName).deleteMany(new Document());
     }
 
 
     @Test
-    public void companyDeleteTest()
-    {
+    public void companyDeleteTest() {
         companyDAO.delete(c1.get_id());
         List<Company> allCompanies = companyDAO.findAllCompanies();
         assertEquals(allCompanies.size(), 1);
@@ -66,20 +61,20 @@ public class CompanyDAOTests {
     }
 
     @Test
-    public void companyFindTest(){
+    public void companyFindTest() {
         Company found = companyDAO.find(c1.get_id());
         assertEquals(found, c1);
     }
 
     @Test
-    public void companyUpdateTest(){
+    public void companyUpdateTest() {
        c1.setName("Changed name.");
         companyDAO.update(c1.get_id(), c1);
         Company foundCompany = companyDAO.find(c1.get_id());
         assertEquals(foundCompany.getName(), "Changed name.");
     }
     @Test
-    public void findAllCompaniesTest(){
+    public void findAllCompaniesTest() {
         List<Company> allCompanies = companyDAO.findAllCompanies();
         assertEquals(allCompanies.size(), 2);
         assertTrue(allCompanies.contains(c2));
@@ -87,15 +82,14 @@ public class CompanyDAOTests {
     }
 
     @Test
-    public void findByName(){
+    public void findByName() {
         List<Company> foundCompany = companyDAO.findByName("Company1");
         assertEquals(foundCompany.size(), 1);
         assertTrue(foundCompany.contains(c1));
     }
 
     @Test
-    public void findCompaniesFromCityTest(){
-
+    public void findCompaniesFromCityTest() {
         Company c3 = new Company("Company3", new Address("Germany", "Berlin", "G33-333", "Gute Strasse 88"),
                 "123123123", "www@xxx.pl", "Bernard Krausse");
         companyDAO.save(c3);
@@ -106,7 +100,7 @@ public class CompanyDAOTests {
     }
 
     @Test
-    public void findCompaniesFromCountryTest(){
+    public void findCompaniesFromCountryTest() {
         Company c3 = new Company("Company3", new Address("Germany", "Berlin", "G33-333", "Gute Strasse 88"),
                 "123123123", "www@xxx.pl", "Bernard Krausse");
         companyDAO.save(c3);
@@ -115,6 +109,4 @@ public class CompanyDAOTests {
         assertTrue(foundCompany.contains(c2));
         assertTrue(foundCompany.contains(c3));
     }
-
-
 }

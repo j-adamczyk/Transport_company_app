@@ -155,8 +155,12 @@ public class Transport {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Transport)) return false;
+        if (this == o)
+            return true;
+
+        if (!(o instanceof Transport))
+            return false;
+
         Transport transport = (Transport) o;
         return get_id().equals(transport.get_id()) &&
                 Objects.equals(getCurrentTransaction(), transport.getCurrentTransaction()) &&

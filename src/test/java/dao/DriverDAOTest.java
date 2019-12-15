@@ -54,19 +54,19 @@ public class DriverDAOTest {
     }
 
     @Test
-    public void testUpdate(){
+    public void testUpdate() {
         d1.setName("Aleksander Poniatowski");
         driverDAO.update(d1.get_id(), d1);
         Assert.assertEquals(driverDAO.find(d1.get_id()).getName(), d2.getName());
     }
 
     @Test
-    public void testFindByName(){
+    public void testFindByName() {
         Assert.assertEquals(d1.get_id(), driverDAO.findByName(d1.getName()).get(0).get_id());
     }
 
     @Test
-    public void testFindAllDrivers(){
+    public void testFindAllDrivers() {
         List<Driver> actual = driverDAO.findAllDrivers();
         Assert.assertEquals(actual.size(), 1);
         Assert.assertEquals(actual, Collections.singletonList(d1));
@@ -78,7 +78,7 @@ public class DriverDAOTest {
     }
 
     @Test
-    public void testDelete(){
+    public void testDelete() {
         driverDAO.delete(d2.get_id());
         Assert.assertEquals(Collections.singletonList(d1), driverDAO.findAllDrivers());
         driverDAO.delete(d1.get_id());

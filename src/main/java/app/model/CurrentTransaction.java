@@ -57,8 +57,12 @@ public class CurrentTransaction {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof CurrentTransaction)) return false;
+        if (this == o)
+            return true;
+
+        if (!(o instanceof CurrentTransaction))
+            return false;
+
         CurrentTransaction that = (CurrentTransaction) o;
         return get_id().equals(that.get_id()) &&
                 Objects.equals(getTransaction(), that.getTransaction()) &&

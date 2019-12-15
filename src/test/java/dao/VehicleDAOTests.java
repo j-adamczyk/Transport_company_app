@@ -45,17 +45,17 @@ public class VehicleDAOTests {
     }
 
     @Test
-    public void testUpdate(){
+    public void testUpdate() {
         v1.setModel("ferrari");
         vehicleDAO.update(v1.get_id(), v1);
         Assert.assertEquals(vehicleDAO.find(v1.get_id()).getModel(), "ferrari");
         v1.setCargoVolume(10.0);
         vehicleDAO.update(v1.get_id(), v1);
-        Assert.assertEquals((double) vehicleDAO.find(v1.get_id()).getCargoVolume(), 10.0, 0);
+        Assert.assertEquals(vehicleDAO.find(v1.get_id()).getCargoVolume(), 10.0, 0);
     }
 
     @Test
-    public void testFindAllVehicles(){
+    public void testFindAllVehicles() {
         List<Vehicle> actual = vehicleDAO.findAllVehicles();
         Assert.assertEquals(actual.size(), 1);
         Assert.assertEquals(actual, Collections.singletonList(v1));
@@ -67,12 +67,12 @@ public class VehicleDAOTests {
     }
 
     @Test
-    public void testFindVehicleModel(){
+    public void testFindVehicleModel() {
         //todo
     }
 
     @Test
-    public void testDelete(){
+    public void testDelete() {
         vehicleDAO.delete(v2.get_id());
         Assert.assertEquals(Arrays.asList(v1), vehicleDAO.findAllVehicles());
         vehicleDAO.delete(v1.get_id());
@@ -80,7 +80,7 @@ public class VehicleDAOTests {
     }
 
     @After
-    public void cleanDatabase(){
+    public void cleanDatabase() {
         for (String collectionName: db.listCollectionNames())
             db.getCollection(collectionName).deleteMany(new Document());
     }

@@ -74,8 +74,12 @@ public class Vehicle {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Vehicle)) return false;
+        if (this == o)
+            return true;
+
+        if (!(o instanceof Vehicle))
+            return false;
+
         Vehicle vehicle = (Vehicle) o;
         return get_id().equals(vehicle.get_id()) &&
                 Objects.equals(getModel(), vehicle.getModel()) &&

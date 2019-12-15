@@ -19,8 +19,7 @@ import java.util.Map;
 import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 
-public class CurentTransactionDAOTests {
-
+public class CurrentTransactionDAOTests {
     MongoDatabase db;
     CurrentTransactionDAO currentTransactionDAO;
 
@@ -40,13 +39,8 @@ public class CurentTransactionDAOTests {
     CurrentTransaction ct1;
     CurrentTransaction ct2;
 
-
-
-
-
     @BeforeClass
-    public static void testConnection()
-    {
+    public static void testConnection() {
         DbConnector.getInstance().setDbTypeAndLoad(false);
         MongoDatabase db = DbConnector.getDB();
         // will throw an exception if connection could not be made (= db is null)
@@ -57,8 +51,7 @@ public class CurentTransactionDAOTests {
     }
 
     @Before
-    public void setupDatabase()
-    {
+    public void setupDatabase() {
         this.db = DbConnector.getDB();
         cargo.put("Carbon", 200);
         cargoLeft1.put("Carbon", 150);
@@ -73,14 +66,13 @@ public class CurentTransactionDAOTests {
     }
 
     @After
-    public void cleanDatabase(){
+    public void cleanDatabase() {
         for (String collectionName: db.listCollectionNames())
             db.getCollection(collectionName).deleteMany(new Document());
     }
 
     @Test
-    public void currentTransactionDeleteTest()
-    {
+    public void currentTransactionDeleteTest() {
         currentTransactionDAO.delete(ct1.get_id());
         List<CurrentTransaction> allTransports = currentTransactionDAO.findAllCurrentTransactions();
         assertEquals(allTransports.size(), 1);
@@ -89,13 +81,13 @@ public class CurentTransactionDAOTests {
     }
 
     @Test
-    public void currentTransactionFindTest(){
+    public void currentTransactionFindTest() {
         CurrentTransaction found = currentTransactionDAO.find(ct1.get_id());
         assertEquals(found, ct1);
     }
 
     @Test
-    public void setCurrentTransactionUpdateTest(){
+    public void setCurrentTransactionUpdateTest() {
         ct1.subtractCargo("Carbon", 100);
         currentTransactionDAO.update(ct1.get_id(), ct1);
         CurrentTransaction found = currentTransactionDAO.find(ct1.get_id());
@@ -105,7 +97,7 @@ public class CurentTransactionDAOTests {
     }
 
     @Test
-    public void findAllTransportsTest(){
+    public void findAllTransportsTest() {
         List<CurrentTransaction> allTransports = currentTransactionDAO.findAllCurrentTransactions();
         assertEquals(allTransports.size(), 2);
         assertTrue(allTransports.contains(ct2));

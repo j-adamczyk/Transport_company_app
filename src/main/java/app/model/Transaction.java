@@ -97,8 +97,12 @@ public class Transaction {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Transaction)) return false;
+        if (this == o)
+            return true;
+
+        if (!(o instanceof Transaction))
+            return false;
+
         Transaction that = (Transaction) o;
         return Objects.equals(get_id(), that.get_id()) &&
                 Objects.equals(getContractor(), that.getContractor()) &&
