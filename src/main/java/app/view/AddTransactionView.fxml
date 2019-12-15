@@ -18,7 +18,7 @@
                 <Insets top="12" right="12" bottom="12" left="12"/>
             </padding>
             <Label text="Contractor"/>
-            <ChoiceBox fx:id="contractor" prefWidth="100"/>
+            <ChoiceBox fx:id="contractorChoiceBox" prefWidth="100"/>
             <Label text="Purchase"/>
             <TextField fx:id="purchaseField" prefWidth="100"/>
             <DatePicker fx:id="transactionDatePicker"/>
