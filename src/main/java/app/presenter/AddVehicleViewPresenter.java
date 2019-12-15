@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 
 import java.time.LocalDate;
 
-public class AddVehicleViewPresenter {
+public class AddVehicleViewPresenter extends DialogPresenter{
 
     @FXML
     private TextField modelField;

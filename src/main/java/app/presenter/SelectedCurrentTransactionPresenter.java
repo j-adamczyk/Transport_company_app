@@ -11,7 +11,7 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 
-public class SelectedCurrentTransactionPresenter {
+public class SelectedCurrentTransactionPresenter extends DialogPresenter{
     private CurrentTransaction currentTransaction;
     private Stage dialogStage;
 

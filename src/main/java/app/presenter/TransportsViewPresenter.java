@@ -8,7 +8,7 @@ import javafx.scene.control.*;
 
 import java.time.LocalDateTime;
 
-public class TransportsViewPresenter {
+public class TransportsViewPresenter extends SwitchPresenter{
 
     @FXML
     private CheckBox presentCheckBox;

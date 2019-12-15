@@ -16,7 +16,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 
-public class AddTransportPresenter {
+public class AddTransportPresenter extends DialogPresenter{
 
     @FXML
     private ChoiceBox<String> currentTransactionIdChoiceBox;

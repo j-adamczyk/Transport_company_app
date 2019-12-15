@@ -9,7 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class TransactionsViewPresenter {
+public class TransactionsViewPresenter extends SwitchPresenter{
     @FXML
     private TableView<Cargo> cargoTable;
     @FXML

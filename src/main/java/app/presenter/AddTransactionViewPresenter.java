@@ -4,7 +4,7 @@ import app.model.Cargo;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-public class AddTransactionViewPresenter {
+public class AddTransactionViewPresenter extends DialogPresenter{
     @FXML
     private ChoiceBox<String> contractor;
     @FXML

@@ -16,7 +16,7 @@ import java.awt.event.ActionEvent;
 import java.time.LocalDate;
 
 
-public class AddDriverViewPresenter {
+public class AddDriverViewPresenter extends DialogPresenter {
     @FXML
     private TextField nameField;
     @FXML

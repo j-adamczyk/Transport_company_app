@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 
 import java.time.LocalDate;
 
-public class AddCompanyViewPresenter {
+public class AddCompanyViewPresenter extends DialogPresenter{
 
     @FXML
     private TextField nameField;

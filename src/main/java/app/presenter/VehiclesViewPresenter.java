@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
-public class VehiclesViewPresenter {
+public class VehiclesViewPresenter extends SwitchPresenter{
 
     @FXML
     private TableView<Vehicle> vehicleTableView;
