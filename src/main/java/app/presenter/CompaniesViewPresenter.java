@@ -1,5 +1,6 @@
 package app.presenter;
 
+import app.model.Company;
 import app.model.Driver;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -9,17 +10,17 @@ import javafx.scene.control.TableView;
 public class CompaniesViewPresenter {
 
     @FXML
-    private TableView<Driver> companyTableView;
+    private TableView<Company> companyTableView;
     @FXML
-    private TableColumn<Driver, String> companyName;
+    private TableColumn<Company, String> companyName;
     @FXML
-    private TableColumn<Driver, String> companyMail;
+    private TableColumn<Company, String> companyMail;
     @FXML
-    private TableColumn<Driver, String> companyRepresentative;
+    private TableColumn<Company, String> companyRepresentative;
     @FXML
-    private TableColumn<Driver, String> companyPhone;
+    private TableColumn<Company, String> companyPhone;
     @FXML
-    private TableColumn<Driver, String> companyAddress;
+    private TableColumn<Company, String> companyAddress;
 
     @FXML
     private Button addButton;

@@ -1,6 +1,7 @@
 package app.presenter;
 
 import app.model.Driver;
+import app.model.Vehicle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -9,17 +10,17 @@ import javafx.scene.control.TableView;
 public class VehiclesViewPresenter {
 
     @FXML
-    private TableView<Driver> vehicleTableView;
+    private TableView<Vehicle> vehicleTableView;
     @FXML
-    private TableColumn<Driver, String> vehicleModel;
+    private TableColumn<Vehicle, String> vehicleModel;
     @FXML
-    private TableColumn<Driver, String> vehicleRegistrationNo;
+    private TableColumn<Vehicle, String> vehicleRegistrationNo;
     @FXML
-    private TableColumn<Driver, String> vehicleManufactureDate;
+    private TableColumn<Vehicle, String> vehicleManufactureDate;
     @FXML
-    private TableColumn<Driver, String> vehicleCargoVolume;
+    private TableColumn<Vehicle, String> vehicleCargoVolume;
     @FXML
-    private TableColumn<Driver, String> vehicleCargoWeight;
+    private TableColumn<Vehicle, String> vehicleCargoWeight;
 
     @FXML
     private Button addButton;
