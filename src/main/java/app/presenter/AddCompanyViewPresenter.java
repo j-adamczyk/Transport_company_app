@@ -46,8 +46,8 @@ public class AddCompanyViewPresenter {
         String mail = mailField.getText();
         String representative = representativeField.getText();
         Address address = new Address(country, city, postalCode, street);
-        CompanySaveCommand CSP = new CompanySaveCommand(new Company(name, address, phone, mail, representative));
-        CSP.execute();
+        CompanySaveCommand CSC = new CompanySaveCommand(new Company(name, address, phone, mail, representative));
+        CSC.execute();
         CompanyDAO companyDao = new CompanyDAO();
         System.out.println(companyDao.findAllCompanies());
     }
