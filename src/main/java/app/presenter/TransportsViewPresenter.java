@@ -1,6 +1,5 @@
 package app.presenter;
 
-import com.sun.tools.javac.util.Name;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
@@ -39,6 +38,8 @@ public class TransportsViewPresenter {
     @FXML
     private Button deleteTransportButton;
     @FXML
+    private Button addTransportButton;
+    @FXML
     private Button editTransportButton;
 
     @FXML
@@ -55,6 +56,10 @@ public class TransportsViewPresenter {
     }
     @FXML
     private void handleVehicleDetAction(){
+//        TODO
+    }
+    @FXML
+    private void handleAddTransportAction(){
 //        TODO
     }
     @FXML

@@ -44,8 +44,9 @@
     <right>
         <VBox spacing="10">
             <DatePicker fx:id="datePicker" onAction="#handleDatePickerAction"/>
-            <Button text="Vehicle Details" fx:id="editTransportButton" onAction="#handleEditTransportAction"/>
-            <Button text="Vehicle Details" fx:id="deleteTransportButton" onAction="#handleDeleteTransportAction"/>
+            <Button text="Add Transport" fx:id="addTransportButton" onAction="#handleAddTransportAction"/>
+            <Button text="Edit Transport" fx:id="editTransportButton" onAction="#handleEditTransportAction"/>
+            <Button text="Delete Transport" fx:id="deleteTransportButton" onAction="#handleDeleteTransportAction"/>
         </VBox>
     </right>
     <bottom>
