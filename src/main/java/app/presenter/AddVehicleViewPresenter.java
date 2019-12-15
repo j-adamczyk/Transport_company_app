@@ -43,7 +43,10 @@ public class AddVehicleViewPresenter extends DialogPresenter{
     }
     @FXML
     private void handleCancelButtonAction(){
-        Stage stage = (Stage) cancelButton.getScene().getWindow();
-        stage.close();
+        try{
+            dialogStage.close();
+        } catch(NullPointerException e){
+            System.out.println("whatever");
+        }
     }
 }

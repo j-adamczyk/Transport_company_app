@@ -56,7 +56,11 @@ public class AddTransactionViewPresenter extends DialogPresenter{
     }
     @FXML
     private void handleCancelButtonAction(){
-//        TODO
+        try{
+            dialogStage.close();
+        } catch(NullPointerException e){
+            System.out.println("whatever");
+        }
     }
     @FXML
     private void handleAddCargoButtonAction(){

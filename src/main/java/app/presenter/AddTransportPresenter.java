@@ -95,6 +95,10 @@ public class AddTransportPresenter extends DialogPresenter{
     }
     @FXML
     private void handleCancelButtonAction(){
-//        TODO
+        try{
+            dialogStage.close();
+        } catch(NullPointerException e){
+            System.out.println("whatever");
+        }
     }
 }
