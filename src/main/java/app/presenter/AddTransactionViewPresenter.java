@@ -1,16 +1,20 @@
 package app.presenter;
 
+import app.command.CurrentTransactionSaveCommand;
 import app.command.TransactionSaveCommand;
 import app.dao.CompanyDAO;
 import app.dao.TransactionDAO;
-import app.model.Address;
-import app.model.Cargo;
-import app.model.Company;
-import app.model.Transaction;
+import app.model.*;
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -20,11 +24,13 @@ import java.net.URL;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AddTransactionViewPresenter extends DialogPresenter{
     private Map<String, Cargo> cargoTypesMap = new HashMap<>();
     private Map<String, Integer> cargoUnitsMap = new HashMap<>();
+    private ObservableList<Cargo> cargoes;
     @FXML
     private ChoiceBox<String> contractorChoiceBox;
     @FXML
@@ -63,18 +69,30 @@ public class AddTransactionViewPresenter extends DialogPresenter{
     @FXML
     private Button addCargoButton;
 
-
-
     @FXML
     private Button acceptButton;
     @FXML
     private Button cancelButton;
 
+    public final ObservableList<Cargo> getCargoes() {
+        return cargoes;
+    }
     @FXML
     private void initialize(){
         CompanyDAO companyDao = new CompanyDAO();
         for(Company company: companyDao.findAllCompanies())
             contractorChoiceBox.getItems().add(company.getName());
+    }
+
+    public void fillCargoTable(){
+        cargoNameColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getName()));
+        cargoUnitsColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(this.cargoUnitsMap.get(
+                dataValue.getValue().getName()).toString()));
+        cargoVolumeColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getVolume().toString()));
+        cargoWeightColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getWeight().toString()));
+//TODO - zrobilam to i zadeklarowalam wyzej observable list cargo i zrobilam jeszcze ta metode get cargoes
+        this.cargoes = FXCollections.observableArrayList();
+        cargoTable.setItems(cargoes);
     }
 
     @FXML
@@ -97,14 +115,15 @@ public class AddTransactionViewPresenter extends DialogPresenter{
 
         CompanyDAO companyDAO = new CompanyDAO();
         Company company = companyDAO.findByName(contractorName).get(0);
-        // TODO - narazie puste mapy cargo!!!
-        TransactionSaveCommand TSC = new TransactionSaveCommand(
-                new Transaction(company, cargoTypesMap, cargoUnitsMap,
-                        from, destination, money, transactionDate));
+        Transaction transaction = new Transaction(company, cargoTypesMap, cargoUnitsMap,
+                from, destination, money, transactionDate);
+        TransactionSaveCommand TSC = new TransactionSaveCommand(transaction);
         TSC.execute();
-        TransactionDAO transactionDAO = new TransactionDAO();
         //todo dodawanie tez currentTransaction
-        System.out.println(transactionDAO.findAllTransactions());
+        CurrentTransaction currentTransaction = new CurrentTransaction(transaction, cargoUnitsMap);
+        CurrentTransactionSaveCommand CTSC = new CurrentTransactionSaveCommand(currentTransaction);
+        fillCargoTable();
+//        System.out.println(transactionDAO.findAllTransactions());
     }
     @FXML
     private void handleCancelButtonAction(){

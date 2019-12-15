@@ -44,6 +44,7 @@ public class AddCargoPresenter {
     private void handleCancelButtonAction(){
         dialogStage.close();
     }
+
     public void setDialogStage(Stage dialogStage){
         this.dialogStage = dialogStage;
     }
