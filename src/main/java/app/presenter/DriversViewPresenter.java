@@ -3,6 +3,7 @@ package app.presenter;
 import app.model.Driver;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -27,6 +28,8 @@ public class DriversViewPresenter extends SwitchPresenter{
     private Button deleteButton;
     @FXML
     private Button editButton;
+    @FXML
+    private Label returnLabel;
 
     @FXML
     private void handleAddButtonAction(){
@@ -39,5 +42,10 @@ public class DriversViewPresenter extends SwitchPresenter{
     @FXML
     private void handleEditButtonAction(){
 //        TODO
+    }
+
+    @FXML
+    private void handleReturnLabel() {
+        appPresenter.showMainView();
     }
 }

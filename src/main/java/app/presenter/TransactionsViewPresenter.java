@@ -44,6 +44,8 @@ public class TransactionsViewPresenter extends SwitchPresenter{
     private Button seeCompanyButton;
     @FXML
     private Button seeCurrentStateButton;
+    @FXML
+    private Label returnLabel;
 
     @FXML
     private void handleAddButtonAction(){
@@ -66,5 +68,10 @@ public class TransactionsViewPresenter extends SwitchPresenter{
     @FXML
     private void handleSeeCompanyButtonAction(){
 //        TODO
+    }
+
+    @FXML
+    private void handleReturnLabel() {
+        appPresenter.showMainView();
     }
 }

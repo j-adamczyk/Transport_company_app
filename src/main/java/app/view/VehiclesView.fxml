@@ -7,10 +7,23 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="app.presenter.VehiclesViewPresenter"
             prefHeight="400.0" prefWidth="600.0">
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="15" bottom="12" left="15" right="12" />
+            </padding>
+            <Label fx:id="returnLabel" text="Main View" underline="true" textFill="brown" onMouseClicked="#handleReturnLabel">
+                <font>
+                    <Font name="System Bold"/>
+                </font>
+            </Label>
+        </VBox>
+    </top>
     <center>
         <VBox spacing="10">
             <padding>
