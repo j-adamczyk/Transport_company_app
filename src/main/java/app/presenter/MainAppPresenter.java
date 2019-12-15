@@ -21,7 +21,7 @@ public class MainAppPresenter {
     @FXML
     public void initRootLayout() {
         try {
-            this.primaryStage.setTitle("My second JavaFX app");
+            this.primaryStage.setTitle("");
 
             // load layout from FXML file
             FXMLLoader loader = new FXMLLoader();
