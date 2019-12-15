@@ -10,9 +10,9 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="app.presenter.AddCompanyViewPresenter"
-            prefHeight="460.0" prefWidth="300.0">
+            prefHeight="570.0" prefWidth="300.0">
     <center>
-        <VBox spacing="10">
+        <VBox spacing="7">
             <padding>
                 <Insets top="12" bottom="12" right="12" left="12"/>
             </padding>
@@ -22,8 +22,15 @@
             <TextField fx:id="phoneField"/>
             <Label text="E-mail"/>
             <TextField fx:id="mailField"/>
-            <Label text="Address"/>
-            <TextField fx:id="addressField"/>
+            <Label text="Address:"/>
+            <Label text="Street"/>
+            <TextField fx:id="streetField"/>
+            <Label text="City"/>
+            <TextField fx:id="cityField"/>
+            <Label text="Postal Code"/>
+            <TextField fx:id="postalCodeField"/>
+            <Label text="Street"/>
+            <TextField fx:id="countryField"/>
             <Label text="Representative"/>
             <TextField fx:id="representativeField"/>
         </VBox>

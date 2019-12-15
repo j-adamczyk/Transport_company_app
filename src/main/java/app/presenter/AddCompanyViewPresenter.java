@@ -10,7 +10,13 @@ public class AddCompanyViewPresenter {
     @FXML
     private TextField nameField;
     @FXML
-    private TextField addressField;
+    private TextField streetField;
+    @FXML
+    private TextField cityField;
+    @FXML
+    private TextField postalCodeField;
+    @FXML
+    private TextField countryField;
     @FXML
     private TextField phoneField;
     @FXML
