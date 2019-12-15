@@ -2,6 +2,12 @@ package app.presenter;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class MainViewPresenter extends SwitchPresenter {
 
@@ -15,6 +21,8 @@ public class MainViewPresenter extends SwitchPresenter {
     private Button companiesButton;
     @FXML
     private Button transactionsButton;
+    @FXML
+    private ImageView image;
 
     @FXML
     private void handleTransportsButtonAction(){
@@ -35,6 +43,22 @@ public class MainViewPresenter extends SwitchPresenter {
     @FXML
     private void handleTransactionsButtonAction(){
         appPresenter.showTransactionsView();
+    }
+
+    @FXML
+    private void initialize(){
+//        System.out.println("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
+//        File file = new File("src/logo.png");
+//        System.out.println(file.getAbsolutePath());
+        try {
+            URL url = new URL(new URL("file:"), "src/logo.png");
+            Image im = new Image(url.toString());
+            image.setImage(im);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+//            TODO
+        }
+
     }
 
     public void setAppPresenter(MainAppPresenter presenter){
