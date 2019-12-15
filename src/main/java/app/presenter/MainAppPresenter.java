@@ -25,7 +25,7 @@ public class MainAppPresenter {
 
             // load layout from FXML file
             FXMLLoader loader = new FXMLLoader();
-            URL url = new URL(new URL("file:"), "src/main/java/app/view/TransportsView.fxml");
+            URL url = new URL(new URL("file:"), "src/main/java/app/view/AddTransportView.fxml");
             loader.setLocation(url);
             Pane rootLayout = loader.load();
 
