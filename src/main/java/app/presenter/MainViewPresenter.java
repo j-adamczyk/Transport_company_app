@@ -47,9 +47,6 @@ public class MainViewPresenter extends SwitchPresenter {
 
     @FXML
     private void initialize(){
-//        System.out.println("UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU");
-//        File file = new File("src/logo.png");
-//        System.out.println(file.getAbsolutePath());
         try {
             URL url = new URL(new URL("file:"), "src/logo.png");
             Image im = new Image(url.toString());
