@@ -13,7 +13,6 @@ public class TransportCompanyApp extends Application {
     public void start(Stage primaryStage) {
 
         this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("My first JavaFX app");
         presenter = new MainAppPresenter(primaryStage);
         this.presenter.initRootLayout();
         //this.primaryStage.show();

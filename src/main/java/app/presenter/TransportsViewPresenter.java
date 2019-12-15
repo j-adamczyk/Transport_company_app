@@ -1,7 +1,12 @@
 package app.presenter;
 
+import app.model.Duration;
+import app.model.Transport;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+
+import java.time.LocalDateTime;
 
 public class TransportsViewPresenter {
 
@@ -14,19 +19,21 @@ public class TransportsViewPresenter {
     @FXML
     private TableView transportsTable;
     @FXML
-    private TableColumn cargoColumn;
+    private TableColumn<Transport, String> cargoColumn;
     @FXML
-    private TableColumn cargoUnitsColumn;
+    private TableColumn<Transport, Integer> cargoUnitsColumn;
     @FXML
-    private TableColumn driverColumn;
+    private TableColumn<Transport, String> driverColumn;
     @FXML
-    private TableColumn dateColumn;
+    private TableColumn<Transport, String> vehicleColumn;
     @FXML
-    private TableColumn expectedTimeColumn;
+    private TableColumn<Transport, LocalDateTime> dateColumn;
     @FXML
-    private TableColumn fromColumn;
+    private TableColumn<Transport, Duration> expectedTimeColumn;
     @FXML
-    private TableColumn destinationColumn;
+    private TableColumn<Transport, String> fromColumn;
+    @FXML
+    private TableColumn<Transport, String> destinationColumn;
     @FXML
     private DatePicker datePicker;
     @FXML
@@ -41,6 +48,20 @@ public class TransportsViewPresenter {
     private Button addTransportButton;
     @FXML
     private Button editTransportButton;
+
+
+    @FXML
+    private void initialize(){
+        transportsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        /*cargoColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getCurrentTransaction()));
+        cargoUnitsColumn.setCellValueFactory(dataValue -> dataValue.getValue());
+        driverColumn.setCellValueFactory(dataValue -> dataValue.getValue());
+        dateColumn.setCellValueFactory(dataValue -> dataValue.getValue());
+        expectedTimeColumn.setCellValueFactory(dataValue -> dataValue.getValue());
+        fromColumn.setCellValueFactory(dataValue -> dataValue.getValue());
+        destinationColumn.setCellValueFactory(dataValue -> dataValue.getValue());
+        vehicleColumn.setCellValueFactory(dataValue -> dataValue.getValue());*/
+    }
 
     @FXML
     private void handleDatePickerAction(){

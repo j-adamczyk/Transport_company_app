@@ -1,5 +1,6 @@
 package app.model;
 
+import javafx.beans.property.ObjectProperty;
 import org.bson.types.ObjectId;
 
 import java.util.Objects;
@@ -47,6 +48,7 @@ public class Cargo {
     public void setVolume(Double volume) {
         this.volume = volume;
     }
+
 
     public Double getWeight() {
         return weight;
