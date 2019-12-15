@@ -22,7 +22,7 @@
                     <Font name="System Bold" size="16"/>
                 </font>
             </Label>
-            <Label fx:id="companyLabel" text="Company: " onMouseDragged="#handleCompanyLabelAction" underline="true"/>
+            <Label fx:id="companyLabel" text="Company: " onMouseClicked="#handleCompanyLabelAction" underline="true"/>
             <Label fx:id="fromLabel" text="From: "/>
             <Label fx:id="destinationLabel" text="Destination: "/>
             <Label fx:id="transactionDateLabel" text="TransactionDate: "/>
