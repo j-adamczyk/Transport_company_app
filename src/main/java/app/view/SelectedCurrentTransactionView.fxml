@@ -40,11 +40,13 @@
             <Insets top="15" bottom="12" left="15" right="12" />
         </padding>
             <TableView fx:id="cargoTable">
-                <TableColumn fx:id="cargoNameColumn" text="Name" prefWidth="75.0"/>
-                <TableColumn fx:id="cargoUnitsColumn" text="Units" prefWidth="75.0"/>
-                <TableColumn fx:id="cargoVolumeColumn" text="Volume" prefWidth="75.0"/>
-                <TableColumn fx:id="cargoWeightColumn" text="Weight" prefWidth="75.0"/>
-                <TableColumn fx:id="cargoLeftColumn" text="Units Left" prefWidth="75.0"/>
+                <columns>
+                    <TableColumn fx:id="cargoNameColumn" text="Name" prefWidth="75.0"/>
+                    <TableColumn fx:id="cargoUnitsColumn" text="Units" prefWidth="75.0"/>
+                    <TableColumn fx:id="cargoVolumeColumn" text="Volume" prefWidth="75.0"/>
+                    <TableColumn fx:id="cargoWeightColumn" text="Weight" prefWidth="75.0"/>
+                    <TableColumn fx:id="cargoLeftColumn" text="Units Left" prefWidth="75.0"/>
+                </columns>
             </TableView>
         </VBox>
     </center>
@@ -67,10 +69,12 @@
                 </font>
             </Label>
             <TableView fx:id="transportTableView">
-                <TableColumn fx:id="transportIdColumn" text="Id" prefWidth="75.0"/>
-                <TableColumn fx:id="transportDateColumn" text="Date" prefWidth="75.0"/>
-                <TableColumn fx:id="transportCargoColumn" text="Cargo" prefWidth="75.0"/>
-                <TableColumn fx:id="transportCargoUnitsColumn" text="Units" prefWidth="75.0"/>
+                <columns>
+                    <TableColumn fx:id="transportIdColumn" text="Id" prefWidth="75.0"/>
+                    <TableColumn fx:id="transportDateColumn" text="Date" prefWidth="75.0"/>
+                    <TableColumn fx:id="transportCargoColumn" text="Cargo" prefWidth="75.0"/>
+                    <TableColumn fx:id="transportCargoUnitsColumn" text="Units" prefWidth="75.0"/>
+                </columns>
             </TableView>
         </VBox>
     </bottom>
