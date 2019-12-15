@@ -49,7 +49,6 @@ public class Cargo {
         this.volume = volume;
     }
 
-
     public Double getWeight() {
         return weight;
     }

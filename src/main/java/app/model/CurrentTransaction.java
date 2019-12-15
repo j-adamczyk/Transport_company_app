@@ -44,9 +44,14 @@ public class CurrentTransaction {
     }
 
     public void subtractCargo(String name, Integer toSubtract){
-        if(!this.cargoLeft.containsKey(name)) return;
+        if (!this.cargoLeft.containsKey(name))
+            return;
+
         int subtracted = this.cargoLeft.get(name);
-        if(subtracted < toSubtract) return;
+
+        if (subtracted < toSubtract)
+            return;
+
         this.cargoLeft.replace(name, subtracted - toSubtract);
     }
 

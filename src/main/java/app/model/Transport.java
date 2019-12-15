@@ -4,7 +4,11 @@ import org.bson.types.ObjectId;
 
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Transport from point A to point B. Realizes a part of Transaction (or an entire Transaction if cargo is small
@@ -15,21 +19,78 @@ public class Transport {
     private CurrentTransaction currentTransaction;
     private Driver driver;
     private Vehicle vehicle;
-    private Integer cargoUnits;
     private LocalDateTime departureDate;
     private Duration expectedTime;
+
+    private Map<String, Cargo> cargoTypes;  // map Cargo.name -> Cargo
+    private Map<String, Integer> cargoUnits;     // map Cargo.name -> Cargo units
 
     // for MongoDB serializer
     public Transport() {}
 
-    public Transport(CurrentTransaction currentTransaction, Driver driver, Vehicle vehicle, Integer cargoUnits, LocalDateTime departureDate, Duration expectedTime) {
+    public Transport(CurrentTransaction currentTransaction, Driver driver, Vehicle vehicle, LocalDateTime departureDate, Duration expectedTime) {
         this._id = new ObjectId();
         this.currentTransaction = currentTransaction;
         this.driver = driver;
         this.vehicle = vehicle;
-        this.cargoUnits = cargoUnits;
         this.departureDate = departureDate;
         this.expectedTime = expectedTime;
+
+        // calculate optimal cargo to transport, fill cargoTypes and cargo fields
+        this.cargoTypes = new HashMap<>();
+        this.cargoTypes = new HashMap<>();
+        calculateCargo();
+    }
+
+    // TODO: add more sophisticated cargo choosing method than simple weight
+    private void calculateCargo() {
+        Map<String, Integer> cargoLeft = currentTransaction.getCargoLeft();
+
+        // filter only those cargo types that are in cargoLeft;
+        Map<String, Cargo> possibleCargoTypes = new HashMap<>(currentTransaction.getTransaction().getCargoTypes());
+        possibleCargoTypes.keySet().retainAll(cargoLeft.keySet());
+
+        // sort cargo types by weight descending
+        possibleCargoTypes =
+                possibleCargoTypes
+                        .entrySet()
+                        .stream()
+                        .sorted((e1, e2) -> e2.getValue().getWeight().compareTo(e1.getValue().getWeight()))
+                        .collect(Collectors.toMap(
+                                        Map.Entry::getKey,
+                                        Map.Entry::getValue,
+                                        (e1, e2) -> e1,
+                                        LinkedHashMap::new));
+
+        double currWeight = 0;
+        double maxWeight = vehicle.getCargoWeight();
+
+        double currVolume = 0;
+        double maxVolume = vehicle.getCargoVolume();
+
+        for (Map.Entry<String, Cargo> entry : possibleCargoTypes.entrySet()) {
+            String cargoName = entry.getKey();
+            Cargo cargoType = entry.getValue();
+
+            // calculate how many units we can add with respect to weight and volume capacity of the vehicle
+            int addedUnits = 0;
+            while (currWeight + cargoType.getWeight() <= maxWeight &&
+                   currVolume + cargoType.getVolume() <= maxVolume) {
+                addedUnits += 1;
+                currWeight += cargoType.getWeight();
+                currVolume += cargoType.getVolume();
+            }
+
+            if (addedUnits > 0) {
+                // actually add units
+                int currentUnits = this.cargoUnits.getOrDefault(cargoName, 0);
+                currentUnits += addedUnits;
+                this.cargoUnits.put(cargoName, currentUnits);
+
+                // add cargo type to transported cargo types
+                this.cargoTypes.put(cargoName, cargoType);
+            }
+        }
     }
 
     public ObjectId get_id() {
@@ -60,14 +121,6 @@ public class Transport {
         this.vehicle = vehicle;
     }
 
-    public Integer getCargoUnits() {
-        return cargoUnits;
-    }
-
-    public void setCargoUnits(Integer cargoUnits) {
-        this.cargoUnits = cargoUnits;
-    }
-
     public LocalDateTime getDepartureDate() {
         return departureDate;
     }
@@ -82,6 +135,22 @@ public class Transport {
 
     public void setExpectedTime(Duration expectedTime) {
         this.expectedTime = expectedTime;
+    }
+
+    public Map<String, Cargo> getCargoTypes() {
+        return cargoTypes;
+    }
+
+    public void setCargoTypes(Map<String, Cargo> cargoTypes) {
+        this.cargoTypes = cargoTypes;
+    }
+
+    public Map<String, Integer> getCargoUnits() {
+        return cargoUnits;
+    }
+
+    public void setCargoUnits(Map<String, Integer> cargoUnits) {
+        this.cargoUnits = cargoUnits;
     }
 
     @Override
