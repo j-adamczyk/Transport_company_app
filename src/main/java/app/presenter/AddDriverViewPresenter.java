@@ -4,10 +4,14 @@ import app.dao.DriverDAO;
 import app.model.Address;
 import app.model.Driver;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.time.LocalDate;
 
 
@@ -37,7 +41,6 @@ public class AddDriverViewPresenter {
 
     @FXML
     private void handleAcceptButtonAction(){
-        Driver driverToAdd;
         String name = nameField.getText();
         String street = streetField.getText();
         String country = countryField.getText();
@@ -55,7 +58,8 @@ public class AddDriverViewPresenter {
     }
     @FXML
     private void handleCancelButtonAction(){
-//        TODO
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
+        stage.close();
     }
 
 }
