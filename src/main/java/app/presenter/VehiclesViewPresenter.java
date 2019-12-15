@@ -31,7 +31,7 @@ public class VehiclesViewPresenter extends SwitchPresenter{
 
     @FXML
     private void handleAddButtonAction(){
-//        TODO
+        appPresenter.showAddVehicleView();
     }
     @FXML
     private void handleDeleteButtonAction(){

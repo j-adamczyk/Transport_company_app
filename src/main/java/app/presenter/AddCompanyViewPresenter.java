@@ -53,10 +53,6 @@ public class AddCompanyViewPresenter extends DialogPresenter{
     }
     @FXML
     private void handleCancelButtonAction(){
-        try{
             dialogStage.close();
-        } catch(NullPointerException e){
-            System.out.println("whatever");
-        }
     }
 }

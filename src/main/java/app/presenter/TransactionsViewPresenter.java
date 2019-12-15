@@ -47,6 +47,7 @@ public class TransactionsViewPresenter extends SwitchPresenter{
 
     @FXML
     private void handleAddButtonAction(){
+        appPresenter.showAddTransactionView();
 //        TODO
 //        IMPORTANT: Add Current Transaction Also!!!
     }

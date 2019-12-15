@@ -81,7 +81,7 @@ public class TransportsViewPresenter extends SwitchPresenter{
     }
     @FXML
     private void handleAddTransportAction(){
-//        TODO
+        appPresenter.showAddTransportView();
     }
     @FXML
     private void handleDeleteTransportAction(){

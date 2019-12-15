@@ -30,7 +30,7 @@ public class DriversViewPresenter extends SwitchPresenter{
 
     @FXML
     private void handleAddButtonAction(){
-//        TODO
+        appPresenter.showAddDriverView();
     }
     @FXML
     private void handleDeleteButtonAction(){
