@@ -37,7 +37,6 @@ public class AddCompanyViewPresenter {
 
     @FXML
     private void handleAcceptButtonAction(){
-
         String name = nameField.getText();
         String street = streetField.getText();
         String country = countryField.getText();
