@@ -48,6 +48,8 @@ public class TransportsViewPresenter extends SwitchPresenter{
     private Button addTransportButton;
     @FXML
     private Button editTransportButton;
+    @FXML
+    private Label returnLabel;
 
 
     @FXML
@@ -90,6 +92,11 @@ public class TransportsViewPresenter extends SwitchPresenter{
     @FXML
     private void handleEditTransportAction(){
 //        TODO
+    }
+
+    @FXML
+    private void handleReturnLabel() {
+        appPresenter.showMainView();
     }
 
 }
