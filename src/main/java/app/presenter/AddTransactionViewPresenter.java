@@ -1,6 +1,12 @@
 package app.presenter;
 
+import app.command.TransactionSaveCommand;
+import app.dao.CompanyDAO;
+import app.dao.TransactionDAO;
+import app.model.Address;
 import app.model.Cargo;
+import app.model.Company;
+import app.model.Transaction;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -11,6 +17,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+
+import java.time.LocalDate;
+import java.util.HashMap;
 
 public class AddTransactionViewPresenter extends DialogPresenter{
     @FXML
@@ -60,7 +69,32 @@ public class AddTransactionViewPresenter extends DialogPresenter{
 
     @FXML
     private void handleAcceptButtonAction(){
-//        TODO
+        String contractorName = contractor.getValue();
+        Double money = Double.valueOf(purchaseField.getText()); //money money money
+        LocalDate transactionDate = transactionDatePicker.getValue();
+        //from
+        String street = fromStreetField.getText();
+        String city = fromCityField.getText();
+        String postalCode = fromPostalCodeField.getText();
+        String country = fromCountryField.getText();
+        //destination
+        String destStreet = destinationStreetField.getText();
+        String destCity = destinationCityField.getText();
+        String destPostalCode = destinationPostalCodeField.getText();
+        String destCountry = destinationCountryField.getText();
+        Address from = new Address(country, city, postalCode, street);
+        Address destination = new Address(destCountry, destCity, destPostalCode, destStreet);
+
+        CompanyDAO companyDAO = new CompanyDAO();
+        Company company = companyDAO.findByName(contractorName).get(0);
+        // TODO - narazie puste mapy cargo!!!
+        TransactionSaveCommand TSC = new TransactionSaveCommand(
+                new Transaction(company, new HashMap<>(), new HashMap<>(),
+                        from, destination, money, transactionDate));
+        TSC.execute();
+        TransactionDAO transactionDAO = new TransactionDAO();
+        //todo dodawanie tez currentTransaction
+        System.out.println(transactionDAO.findAllTransactions());
     }
     @FXML
     private void handleCancelButtonAction(){
