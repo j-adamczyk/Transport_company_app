@@ -29,7 +29,7 @@
             <TextField fx:id="cityField"/>
             <Label text="Postal Code"/>
             <TextField fx:id="postalCodeField"/>
-            <Label text="Street"/>
+            <Label text="Country"/>
             <TextField fx:id="countryField"/>
             <Label text="Birth Date"/>
             <DatePicker fx:id="birthDatePicker"/>

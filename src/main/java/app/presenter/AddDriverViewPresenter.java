@@ -1,9 +1,14 @@
 package app.presenter;
 
+import app.dao.DriverDAO;
+import app.model.Address;
+import app.model.Driver;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+
+import java.time.LocalDate;
 
 
 public class AddDriverViewPresenter {
@@ -32,7 +37,21 @@ public class AddDriverViewPresenter {
 
     @FXML
     private void handleAcceptButtonAction(){
-//        TODO
+        Driver driverToAdd;
+        String name = nameField.getText();
+        String street = streetField.getText();
+        String country = countryField.getText();
+        String city = cityField.getText();
+        String postalCode = postalCodeField.getText();
+        String phone = phoneField.getText();
+        Double salary = Double.valueOf(salaryField.getText());
+        LocalDate birthDate = birthDatePicker.getValue();
+        LocalDate hireDate = hireDatePicker.getValue();
+        Address address = new Address(country, city, postalCode, street);
+        DriverDAO driverDao = new DriverDAO();
+        driverDao.save(new Driver(name, birthDate, hireDate, phone, address, salary));
+        System.out.println(driverDao.findByName(name).get(0).getName());
+
     }
     @FXML
     private void handleCancelButtonAction(){
