@@ -44,6 +44,11 @@ public class Duration {
     }
 
     @Override
+    public String toString(){
+        return this.hours + " h " + this.minutes + " minutes";
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(getMinutes(), getHours());
     }
