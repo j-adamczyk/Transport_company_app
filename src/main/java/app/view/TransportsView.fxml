@@ -7,19 +7,32 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="app.presenter.TransportsViewPresenter"
             prefHeight="600.0" prefWidth="900.0">
     <top>
-        <HBox alignment="CENTER_LEFT" spacing="20">
-            <padding>
-                <Insets top="15" bottom="12" left="15" right="12" />
-            </padding>
-            <CheckBox text="future" fx:id="futureCheckBox"/>
-            <CheckBox text="present" fx:id="presentCheckBox"/>
-            <CheckBox text="past" fx:id="pastCheckBox"/>
-        </HBox>
+        <VBox>
+            <VBox spacing="10">
+                <padding>
+                    <Insets top="15" bottom="12" left="15" right="12" />
+                </padding>
+                <Label fx:id="returnLabel" text="Main View" underline="true" textFill="brown" onMouseClicked="#handleReturnLabel">
+                    <font>
+                        <Font name="System Bold"/>
+                    </font>
+                </Label>
+            </VBox>
+            <HBox alignment="CENTER_LEFT" spacing="20">
+                <padding>
+                    <Insets top="15" bottom="12" left="15" right="12" />
+                </padding>
+                <CheckBox text="future" fx:id="futureCheckBox"/>
+                <CheckBox text="present" fx:id="presentCheckBox"/>
+                <CheckBox text="past" fx:id="pastCheckBox"/>
+            </HBox>
+        </VBox>
     </top>
     <padding>
         <Insets top="15" bottom="12" left="15" right="12" />

@@ -4,6 +4,7 @@ import app.model.Driver;
 import app.model.Vehicle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 
@@ -30,6 +31,9 @@ public class VehiclesViewPresenter extends SwitchPresenter{
     private Button editButton;
 
     @FXML
+    private Label returnLabel;
+
+    @FXML
     private void handleAddButtonAction(){
         appPresenter.showAddVehicleView();
     }
@@ -40,5 +44,10 @@ public class VehiclesViewPresenter extends SwitchPresenter{
     @FXML
     private void handleEditButtonAction(){
 //        TODO
+    }
+
+    @FXML
+    private void handleReturnLabel() {
+        appPresenter.showMainView();
     }
 }
