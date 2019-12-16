@@ -92,9 +92,7 @@ public class AddTransactionViewPresenter extends DialogPresenter{
     }
 
     public void updateCargoTable(){
-        for(Cargo c: cargoTypesMap.values()){
-            cargoes.add(c);
-        }
+        cargoes.addAll(cargoTypesMap.values());
     }
 
     @FXML
