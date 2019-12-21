@@ -29,6 +29,7 @@ public class DriverDAOTests {
 
     @Before
     public void setupDatabase() {
+        DbConnector.getInstance().setDbTypeAndLoad(false);
         this.db = DbConnector.getDB();
 
         d1 = new Driver("Jan Kowalski",

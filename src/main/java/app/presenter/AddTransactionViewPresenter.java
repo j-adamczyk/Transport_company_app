@@ -119,9 +119,6 @@ public class AddTransactionViewPresenter extends DialogPresenter{
                 from, destination, money, transactionDate);
         TransactionSaveCommand TSC = new TransactionSaveCommand(transaction);
         TSC.execute();
-        CurrentTransaction currentTransaction = new CurrentTransaction(transaction, cargoUnitsMap);
-        CurrentTransactionSaveCommand CTSC = new CurrentTransactionSaveCommand(currentTransaction);
-//        System.out.println(transactionDAO.findAllTransactions());
     }
     @FXML
     private void handleCancelButtonAction(){

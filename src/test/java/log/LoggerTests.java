@@ -1,13 +1,18 @@
-package dao;
+package log;
 
 import app.dao.DbConnector;
+import app.log.EntryType;
+import app.log.LogEntry;
+import app.log.Logger;
 import com.mongodb.client.MongoDatabase;
-import org.bson.Document;
-import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.Test;
 
-public class DbConnectorTests {
-    MongoDatabase db;
+import static org.junit.Assert.assertNotNull;
+
+public class LoggerTests {
+    MongoDatabase db = DbConnector.getDB();
 
     @BeforeClass
     public static void testConnection() {
@@ -17,12 +22,17 @@ public class DbConnectorTests {
         db.getName();
     }
 
-    @After
+    @Before
     public void setupDatabase() {
         DbConnector.getInstance().setDbTypeAndLoad(false);
         this.db = DbConnector.getDB();
-        // clear all collections with empty Document filter
-        for (String collectionName: db.listCollectionNames())
-            db.getCollection(collectionName).deleteMany(new Document());
+    }
+
+    @Test
+    public void testLogging() {
+        LogEntry logEntry = new LogEntry(EntryType.CREATE, "someData");
+        Logger.log(logEntry);
+
+        assertNotNull(Logger.find(logEntry.get_id()));
     }
 }

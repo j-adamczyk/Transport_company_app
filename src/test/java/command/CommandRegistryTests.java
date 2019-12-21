@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class CommandRegistryTests {
     @Test
     public void testExecute() {
-        CommandRegistry commandRegistry = new CommandRegistry();
+        CommandRegistry commandRegistry = CommandRegistry.getInstance();
         Command command1 = Mockito.mock(Command.class);
         Command command2 = Mockito.mock(Command.class);
 
@@ -24,7 +24,7 @@ public class CommandRegistryTests {
 
     @Test
     public void testUndo() {
-        CommandRegistry commandRegistry = new CommandRegistry();
+        CommandRegistry commandRegistry = CommandRegistry.getInstance();
         Command command1 = Mockito.mock(Command.class);
         Command command2 = Mockito.mock(Command.class);
 
@@ -42,7 +42,7 @@ public class CommandRegistryTests {
 
     @Test
     public void testRedo() {
-        CommandRegistry commandRegistry = new CommandRegistry();
+        CommandRegistry commandRegistry = CommandRegistry.getInstance();
         Command command1 = Mockito.mock(Command.class);
         Command command2 = Mockito.mock(Command.class);
 
@@ -58,7 +58,7 @@ public class CommandRegistryTests {
 
     @Test
     public void testClearingUndoCommandStackAfterExecute() {
-        CommandRegistry commandRegistry = new CommandRegistry();
+        CommandRegistry commandRegistry = CommandRegistry.getInstance();
         Command command1 = Mockito.mock(Command.class);
         Command command2 = Mockito.mock(Command.class);
         Command command3 = Mockito.mock(Command.class);

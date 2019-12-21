@@ -1,5 +1,7 @@
 package app.model;
 
+import app.command.CommandRegistry;
+import app.command.CurrentTransactionSaveCommand;
 import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
@@ -33,6 +35,10 @@ public class Transaction {
         this.destination = destination;
         this.money = money;
         this.transactionDate = transactionDate;
+
+        CurrentTransaction currentTransaction = new CurrentTransaction(this, cargo);
+        CurrentTransactionSaveCommand command = new CurrentTransactionSaveCommand(currentTransaction);
+        CommandRegistry.getInstance().executeCommand(command);
     }
 
     public ObjectId get_id() {

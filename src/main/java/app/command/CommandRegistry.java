@@ -7,6 +7,14 @@ import javafx.collections.ObservableList;
  * Main class for Command pattern and passing commands between DAO and thr rest of app.
  */
 public class CommandRegistry {
+    private static final CommandRegistry instance = new CommandRegistry();
+
+    private CommandRegistry() {}
+
+    public static CommandRegistry getInstance() {
+        return instance;
+    }
+
     private ObservableList<Command> commandStack = FXCollections
             .observableArrayList();
 

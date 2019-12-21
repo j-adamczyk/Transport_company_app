@@ -6,6 +6,8 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoDatabase;
 import org.bson.codecs.configuration.CodecRegistry;
 import org.bson.codecs.pojo.PojoCodecProvider;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import static org.bson.codecs.configuration.CodecRegistries.fromProviders;
 import static org.bson.codecs.configuration.CodecRegistries.fromRegistries;
@@ -27,8 +29,7 @@ public class DbConnector
     private CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
             fromProviders(PojoCodecProvider.builder().automatic(true).build()));
 
-    private DbConnector() {
-    }
+    private DbConnector() {}
 
     public static DbConnector getInstance() {
         return DB;

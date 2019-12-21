@@ -98,6 +98,10 @@ public class  Transport {
 
                 // add cargo type to transported cargo types
                 this.cargoTypes.put(cargoName, cargoType);
+
+                // remove units from those waiting for transport
+                Map<String, Integer> newCargoUnits = this.currentTransaction.getCargoLeft();
+                newCargoUnits.put(cargoName, newCargoUnits.get(cargoName) - addedUnits);
             }
         }
     }
