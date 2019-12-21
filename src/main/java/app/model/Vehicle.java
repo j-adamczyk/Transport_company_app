@@ -16,6 +16,8 @@ public class Vehicle {
     private Double cargoVolume;
     private Double cargoWeight;
 
+    private boolean available;
+
     // for MongoDB serializer
     public Vehicle() {}
 
@@ -26,6 +28,8 @@ public class Vehicle {
         this.manufactureDate = manufactureDate;
         this.cargoVolume = cargoVolume;
         this.cargoWeight = cargoWeight;
+
+        this.available = true;
     }
 
     public ObjectId get_id() {
@@ -72,6 +76,14 @@ public class Vehicle {
         this.cargoWeight = cargoWeight;
     }
 
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -86,11 +98,13 @@ public class Vehicle {
                 Objects.equals(getRegistrationNo(), vehicle.getRegistrationNo()) &&
                 Objects.equals(getManufactureDate(), vehicle.getManufactureDate()) &&
                 Objects.equals(getCargoVolume(), vehicle.getCargoVolume()) &&
-                Objects.equals(getCargoWeight(), vehicle.getCargoWeight());
+                Objects.equals(getCargoWeight(), vehicle.getCargoWeight()) &&
+                Objects.equals(isAvailable(), vehicle.isAvailable());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(get_id(), getModel(), getRegistrationNo(), getManufactureDate(), getCargoVolume(), getCargoWeight());
+        return Objects.hash(get_id(), getModel(), getRegistrationNo(), getManufactureDate(),
+                getCargoVolume(), getCargoWeight(), isAvailable());
     }
 }

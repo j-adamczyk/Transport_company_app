@@ -82,4 +82,25 @@ public class Address {
     public int hashCode() {
         return Objects.hash(get_id(), getCountry(), getCity(), getPostalCode(), getStreet());
     }
+
+    @Override
+    public String toString() {
+        return "Address{" +
+                "_id=" + _id +
+                ", country='" + country + '\'' +
+                ", city='" + city + '\'' +
+                ", postalCode='" + postalCode + '\'' +
+                ", street='" + street + '\'' +
+                '}';
+    }
+
+    /**
+     * Version of toString to use with Google Matrix API to calculate distance between two Addresses.
+     * @return String in format appropriate for Google Matrix API
+     */
+    public String toStringGoogleAPI() {
+        return street + ", " +
+                city +  ", " +
+                country;
+    }
 }

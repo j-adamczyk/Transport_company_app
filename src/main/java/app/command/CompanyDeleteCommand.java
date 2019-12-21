@@ -1,6 +1,9 @@
 package app.command;
 
 import app.dao.CompanyDAO;
+import app.log.EntryType;
+import app.log.LogEntry;
+import app.log.Logger;
 import app.model.Company;
 import org.bson.types.ObjectId;
 
@@ -17,17 +20,23 @@ public class CompanyDeleteCommand implements Command {
         CompanyDAO dao = new CompanyDAO();
         this.company = dao.find(_id);
         dao.delete(_id);
+
+        Logger.log(new LogEntry(EntryType.DELETE, company.toString()));
     }
 
     @Override
     public void undo() {
         CompanyDAO dao = new CompanyDAO();
         dao.save(company);
+
+        Logger.log(new LogEntry(EntryType.CREATE, company.toString()));
     }
 
     @Override
     public void redo() {
         CompanyDAO dao = new CompanyDAO();
         dao.delete(_id);
+
+        Logger.log(new LogEntry(EntryType.DELETE, company.toString()));
     }
 }

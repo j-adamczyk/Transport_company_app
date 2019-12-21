@@ -13,7 +13,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class DriverDAOTest {
+public class DriverDAOTests {
     private MongoDatabase db;
     private DriverDAO driverDAO;
     private Driver d1;

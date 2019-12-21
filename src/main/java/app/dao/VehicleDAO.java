@@ -35,7 +35,6 @@ public class VehicleDAO extends GenericDAO<Vehicle> {
                 .getCollection(collName, Vehicle.class)
                 .find(eq("_id", id))
                 .first();
-
     }
 
     @Override
@@ -76,39 +75,13 @@ public class VehicleDAO extends GenericDAO<Vehicle> {
 
     /**
      * Finds all vehicles that are currently not in the transport.
-     * @return available vehicle
+     * @return available vehicles
      */
     public List<Vehicle> findAllAvailableVehicles() {
-        // suppose that all vehicles are available
-        List<Vehicle> availableVehicles = findAllVehicles();
-
-        // get drivers that are NOT available (are currently in transport)
-        // it means that: departureTime < current time < departureTime + 2 * expectedTime
-        // (2 * expectedTime, since vehicle has to go back)
-        Bson project = project(fields(include("vehicle", "departureTime", "expectedTime")));
-        List<Document> transports =
-                DbConnector
-                        .getDB()
-                        .getCollection("transports")
-                        .find(lt("departureTime", LocalDateTime.now()))
-                        .projection(project)
-                        .into(new ArrayList<>());
-
-        List<Vehicle> notAvailableVehicles = new ArrayList<>();
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        for (Document doc: transports)
-        {
-            LocalDateTime endTime = (LocalDateTime) doc.get("departureTime");
-            Duration expectedTime = (Duration) doc.get("expectedTime");
-            endTime = endTime.plusHours(2 * expectedTime.getHours());
-            endTime = endTime.plusMinutes(2 * expectedTime.getMinutes());
-
-            if (currentDateTime.isBefore(endTime))
-                notAvailableVehicles.add((Vehicle) doc.get("vehicle"));
-        }
-
-        // remove not available drivers and return the rest
-        availableVehicles.removeAll(notAvailableVehicles);
-        return availableVehicles;
+        return DbConnector
+                .getDB()
+                .getCollection(collName, Vehicle.class)
+                .find(eq("available", true))
+                .into(new ArrayList<>());
     }
 }

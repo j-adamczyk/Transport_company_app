@@ -17,6 +17,8 @@ public class Driver {
     private Address address;
     private Double salary;
 
+    private boolean available;
+
     // for MongoDB serializer
     public Driver() {}
 
@@ -28,6 +30,8 @@ public class Driver {
         this.phone = phone;
         this.address = address;
         this.salary = salary;
+
+        this.available = true;
     }
 
     public ObjectId get_id() {
@@ -82,6 +86,14 @@ public class Driver {
         this.salary = salary;
     }
 
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -97,11 +109,13 @@ public class Driver {
                 Objects.equals(getHireDate(), driver.getHireDate()) &&
                 Objects.equals(getPhone(), driver.getPhone()) &&
                 Objects.equals(getAddress(), driver.getAddress()) &&
-                Objects.equals(getSalary(), driver.getSalary());
+                Objects.equals(getSalary(), driver.getSalary()) &&
+                Objects.equals(isAvailable(), driver.isAvailable());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(get_id(), getName(), getBirthDate(), getHireDate(), getPhone(), getAddress(), getSalary());
+        return Objects.hash(get_id(), getName(), getBirthDate(), getHireDate(),
+                getPhone(), getAddress(), getSalary(), isAvailable());
     }
 }

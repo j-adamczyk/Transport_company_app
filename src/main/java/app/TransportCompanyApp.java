@@ -13,12 +13,10 @@ public class TransportCompanyApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-
         this.primaryStage = primaryStage;
         presenter = new MainAppPresenter(primaryStage);
         this.presenter.initRootLayout();
         //this.primaryStage.show();
-
     }
 
     public static void main(String[] args) {

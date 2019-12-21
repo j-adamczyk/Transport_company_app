@@ -79,36 +79,10 @@ public class DriverDAO extends GenericDAO<Driver> {
      * @return available drivers
      */
     public List<Driver> findAllAvailableDrivers() {
-        // suppose that all drivers are available
-        List<Driver> availableDrivers = findAllDrivers();
-
-        // get drivers that are NOT available (are currently in transport)
-        // it means that: departureTime < current time < departureTime + 2 * expectedTime
-        // (2 * expectedTime, since driver has to go back)
-        Bson project = project(fields(include("driver", "departureTime", "expectedTime")));
-        List<Document> transports =
-                DbConnector
-                        .getDB()
-                        .getCollection("transports")
-                        .find(lt("departureTime", LocalDateTime.now()))
-                        .projection(project)
-                        .into(new ArrayList<>());
-
-        List<Driver> notAvailableDrivers = new ArrayList<>();
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        for (Document doc: transports)
-        {
-            LocalDateTime endTime = (LocalDateTime) doc.get("departureTime");
-            Duration expectedTime = (Duration) doc.get("expectedTime");
-            endTime = endTime.plusHours(2 * expectedTime.getHours());
-            endTime = endTime.plusMinutes(2 * expectedTime.getMinutes());
-
-            if (currentDateTime.isBefore(endTime))
-                notAvailableDrivers.add((Driver) doc.get("driver"));
-        }
-
-        // remove not available drivers and return the rest
-        availableDrivers.removeAll(notAvailableDrivers);
-        return availableDrivers;
+        return DbConnector
+                .getDB()
+                .getCollection(collName, Driver.class)
+                .find(eq("available", true))
+                .into(new ArrayList<>());
     }
 }

@@ -15,7 +15,7 @@ public class Transaction {
     private Company contractor;
     private Map<String, Cargo> cargoTypes;  // map Cargo.name -> Cargo
     private Map<String, Integer> cargo;     // map Cargo.name -> Cargo units
-    private Address from;
+    private Address origin;
     private Address destination;
     private Double money;
     private LocalDate transactionDate;
@@ -24,12 +24,12 @@ public class Transaction {
     public Transaction() {}
 
     public Transaction(Company contractor, Map<String, Cargo> cargoTypes, Map<String, Integer> cargo,
-                       Address from, Address destination, Double money, LocalDate transactionDate) {
+                       Address origin, Address destination, Double money, LocalDate transactionDate) {
         this._id = new ObjectId();
         this.contractor = contractor;
         this.cargoTypes = cargoTypes;
         this.cargo = cargo;
-        this.from = from;
+        this.origin = origin;
         this.destination = destination;
         this.money = money;
         this.transactionDate = transactionDate;
@@ -63,12 +63,12 @@ public class Transaction {
         this.cargo = cargo;
     }
 
-    public Address getFrom() {
-        return from;
+    public Address getOrigin() {
+        return origin;
     }
 
-    public void setFrom(Address from) {
-        this.from = from;
+    public void setOrigin(Address origin) {
+        this.origin = origin;
     }
 
     public Address getDestination() {
@@ -107,7 +107,7 @@ public class Transaction {
         return Objects.equals(get_id(), that.get_id()) &&
                 Objects.equals(getContractor(), that.getContractor()) &&
                 Objects.equals(getCargo(), that.getCargo()) &&
-                Objects.equals(getFrom(), that.getFrom()) &&
+                Objects.equals(getOrigin(), that.getOrigin()) &&
                 Objects.equals(getDestination(), that.getDestination()) &&
                 Objects.equals(getMoney(), that.getMoney()) &&
                 Objects.equals(getTransactionDate(), that.getTransactionDate());
@@ -115,6 +115,6 @@ public class Transaction {
 
     @Override
     public int hashCode() {
-        return Objects.hash(get_id(), getContractor(), getCargo(), getFrom(), getDestination(), getMoney(), getTransactionDate());
+        return Objects.hash(get_id(), getContractor(), getCargo(), getOrigin(), getDestination(), getMoney(), getTransactionDate());
     }
 }

@@ -1,5 +1,6 @@
 package app.model;
 
+import app.GoogleDistanceMatrix;
 import org.bson.types.ObjectId;
 
 
@@ -28,18 +29,26 @@ public class  Transport {
     // for MongoDB serializer
     public Transport() {}
 
-    public Transport(CurrentTransaction currentTransaction, Driver driver, Vehicle vehicle, LocalDateTime departureDate, Duration expectedTime) {
+    public Transport(CurrentTransaction currentTransaction, Driver driver, Vehicle vehicle, LocalDateTime departureDate) {
         this._id = new ObjectId();
         this.currentTransaction = currentTransaction;
         this.driver = driver;
         this.vehicle = vehicle;
         this.departureDate = departureDate;
-        this.expectedTime = expectedTime;
+
+        calculateExpectedTime();
 
         // calculate optimal cargo to transport, fill cargoTypes and cargo fields
         this.cargoTypes = new HashMap<>();
         this.cargoTypes = new HashMap<>();
         calculateCargo();
+    }
+
+    private void calculateExpectedTime() {
+        Address origin = currentTransaction.getTransaction().getOrigin();
+        Address destination = currentTransaction.getTransaction().getDestination();
+
+        this.expectedTime = GoogleDistanceMatrix.getTravelTime(origin, destination);
     }
 
     // TODO: add more sophisticated cargo choosing method than simple weight
