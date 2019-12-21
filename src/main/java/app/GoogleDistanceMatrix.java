@@ -6,9 +6,7 @@ import com.google.maps.DistanceMatrixApi;
 import com.google.maps.DistanceMatrixApiRequest;
 import com.google.maps.GeoApiContext;
 import com.google.maps.errors.ApiException;
-import com.google.maps.model.DistanceMatrix;
-import com.google.maps.model.TravelMode;
-import com.google.maps.model.Unit;
+import com.google.maps.model.*;
 
 import java.io.IOException;
 
@@ -33,10 +31,15 @@ public class GoogleDistanceMatrix {
                     .units(Unit.METRIC)
                     .await();
 
-            long seconds = distances.rows[0].elements[0].duration.inSeconds;
-            int hours = (int) (seconds / 3600);
-            int minutes = (int) ((seconds - hours * 3600) / 60);
-            return new Duration(hours, minutes);
+            try {
+                long seconds = distances.rows[0].elements[0].duration.inSeconds;
+                int hours = (int) (seconds / 3600);
+                int minutes = (int) ((seconds - hours * 3600) / 60);
+                return new Duration(hours, minutes);
+            }
+            catch (NullPointerException e) {
+                return null;
+            }
         } catch (ApiException | InterruptedException | IOException e) {
             e.printStackTrace();
         }

@@ -23,11 +23,11 @@ public class TransportCompanyApp extends Application {
         DbConnector.getInstance().setDbTypeAndLoad(true);
         MongoDatabase db = DbConnector.getDB();
         // will throw an exception if connection could not be made (= db is null)
-        try{
+        try {
             db.getName();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-//            TODO
+            // TODO: GUI error window
         }
 
         launch(args);

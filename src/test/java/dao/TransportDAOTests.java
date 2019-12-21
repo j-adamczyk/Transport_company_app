@@ -56,9 +56,9 @@ public class TransportDAOTests {
         cargoTypes.put("Carbon", carbon);
 
         t1 = new Transport(new CurrentTransaction(new Transaction(company, cargoTypes, cargo, from, destination, 2000.0, LocalDate.of(2019, 2, 8)),
-                cargoLeft), driver, vehicle, LocalDateTime.of(2019, 2, 12, 15, 0), new Duration(10, 0));
+                cargoLeft), driver, vehicle, LocalDateTime.of(2019, 2, 12, 15, 0));
         t2 = new Transport(new CurrentTransaction(new Transaction(company, cargoTypes, cargo, from, destination, 2000.0, LocalDate.of(2019, 2, 8)),
-                cargoLeft), driver, vehicle, LocalDateTime.of(2019, 2, 17, 15, 0), new Duration(10, 0));
+                cargoLeft), driver, vehicle, LocalDateTime.of(2019, 2, 17, 15, 0));
 
         transportDAO = new TransportDAO();
         transportDAO.save(t1);
