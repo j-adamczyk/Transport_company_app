@@ -1,6 +1,9 @@
 package app.presenter;
 
 import app.TransportCompanyApp;
+import app.model.Company;
+import app.model.Driver;
+import app.model.Transaction;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -87,6 +90,10 @@ public class MainAppPresenter {
         showAddDialogScene("AddTransportView", "Transport");
     }
 
+    public void showEditCompanyView(Company company) {showEditDialogScene(company, "EditCompanyView", "Company");}
+    public void showEditDriverView(Driver driver) {showEditDialogScene(driver, "EditDriverView", "Driver");}
+    public void showEditTransactionView(Transaction transaction) {showEditDialogScene(transaction, "EditTransactionView", "Transaction");}
+
     private void switchScene(String viewName, String title){
         this.primaryStage.setTitle(TITLE + " - " + title);
         FXMLLoader loader = new FXMLLoader();
@@ -116,6 +123,29 @@ public class MainAppPresenter {
             dialogStage.initOwner(primaryStage);
 
             ((DialogPresenter) loader.getController()).setDialogStage(dialogStage);
+            dialogStage.setScene(scene);
+            dialogStage.showAndWait();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    private void showEditDialogScene(Object oldObject, String viewName, String title){
+        FXMLLoader loader = new FXMLLoader();
+        try{
+            URL url = new URL(new URL("file:"), "src/main/java/app/view/"+ viewName +".fxml");
+            loader.setLocation(url);
+            Pane page = loader.load();
+            Scene scene = new Scene(page);
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(TITLE + " - Edit " + title);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+
+            EditDialogPresenter presenter = loader.getController();
+            presenter.setDialogStage(dialogStage);
+            presenter.setOldObject(oldObject);
             dialogStage.setScene(scene);
             dialogStage.showAndWait();
         }catch (IOException e){

@@ -1,5 +1,6 @@
 package app.presenter;
 
+import app.dao.TransactionDAO;
 import app.model.Cargo;
 import app.model.Transaction;
 import app.model.Transport;
@@ -59,7 +60,10 @@ public class TransactionsViewPresenter extends SwitchPresenter{
     }
     @FXML
     private void handleEditButtonAction(){
-//        TODO
+        appPresenter.showEditTransactionView(transactionTableView.getSelectionModel().getSelectedItem());
+//        Transaction transaction = new TransactionDAO().findAllTransactions().get(1);
+//        System.out.println(transaction);
+//        appPresenter.showEditTransactionView(transaction);
     }
     @FXML
     private void handleSeeCurrentTransactionButtonAction(){

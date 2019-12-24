@@ -10,13 +10,18 @@
 <?import javafx.scene.text.Font?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="app.presenter.AddTransactionViewPresenter"
+            fx:controller="app.presenter.EditTransactionViewPresenter"
             maxHeight="300.0" prefHeight="300.0" prefWidth="460.0">
     <top>
         <VBox spacing="5">
             <padding>
                 <Insets top="12" right="12" bottom="12" left="12"/>
             </padding>
+            <Label fx:id="idLabel">
+                <font>
+                    <Font name="System Bold" size="13"/>
+                </font>
+            </Label>
             <Label text="Contractor"/>
             <ChoiceBox fx:id="contractorChoiceBox" prefWidth="100"/>
             <Label text="Purchase"/>

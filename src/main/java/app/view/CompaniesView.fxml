@@ -29,7 +29,7 @@
             <padding>
                 <Insets top="15" bottom="12" left="15" right="12" />
             </padding>
-            <TableView fx:id="driverTableView">
+            <TableView fx:id="companyTableView">
                 <columns>
                     <TableColumn fx:id="companyName" text="Name" prefWidth="75.0"/>
                     <TableColumn fx:id="companyPhone" text="Phone" prefWidth="75.0"/>

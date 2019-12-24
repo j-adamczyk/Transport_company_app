@@ -83,6 +83,20 @@ public class Transaction {
         return money;
     }
 
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "_id=" + _id +
+                ", contractor=" + contractor +
+                ", cargoTypes=" + cargoTypes +
+                ", cargo=" + cargo +
+                ", origin=" + origin +
+                ", destination=" + destination +
+                ", money=" + money +
+                ", transactionDate=" + transactionDate +
+                '}';
+    }
+
     public void setMoney(Double money) {
         this.money = money;
     }
