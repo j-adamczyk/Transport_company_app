@@ -50,15 +50,21 @@ public class TransportDAOTests {
 
     @Before
     public void setupDatabase() {
+        DbConnector.getInstance().setDbTypeAndLoad(false);
         this.db = DbConnector.getDB();
+
         cargo.put("Carbon", 200);
         cargoLeft.put("Carbon", 150);
         cargoTypes.put("Carbon", carbon);
 
-        t1 = new Transport(new CurrentTransaction(new Transaction(company, cargoTypes, cargo, from, destination, 2000.0, LocalDate.of(2019, 2, 8)),
-                cargoLeft), driver, vehicle, LocalDateTime.of(2019, 2, 12, 15, 0));
-        t2 = new Transport(new CurrentTransaction(new Transaction(company, cargoTypes, cargo, from, destination, 2000.0, LocalDate.of(2019, 2, 8)),
-                cargoLeft), driver, vehicle, LocalDateTime.of(2019, 2, 17, 15, 0));
+        t1 = new Transport(new CurrentTransaction(
+                new Transaction(company, cargoTypes, cargo, from, destination, 2000.0,
+                        LocalDate.of(2019, 2, 8)), cargoLeft),
+                driver, vehicle, LocalDateTime.of(2019, 2, 12, 15, 0));
+        t2 = new Transport(new CurrentTransaction(
+                new Transaction(company, cargoTypes, cargo, from, destination, 2000.0,
+                        LocalDate.of(2019, 2, 8)), cargoLeft),
+                driver, vehicle, LocalDateTime.of(2019, 2, 17, 15, 0));
 
         transportDAO = new TransportDAO();
         transportDAO.save(t1);
@@ -94,7 +100,8 @@ public class TransportDAOTests {
         t1.setDepartureDate(LocalDateTime.of(2019, 2, 7, 13, 0));
         transportDAO.update(t1.get_id(), t1);
         Transport foundTransport = transportDAO.find(t1.get_id());
-        assertEquals(foundTransport.getDepartureDate(), (LocalDateTime.of(2019, 2, 7, 13, 0)));
+        assertEquals(foundTransport.getDepartureDate(),
+                    (LocalDateTime.of(2019, 2, 7, 13, 0)));
     }
 
     @Test

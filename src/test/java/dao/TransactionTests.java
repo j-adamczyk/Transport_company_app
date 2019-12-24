@@ -31,7 +31,9 @@ public class TransactionTests {
 
     @Before
     public void setupDatabase() {
+        DbConnector.getInstance().setDbTypeAndLoad(false);
         this.db = DbConnector.getDB();
+
         Address address = new Address("kraj", "miasto", "kod", "ulica");
         Company c = new Company("imie", address,"telefon", "mail", "reprezentant");
         Map<String, Integer> cargo = new HashMap<>();

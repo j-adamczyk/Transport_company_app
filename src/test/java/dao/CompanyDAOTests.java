@@ -34,10 +34,14 @@ public class CompanyDAOTests {
 
     @Before
     public void setupDatabase() {
+        DbConnector.getInstance().setDbTypeAndLoad(false);
         this.db = DbConnector.getDB();
-        c1 = new Company("Company1", new Address("Poland", "Krakow", "33-333", "Krakowska 17"),
+
+        c1 = new Company("Company1",
+                new Address("Poland", "Krakow", "33-333", "Krakowska 17"),
                 "444555666", "xxx@xxx.pl", "Adam Kowalski");
-        c2 = new Company("Company2", new Address("Germany", "Berlin", "G33-333", "Gute Strasse 88"),
+        c2 = new Company("Company2",
+                new Address("Germany", "Berlin", "G33-333", "Gute Strasse 88"),
                 "123123123", "www@xxx.pl", "Bernard Krausse");
         companyDAO = new CompanyDAO();
         companyDAO.save(c1);
@@ -49,7 +53,6 @@ public class CompanyDAOTests {
         for (String collectionName: db.listCollectionNames())
             db.getCollection(collectionName).deleteMany(new Document());
     }
-
 
     @Test
     public void companyDeleteTest() {
@@ -90,7 +93,8 @@ public class CompanyDAOTests {
 
     @Test
     public void findCompaniesFromCityTest() {
-        Company c3 = new Company("Company3", new Address("Germany", "Berlin", "G33-333", "Gute Strasse 88"),
+        Company c3 = new Company("Company3",
+                new Address("Germany", "Berlin", "G33-333", "Gute Strasse 88"),
                 "123123123", "www@xxx.pl", "Bernard Krausse");
         companyDAO.save(c3);
         List<Company> foundCompany = companyDAO.findCompaniesFromCity("Berlin");
@@ -101,7 +105,8 @@ public class CompanyDAOTests {
 
     @Test
     public void findCompaniesFromCountryTest() {
-        Company c3 = new Company("Company3", new Address("Germany", "Berlin", "G33-333", "Gute Strasse 88"),
+        Company c3 = new Company("Company3",
+                new Address("Germany", "Berlin", "G33-333", "Gute Strasse 88"),
                 "123123123", "www@xxx.pl", "Bernard Krausse");
         companyDAO.save(c3);
         List<Company> foundCompany = companyDAO.findCompaniesFromCountry("Germany");

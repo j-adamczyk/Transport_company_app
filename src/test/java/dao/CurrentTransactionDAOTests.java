@@ -4,7 +4,6 @@ import app.dao.CurrentTransactionDAO;
 import app.dao.DbConnector;
 import app.model.*;
 import com.mongodb.client.MongoDatabase;
-import app.model.*;
 import org.bson.Document;
 import org.junit.After;
 import org.junit.Before;
@@ -29,13 +28,12 @@ public class CurrentTransactionDAOTests {
     Address destination = new Address("Poland", "Krakow", "33-333", "Krakowska 17");
     Company company = new Company("Company1", destination,"444555666", "xxx@xxx.pl", "Adam Kowalski");
     Address from =  new Address("Germany", "Berlin", "G33-333", "Gute Strasse 88");
-    Driver driver = new Driver("Jan Kowalski", LocalDate.of(1960, 2, 20),
-            LocalDate.of(2019, 10, 20),"123456789",
-            new Address("Poland", "Krakow", "12-345", "krakowska"),2000.0);
     Cargo carbon = new Cargo("carbon", 100.0, 1000.0);
     Map<String, Cargo> cargo_map = new HashMap<>();
-    Transaction transaction1 = new Transaction(company, cargo_map,cargo, from, destination, 2000.0, LocalDate.of(2019, 2, 8));
-    Transaction transaction2 = new Transaction(company, cargo_map,cargo, destination, from, 5000.0, LocalDate.of(2019, 2, 8));
+    Transaction transaction1 = new Transaction(company, cargo_map,cargo, from, destination,
+            2000.0, LocalDate.of(2019, 2, 8));
+    Transaction transaction2 = new Transaction(company, cargo_map,cargo, destination, from,
+            5000.0, LocalDate.of(2019, 2, 8));
     CurrentTransaction ct1;
     CurrentTransaction ct2;
 
@@ -52,7 +50,9 @@ public class CurrentTransactionDAOTests {
 
     @Before
     public void setupDatabase() {
+        DbConnector.getInstance().setDbTypeAndLoad(false);
         this.db = DbConnector.getDB();
+
         cargo.put("Carbon", 200);
         cargoLeft1.put("Carbon", 150);
         cargoLeft2.put("Carbon", 50);
@@ -88,7 +88,8 @@ public class CurrentTransactionDAOTests {
 
     @Test
     public void setCurrentTransactionUpdateTest() {
-        ct1.subtractCargo("Carbon", 100);
+        cargoLeft1.put("Carbon", 50);
+        ct1.setCargoLeft(cargoLeft1);
         currentTransactionDAO.update(ct1.get_id(), ct1);
         CurrentTransaction found = currentTransactionDAO.find(ct1.get_id());
         HashMap<String, Integer> newLeft = new HashMap<>();

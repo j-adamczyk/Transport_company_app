@@ -16,8 +16,8 @@ public class Logger {
                 .insertOne(entry);
     }
 
-    public static void find(ObjectId id) {
-        DbConnector
+    public static LogEntry find(ObjectId id) {
+        return DbConnector
                 .getDB()
                 .getCollection("log", LogEntry.class)
                 .find(eq("_id", id))

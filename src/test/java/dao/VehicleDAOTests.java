@@ -28,6 +28,7 @@ public class VehicleDAOTests {
 
     @Before
     public void setupDatabase() {
+        DbConnector.getInstance().setDbTypeAndLoad(false);
         this.db = DbConnector.getDB();
 
         v1 = new Vehicle("bmw", "123",
@@ -68,13 +69,13 @@ public class VehicleDAOTests {
 
     @Test
     public void testFindVehicleModel() {
-        //todo
+        //TODO: write this test
     }
 
     @Test
     public void testDelete() {
         vehicleDAO.delete(v2.get_id());
-        Assert.assertEquals(Arrays.asList(v1), vehicleDAO.findAllVehicles());
+        Assert.assertEquals(Collections.singletonList(v1), vehicleDAO.findAllVehicles());
         vehicleDAO.delete(v1.get_id());
         Assert.assertTrue(vehicleDAO.findAllVehicles().isEmpty());
     }
