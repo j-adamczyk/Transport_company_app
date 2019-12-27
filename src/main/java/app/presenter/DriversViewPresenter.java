@@ -1,5 +1,6 @@
 package app.presenter;
 
+import app.dao.DriverDAO;
 import app.model.Driver;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -41,7 +42,10 @@ public class DriversViewPresenter extends SwitchPresenter{
     }
     @FXML
     private void handleEditButtonAction(){
-//        TODO
+        appPresenter.showEditDriverView(driverTableView.getSelectionModel().getSelectedItem());
+//        DriverDAO dd = new DriverDAO();
+//        Driver driver = dd.findAllDrivers().get(0);
+//        appPresenter.showEditDriverView(driver);
     }
 
     @FXML
