@@ -2,13 +2,16 @@ package app.presenter;
 
 import app.dao.DriverDAO;
 import app.model.Driver;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 
 public class DriversViewPresenter extends SwitchPresenter{
+    private ObservableList<Driver> drivers;
+    private Driver driver;
+
     @FXML
     private TableView<Driver> driverTableView;
     @FXML
@@ -31,6 +34,22 @@ public class DriversViewPresenter extends SwitchPresenter{
     private Button editButton;
     @FXML
     private Label returnLabel;
+
+    @FXML
+    private void initialize(){
+        DriverDAO driverDAO = new DriverDAO();
+        driverTableView.getSelectionModel().getTableView().getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        driverName.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getName()));
+        driverBirthDay.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getBirthDate().toString()));
+        driverHireDate.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getHireDate().toString()));
+        driverAddress.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getAddress().toString()));
+        driverPhone.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getPhone()));
+        driverSalary.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getSalary().toString()));
+        driverTableView.getItems().addAll(driverDAO.findAllDrivers());
+        this.drivers = FXCollections.observableArrayList();
+        drivers.addAll(driverDAO.findAllDrivers());
+        driverTableView.setItems(drivers);
+    }
 
     @FXML
     private void handleAddButtonAction(){

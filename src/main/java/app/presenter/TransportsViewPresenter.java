@@ -54,7 +54,7 @@ public class TransportsViewPresenter extends SwitchPresenter{
 
     @FXML
     private void initialize(){
-        transportsTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+        transportsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         /*cargoColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getCurrentTransaction()));
         cargoUnitsColumn.setCellValueFactory(dataValue -> dataValue.getValue());
         driverColumn.setCellValueFactory(dataValue -> dataValue.getValue());
