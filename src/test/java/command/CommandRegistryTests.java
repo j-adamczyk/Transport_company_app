@@ -2,29 +2,39 @@ package command;
 
 import app.command.Command;
 import app.command.CommandRegistry;
+import javafx.collections.FXCollections;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
 
 public class CommandRegistryTests {
+    CommandRegistry commandRegistry = CommandRegistry.getInstance();
+
+    @Before
+    public void clearRegistryStacks() {
+        commandRegistry.setCommandStack(FXCollections
+                .observableArrayList());
+        commandRegistry.setUndoCommandStack(FXCollections
+                .observableArrayList());
+    }
+
     @Test
     public void testExecute() {
-        CommandRegistry commandRegistry = CommandRegistry.getInstance();
         Command command1 = Mockito.mock(Command.class);
         Command command2 = Mockito.mock(Command.class);
 
-        assertEquals(commandRegistry.getCommandStack().size(), 0);
+        assertEquals(0, commandRegistry.getCommandStack().size());
 
         commandRegistry.executeCommand(command1);
         commandRegistry.executeCommand(command2);
 
-        assertEquals(commandRegistry.getCommandStack().size(), 2);
+        assertEquals(2, commandRegistry.getCommandStack().size());
     }
 
     @Test
     public void testUndo() {
-        CommandRegistry commandRegistry = CommandRegistry.getInstance();
         Command command1 = Mockito.mock(Command.class);
         Command command2 = Mockito.mock(Command.class);
 
@@ -32,17 +42,16 @@ public class CommandRegistryTests {
         commandRegistry.executeCommand(command2);
 
         commandRegistry.undo();
-        assertEquals(commandRegistry.getCommandStack().size(), 1);
-        assertEquals(commandRegistry.getUndoCommandStack().size(), 1);
+        assertEquals(1, commandRegistry.getCommandStack().size());
+        assertEquals(1, commandRegistry.getUndoCommandStack().size());
 
         commandRegistry.undo();
-        assertEquals(commandRegistry.getCommandStack().size(), 0);
-        assertEquals(commandRegistry.getUndoCommandStack().size(), 2);
+        assertEquals(0, commandRegistry.getCommandStack().size());
+        assertEquals(2, commandRegistry.getUndoCommandStack().size());
     }
 
     @Test
     public void testRedo() {
-        CommandRegistry commandRegistry = CommandRegistry.getInstance();
         Command command1 = Mockito.mock(Command.class);
         Command command2 = Mockito.mock(Command.class);
 
@@ -52,13 +61,12 @@ public class CommandRegistryTests {
         commandRegistry.undo();
         commandRegistry.undo();
         commandRegistry.redo();
-        assertEquals(commandRegistry.getCommandStack().size(), 1);
-        assertEquals(commandRegistry.getUndoCommandStack().size(), 1);
+        assertEquals(1, commandRegistry.getCommandStack().size());
+        assertEquals(1, commandRegistry.getUndoCommandStack().size());
     }
 
     @Test
     public void testClearingUndoCommandStackAfterExecute() {
-        CommandRegistry commandRegistry = CommandRegistry.getInstance();
         Command command1 = Mockito.mock(Command.class);
         Command command2 = Mockito.mock(Command.class);
         Command command3 = Mockito.mock(Command.class);
@@ -69,7 +77,7 @@ public class CommandRegistryTests {
         commandRegistry.undo();
         commandRegistry.undo();
         commandRegistry.executeCommand(command3);
-        assertEquals(commandRegistry.getCommandStack().size(), 1);
-        assertEquals(commandRegistry.getUndoCommandStack().size(), 0);
+        assertEquals(1, commandRegistry.getCommandStack().size());
+        assertEquals(0, commandRegistry.getUndoCommandStack().size());
     }
 }

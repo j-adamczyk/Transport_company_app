@@ -36,8 +36,16 @@ public class CommandRegistry {
         return commandStack;
     }
 
+    public void setCommandStack(ObservableList<Command> stack) {
+        this.commandStack = stack;
+    }
+
     public ObservableList<Command> getUndoCommandStack() {
         return undoCommandStack;
+    }
+
+    public void setUndoCommandStack(ObservableList<Command> stack) {
+        this.undoCommandStack = stack;
     }
 
     /**
