@@ -85,14 +85,12 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address{" +
-                "_id=" + _id +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                ", postalCode='" + postalCode + '\'' +
-                ", street='" + street + '\'' +
-                '}';
+        return country + ", " +
+                city + " " +
+                postalCode + ", " +
+                street + " ";
     }
+
 
     /**
      * Version of toString to use with Google Matrix API to calculate distance between two Addresses.

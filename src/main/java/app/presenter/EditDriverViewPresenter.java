@@ -78,7 +78,7 @@ public class EditDriverViewPresenter extends EditDialogPresenter{
         DUC.execute();
         DriverDAO driverDao = new DriverDAO();
         System.out.println(driverDao.findAllDrivers());
-
+        dialogStage.close();
     }
     @FXML
     private void handleCancelButtonAction(){

@@ -45,7 +45,6 @@ public class DriversViewPresenter extends SwitchPresenter{
         driverAddress.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getAddress().toString()));
         driverPhone.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getPhone()));
         driverSalary.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getSalary().toString()));
-        driverTableView.getItems().addAll(driverDAO.findAllDrivers());
         this.drivers = FXCollections.observableArrayList();
         drivers.addAll(driverDAO.findAllDrivers());
         driverTableView.setItems(drivers);
@@ -62,6 +61,7 @@ public class DriversViewPresenter extends SwitchPresenter{
     @FXML
     private void handleEditButtonAction(){
         appPresenter.showEditDriverView(driverTableView.getSelectionModel().getSelectedItem());
+        driverTableView.refresh();
 //        DriverDAO dd = new DriverDAO();
 //        Driver driver = dd.findAllDrivers().get(0);
 //        appPresenter.showEditDriverView(driver);
