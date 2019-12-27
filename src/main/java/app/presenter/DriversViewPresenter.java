@@ -2,6 +2,7 @@ package app.presenter;
 
 import app.dao.DriverDAO;
 import app.model.Driver;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +11,6 @@ import javafx.scene.control.*;
 
 public class DriversViewPresenter extends SwitchPresenter{
     private ObservableList<Driver> drivers;
-    private Driver driver;
 
     @FXML
     private TableView<Driver> driverTableView;
@@ -48,6 +48,15 @@ public class DriversViewPresenter extends SwitchPresenter{
         this.drivers = FXCollections.observableArrayList();
         drivers.addAll(driverDAO.findAllDrivers());
         driverTableView.setItems(drivers);
+
+        editButton.disableProperty().bind(
+                Bindings.size(
+                        driverTableView.getSelectionModel()
+                                .getSelectedItems()).isNotEqualTo(1));
+        deleteButton.disableProperty().bind(
+                Bindings.size(
+                        driverTableView.getSelectionModel()
+                                .getSelectedItems()).isNotEqualTo(1));
     }
 
     @FXML
@@ -56,7 +65,12 @@ public class DriversViewPresenter extends SwitchPresenter{
     }
     @FXML
     private void handleDeleteButtonAction(){
-//        TODO
+        Driver toRemove = (Driver) driverTableView.getSelectionModel().getSelectedItem();
+        DriverDAO driverDAO = new DriverDAO();
+        driverDAO.delete(toRemove.get_id());
+        drivers.remove(toRemove);
+
+        driverTableView.refresh();
     }
     @FXML
     private void handleEditButtonAction(){
