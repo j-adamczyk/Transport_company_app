@@ -31,6 +31,7 @@ public class DriverDAOTests {
     public void setupDatabase() {
         DbConnector.getInstance().setDbTypeAndLoad(false);
         this.db = DbConnector.getDB();
+        db.getCollection("drivers").deleteMany(new Document());
 
         d1 = new Driver("Jan Kowalski",
                 LocalDate.of(1960, 2, 20),
@@ -69,12 +70,12 @@ public class DriverDAOTests {
     @Test
     public void testFindAllDrivers() {
         List<Driver> actual = driverDAO.findAllDrivers();
-        Assert.assertEquals(actual.size(), 1);
+        Assert.assertEquals(1, actual.size());
         Assert.assertEquals(actual, Collections.singletonList(d1));
         driverDAO.save(d2);
         actual = driverDAO.findAllDrivers();
         List<Driver> expected = Arrays.asList(d1, d2);
-        Assert.assertEquals(actual.size(), 2);
+        Assert.assertEquals(2, actual.size());
         Assert.assertEquals(actual, expected);
     }
 

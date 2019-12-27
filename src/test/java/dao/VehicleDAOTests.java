@@ -30,6 +30,7 @@ public class VehicleDAOTests {
     public void setupDatabase() {
         DbConnector.getInstance().setDbTypeAndLoad(false);
         this.db = DbConnector.getDB();
+        db.getCollection("vehicles").deleteMany(new Document());
 
         v1 = new Vehicle("bmw", "123",
                 LocalDate.of(2010, 10, 10), 1000.0, 1000.0);
@@ -58,12 +59,12 @@ public class VehicleDAOTests {
     @Test
     public void testFindAllVehicles() {
         List<Vehicle> actual = vehicleDAO.findAllVehicles();
-        Assert.assertEquals(actual.size(), 1);
+        Assert.assertEquals(1, actual.size());
         Assert.assertEquals(actual, Collections.singletonList(v1));
         vehicleDAO.save(v2);
         actual = vehicleDAO.findAllVehicles();
         List<Vehicle> expected = Arrays.asList(v1, v2);
-        Assert.assertEquals(actual.size(), 2);
+        Assert.assertEquals(2, actual.size());
         Assert.assertEquals(actual, expected);
     }
 

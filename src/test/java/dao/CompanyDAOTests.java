@@ -36,6 +36,7 @@ public class CompanyDAOTests {
     public void setupDatabase() {
         DbConnector.getInstance().setDbTypeAndLoad(false);
         this.db = DbConnector.getDB();
+        db.getCollection("companies").deleteMany(new Document());
 
         c1 = new Company("Company1",
                 new Address("Poland", "Krakow", "33-333", "Krakowska 17"),
@@ -58,7 +59,7 @@ public class CompanyDAOTests {
     public void companyDeleteTest() {
         companyDAO.delete(c1.get_id());
         List<Company> allCompanies = companyDAO.findAllCompanies();
-        assertEquals(allCompanies.size(), 1);
+        assertEquals(1, allCompanies.size());
         assertTrue(allCompanies.contains(c2));
         assertFalse(allCompanies.contains(c1));
     }
@@ -79,7 +80,7 @@ public class CompanyDAOTests {
     @Test
     public void findAllCompaniesTest() {
         List<Company> allCompanies = companyDAO.findAllCompanies();
-        assertEquals(allCompanies.size(), 2);
+        assertEquals(2, allCompanies.size());
         assertTrue(allCompanies.contains(c2));
         assertTrue(allCompanies.contains(c1));
     }
@@ -87,7 +88,7 @@ public class CompanyDAOTests {
     @Test
     public void findByName() {
         List<Company> foundCompany = companyDAO.findByName("Company1");
-        assertEquals(foundCompany.size(), 1);
+        assertEquals(1, foundCompany.size());
         assertTrue(foundCompany.contains(c1));
     }
 
@@ -110,7 +111,7 @@ public class CompanyDAOTests {
                 "123123123", "www@xxx.pl", "Bernard Krausse");
         companyDAO.save(c3);
         List<Company> foundCompany = companyDAO.findCompaniesFromCountry("Germany");
-        assertEquals(foundCompany.size(), 2);
+        assertEquals(2, foundCompany.size());
         assertTrue(foundCompany.contains(c2));
         assertTrue(foundCompany.contains(c3));
     }

@@ -33,6 +33,7 @@ public class TransactionTests {
     public void setupDatabase() {
         DbConnector.getInstance().setDbTypeAndLoad(false);
         this.db = DbConnector.getDB();
+        db.getCollection("transactions").deleteMany(new Document());
 
         Address address = new Address("kraj", "miasto", "kod", "ulica");
         Company c = new Company("imie", address,"telefon", "mail", "reprezentant");
@@ -66,12 +67,12 @@ public class TransactionTests {
     @Test
     public void testFindAllTransactions() {
         List<Transaction> actual = transactionDAO.findAllTransactions();
-        Assert.assertEquals(actual.size(), 1);
+        Assert.assertEquals(1, actual.size());
         Assert.assertEquals(actual, Collections.singletonList(t1));
         transactionDAO.save(t2);
         actual = transactionDAO.findAllTransactions();
         List<Transaction> expected = Arrays.asList(t1, t2);
-        Assert.assertEquals(actual.size(), 2);
+        Assert.assertEquals(2, actual.size());
         Assert.assertEquals(actual, expected);
     }
 

@@ -52,6 +52,7 @@ public class TransportDAOTests {
     public void setupDatabase() {
         DbConnector.getInstance().setDbTypeAndLoad(false);
         this.db = DbConnector.getDB();
+        db.getCollection("transports").deleteMany(new Document());
 
         cargo.put("Carbon", 200);
         cargoLeft.put("Carbon", 150);
@@ -84,7 +85,7 @@ public class TransportDAOTests {
         for (Transport t : allTransports)
             System.out.println(t);
 
-        assertEquals(allTransports.size(), 1);
+        assertEquals(1, allTransports.size());
         assertTrue(allTransports.contains(t2));
         assertFalse(allTransports.contains(t1));
     }
@@ -107,7 +108,7 @@ public class TransportDAOTests {
     @Test
     public void findAllTransportsTest() {
         List<Transport> allTransports = transportDAO.findAllTransports();
-        assertEquals(allTransports.size(), 2);
+        assertEquals(2, allTransports.size());
         assertTrue(allTransports.contains(t2));
         assertTrue(allTransports.contains(t1));
     }

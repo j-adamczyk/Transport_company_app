@@ -52,6 +52,7 @@ public class CurrentTransactionDAOTests {
     public void setupDatabase() {
         DbConnector.getInstance().setDbTypeAndLoad(false);
         this.db = DbConnector.getDB();
+        db.getCollection("currentTransactions").deleteMany(new Document());
 
         cargo.put("Carbon", 200);
         cargoLeft1.put("Carbon", 150);
@@ -63,6 +64,8 @@ public class CurrentTransactionDAOTests {
         currentTransactionDAO.save(ct2);
         cargo_map.put("Carbon", carbon);
 
+        for (CurrentTransaction ct: currentTransactionDAO.findAllCurrentTransactions())
+            System.out.println(ct.toString());
     }
 
     @After
@@ -75,7 +78,7 @@ public class CurrentTransactionDAOTests {
     public void currentTransactionDeleteTest() {
         currentTransactionDAO.delete(ct1.get_id());
         List<CurrentTransaction> allTransports = currentTransactionDAO.findAllCurrentTransactions();
-        assertEquals(allTransports.size(), 1);
+        assertEquals(1, allTransports.size());
         assertTrue(allTransports.contains(ct2));
         assertFalse(allTransports.contains(ct1));
     }
@@ -100,7 +103,7 @@ public class CurrentTransactionDAOTests {
     @Test
     public void findAllTransportsTest() {
         List<CurrentTransaction> allTransports = currentTransactionDAO.findAllCurrentTransactions();
-        assertEquals(allTransports.size(), 2);
+        assertEquals(2, allTransports.size());
         assertTrue(allTransports.contains(ct2));
         assertTrue(allTransports.contains(ct1));
     }
