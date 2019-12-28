@@ -46,10 +46,10 @@ public class AddCompanyViewPresenter extends DialogPresenter{
         String mail = mailField.getText();
         String representative = representativeField.getText();
         Address address = new Address(country, city, postalCode, street);
-        CompanySaveCommand CSC = new CompanySaveCommand(new Company(name, address, phone, mail, representative));
+        addedObject = new Company(name, address, phone, mail, representative);
+        CompanySaveCommand CSC = new CompanySaveCommand((Company) addedObject);
         CSC.execute();
-        CompanyDAO companyDao = new CompanyDAO();
-        System.out.println(companyDao.findAllCompanies());
+        dialogStage.close();
     }
     @FXML
     private void handleCancelButtonAction(){

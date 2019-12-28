@@ -122,8 +122,10 @@ public class AddTransactionViewPresenter extends DialogPresenter{
         Company company = companyDAO.findByName(contractorName).get(0);
         Transaction transaction = new Transaction(company, cargoTypesMap, cargoUnitsMap,
                 from, destination, money, transactionDate);
+        addedObject = transaction;
         TransactionSaveCommand TSC = new TransactionSaveCommand(transaction);
         TSC.execute();
+        dialogStage.close();
     }
     @FXML
     private void handleCancelButtonAction(){

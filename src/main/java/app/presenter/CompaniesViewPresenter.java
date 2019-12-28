@@ -66,6 +66,7 @@ public class CompaniesViewPresenter extends SwitchPresenter{
     @FXML
     private void handleAddButtonAction(){
         appPresenter.showAddCompanyView();
+
     }
     @FXML
     private void handleDeleteButtonAction(){

@@ -52,11 +52,10 @@ public class AddDriverViewPresenter extends DialogPresenter {
         LocalDate birthDate = birthDatePicker.getValue();
         LocalDate hireDate = hireDatePicker.getValue();
         Address address = new Address(country, city, postalCode, street);
-        DriverSaveCommand DSC = new DriverSaveCommand(new Driver(name, birthDate, hireDate, phone, address, salary));
+        addedObject = new Driver(name, birthDate, hireDate, phone, address, salary);
+        DriverSaveCommand DSC = new DriverSaveCommand((Driver) addedObject);
         DSC.execute();
-        DriverDAO driverDao = new DriverDAO();
-        System.out.println(driverDao.findAllDrivers());
-
+        dialogStage.close();
     }
     @FXML
     private void handleCancelButtonAction(){

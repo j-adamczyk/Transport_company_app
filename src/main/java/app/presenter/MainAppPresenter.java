@@ -1,9 +1,7 @@
 package app.presenter;
 
 import app.TransportCompanyApp;
-import app.model.Company;
-import app.model.Driver;
-import app.model.Transaction;
+import app.model.*;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -70,24 +68,24 @@ public class MainAppPresenter {
         switchScene("VehiclesView", "Vehicles");
     }
 
-    public void showAddCompanyView() {
-        showAddDialogScene("AddCompanyView", "Company");
+    public Company showAddCompanyView() {
+        return (Company)showAddDialogScene("AddCompanyView", "Company");
     }
 
-    public void showAddDriverView() {
-        showAddDialogScene("AddDriverView", "Driver");
+    public Driver showAddDriverView() {
+        return (Driver) showAddDialogScene("AddDriverView", "Driver");
     }
 
-    public void showAddTransactionView() {
-        showAddDialogScene("AddTransactionView", "Transaction");
+    public Transaction showAddTransactionView() {
+        return (Transaction) showAddDialogScene("AddTransactionView", "Transaction");
     }
 
-    public void showAddVehicleView(){
-        showAddDialogScene("AddVehicleView", "Vehicle");
+    public Vehicle showAddVehicleView(){
+        return (Vehicle) showAddDialogScene("AddVehicleView", "Vehicle");
     }
 
-    public void showAddTransportView(){
-        showAddDialogScene("AddTransportView", "Transport");
+    public Transport showAddTransportView(){
+        return (Transport) showAddDialogScene("AddTransportView", "Transport");
     }
 
     public void showEditCompanyView(Company company) {showEditDialogScene(company, "EditCompanyView", "Company");}
@@ -109,7 +107,7 @@ public class MainAppPresenter {
         }
     }
 
-    private void showAddDialogScene(String viewName, String title){
+    private Object showAddDialogScene(String viewName, String title){
         FXMLLoader loader = new FXMLLoader();
         try {
             URL url = new URL(new URL("file:"), "src/main/java/app/view/"+ viewName +".fxml");
@@ -122,12 +120,15 @@ public class MainAppPresenter {
             dialogStage.initModality(Modality.WINDOW_MODAL);
             dialogStage.initOwner(primaryStage);
 
-            ((DialogPresenter) loader.getController()).setDialogStage(dialogStage);
+            DialogPresenter presenter = loader.getController();
+            presenter.setDialogStage(dialogStage);
             dialogStage.setScene(scene);
             dialogStage.showAndWait();
+            return presenter.getAddedObject();
         }catch (IOException e){
             e.printStackTrace();
         }
+        return null;
     }
 
     private void showEditDialogScene(Object oldObject, String viewName, String title){

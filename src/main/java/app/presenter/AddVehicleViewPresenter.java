@@ -35,11 +35,10 @@ public class AddVehicleViewPresenter extends DialogPresenter{
         LocalDate manufactureDate = manufactureDatePicker.getValue();
         Double cargoWeight = Double.valueOf(cargoWeightField.getText());
         Double cargoVolume = Double.valueOf(cargoVolumeField.getText());
-        VehicleSaveCommand VSC = new VehicleSaveCommand(
-                new Vehicle(model, registrationNo, manufactureDate, cargoVolume, cargoWeight));
+        addedObject = new Vehicle(model, registrationNo, manufactureDate, cargoVolume, cargoWeight);
+        VehicleSaveCommand VSC = new VehicleSaveCommand((Vehicle) addedObject);
         VSC.execute();
-        VehicleDAO companyDao = new VehicleDAO();
-        System.out.println(companyDao.findAllVehicles());
+        dialogStage.close();
     }
     @FXML
     private void handleCancelButtonAction(){
