@@ -34,7 +34,7 @@
                     <Font name="System Bold" size="13"/>
                 </font>
             </Label>
-            <TableView fx:id="transactionTableView">
+            <TableView fx:id="transactionTableView" onMousePressed="#handleTransactionSelected" prefHeight="150">
                 <columns>
                     <TableColumn fx:id="transactionIdColumn" text="Name" prefWidth="75.0"/>
                     <TableColumn fx:id="transactionDateColumn" text="Units" prefWidth="75.0"/>
@@ -68,7 +68,7 @@
                     <Font name="System Bold" size="13"/>
                 </font>
             </Label>
-            <TableView fx:id="cargoTable">
+            <TableView fx:id="cargoTable" prefHeight="150">
                 <columns>
                     <TableColumn fx:id="cargoNameColumn" text="Name" prefWidth="75.0"/>
                     <TableColumn fx:id="cargoUnitsColumn" text="Units" prefWidth="75.0"/>

@@ -62,7 +62,8 @@ public class DriversViewPresenter extends SwitchPresenter{
 
     @FXML
     private void handleAddButtonAction(){
-        appPresenter.showAddDriverView();
+        drivers.add(appPresenter.showAddDriverView());
+        driverTableView.refresh();
     }
     @FXML
     private void handleDeleteButtonAction(){

@@ -17,8 +17,10 @@ import java.util.Map;
 
 public class TransactionsViewPresenter extends SwitchPresenter{
     private ObservableList<Transaction> transactions;
+    private ObservableList<Cargo> cargo;
     private Map<String, Cargo> cargoTypesMap = new HashMap<>();
     private Map<String, Integer> cargoUnitsMap = new HashMap<>();
+    private int selectedRaw = -1;
 
     @FXML
     private TableView<Cargo> cargoTable;
@@ -60,21 +62,24 @@ public class TransactionsViewPresenter extends SwitchPresenter{
     @FXML
     private void initialize(){
         TransactionDAO transactionDAO = new TransactionDAO();
-        transactionTableView.getSelectionModel().getTableView().getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        transactionTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         transactionContractorColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getContractor().toString()));
         transactionDateColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getTransactionDate().toString()));
         transactionFromColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getOrigin().toString()));
         transactionToColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getDestination().toString()));
         transactionPurchaseColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getMoney().toString()));
         transactionIdColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().get_id().toString()));
-        /*cargoNameColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getName()));
-        cargoUnitsColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().get_id().toString()));
+        cargoNameColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getName()));
+        cargoUnitsColumn.setCellValueFactory(value -> new SimpleStringProperty
+                (transactionTableView.getSelectionModel().getSelectedItem()==null ? ""
+                        : transactionTableView.getSelectionModel().getSelectedItem().getCargo().get(value.getValue().getName()).toString()));
         cargoVolumeColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getVolume().toString()));
-        cargoWeightColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getWeight().toString()));*/
-        //todo
+        cargoWeightColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getWeight().toString()));
         this.transactions = FXCollections.observableArrayList();
+        this.cargo = FXCollections.observableArrayList();
         transactions.addAll(transactionDAO.findAllTransactions());
         transactionTableView.setItems(transactions);
+        cargoTable.setItems(cargo);
 
         editButton.disableProperty().bind(
                 Bindings.size(
@@ -89,7 +94,12 @@ public class TransactionsViewPresenter extends SwitchPresenter{
 
     @FXML
     private void handleAddButtonAction(){
-        appPresenter.showAddTransactionView();
+        Transaction newTransaction = appPresenter.showAddTransactionView();
+        transactions.add(newTransaction);
+        transactionTableView.refresh();
+        selectedRaw = -1;
+        transactionTableView.getSelectionModel().select(newTransaction);
+        handleTransactionSelected();
 //        TODO
 //        IMPORTANT: Add Current Transaction Also!!!
     }
@@ -99,12 +109,16 @@ public class TransactionsViewPresenter extends SwitchPresenter{
         TransactionDeleteCommand tdc = new TransactionDeleteCommand(toRemove.get_id());
         tdc.execute();
         transactions.remove(toRemove);
-
         transactionTableView.refresh();
+        selectedRaw = -1;
+        handleTransactionSelected();
     }
     @FXML
     private void handleEditButtonAction(){
         appPresenter.showEditTransactionView(transactionTableView.getSelectionModel().getSelectedItem());
+        transactionTableView.refresh();
+        selectedRaw = -1;
+        handleTransactionSelected();
 //        Transaction transaction = new TransactionDAO().findAllTransactions().get(1);
 //        System.out.println(transaction);
 //        appPresenter.showEditTransactionView(transaction);
@@ -121,5 +135,19 @@ public class TransactionsViewPresenter extends SwitchPresenter{
     @FXML
     private void handleReturnLabel() {
         appPresenter.showMainView();
+    }
+
+    @FXML
+    private void handleTransactionSelected(){
+        System.out.println("Touched");
+        if(transactionTableView.getSelectionModel().getSelectedIndex() != selectedRaw){
+            selectedRaw = transactionTableView.getSelectionModel().getSelectedIndex();
+            cargo.clear();
+            Transaction transactionSelected = transactionTableView.getSelectionModel().getSelectedItem();
+            cargo.addAll(transactionSelected.getCargoTypes().values());
+            cargoTable.refresh();
+            System.out.println("I'm diferent");
+        }
+        System.out.println(transactionTableView.getSelectionModel().getSelectedIndex());
     }
 }
