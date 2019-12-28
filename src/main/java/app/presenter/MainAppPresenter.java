@@ -28,7 +28,7 @@ public class MainAppPresenter {
             // load layout from FXML file
             FXMLLoader loader = new FXMLLoader();
             URL url = new URL(new URL("file:"), "src/main/java/app/view/MainView.fxml");
-//            URL url = new URL(new URL("file:"), "src/main/java/app/view/AddCompanyView.fxml");
+            //URL url = new URL(new URL("file:"), "src/main/java/app/view/AddTransactionView.fxml");
             loader.setLocation(url);
             Pane rootLayout = loader.load();
             MainViewPresenter presenter = loader.getController();
@@ -91,6 +91,9 @@ public class MainAppPresenter {
     public void showEditCompanyView(Company company) {showEditDialogScene(company, "EditCompanyView", "Company");}
     public void showEditDriverView(Driver driver) {showEditDialogScene(driver, "EditDriverView", "Driver");}
     public void showEditTransactionView(Transaction transaction) {showEditDialogScene(transaction, "EditTransactionView", "Transaction");}
+    public void showEditVehicleView(Vehicle vehicle) {
+        showEditDialogScene(vehicle, "EditVehicleView", "Vehicle");
+    }
 
     private void switchScene(String viewName, String title){
         this.primaryStage.setTitle(TITLE + " - " + title);
