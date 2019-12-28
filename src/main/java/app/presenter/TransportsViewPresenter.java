@@ -3,9 +3,11 @@ package app.presenter;
 import app.command.TransportDeleteCommand;
 import app.dao.TransactionDAO;
 import app.dao.TransportDAO;
+import app.model.Cargo;
 import app.model.Duration;
 import app.model.Transport;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -15,9 +17,14 @@ import javafx.scene.control.*;
 import jdk.vm.ci.meta.Local;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TransportsViewPresenter extends SwitchPresenter{
     private ObservableList<Transport> transports;
+    private ObservableList<Cargo> cargo;
+    private Map<String, Cargo> cargoTypesMap = new HashMap<>();
+    private Map<String, Integer> cargoUnitsMap = new HashMap<>();
 
     @FXML
     private CheckBox presentCheckBox;
@@ -68,10 +75,11 @@ public class TransportsViewPresenter extends SwitchPresenter{
         dateColumn.setCellValueFactory(value -> new SimpleObjectProperty<>(value.getValue().getDepartureDate()));
         driverColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getDriver().toString()));
         vehicleColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getVehicle().toString()));
-        expectedTimeColumn.setCellValueFactory(value -> new SimpleObjectProperty(value.getValue().getExpectedTime()));
+        expectedTimeColumn.setCellValueFactory(value -> new SimpleObjectProperty<>(value.getValue().getExpectedTime()));
         fromColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getCurrentTransaction().getTransaction().getOrigin().toString()));
         destinationColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getCurrentTransaction().getTransaction().getDestination().toString()));
         //todo cargoes
+        //cargoUnitsColumn.setCellValueFactory(value -> new SimpleIntegerProperty(value.));
 
         this.transports = FXCollections.observableArrayList();
         transports.addAll(transportDAO.findAllTransports());

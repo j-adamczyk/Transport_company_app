@@ -36,12 +36,12 @@
             </Label>
             <TableView fx:id="transactionTableView" onMousePressed="#handleTransactionSelected" prefHeight="150">
                 <columns>
-                    <TableColumn fx:id="transactionIdColumn" text="Name" prefWidth="75.0"/>
-                    <TableColumn fx:id="transactionDateColumn" text="Units" prefWidth="75.0"/>
-                    <TableColumn fx:id="transactionContractorColumn" text="Volume" prefWidth="75.0"/>
-                    <TableColumn fx:id="transactionFromColumn" text="Weight" prefWidth="75.0"/>
-                    <TableColumn fx:id="transactionToColumn" text="Units Left" prefWidth="75.0"/>
-                    <TableColumn fx:id="transactionPurchaseColumn" text="Units Left" prefWidth="75.0"/>
+                    <TableColumn fx:id="transactionIdColumn" text="Id" prefWidth="75.0"/>
+                    <TableColumn fx:id="transactionDateColumn" text="Date" prefWidth="75.0"/>
+                    <TableColumn fx:id="transactionContractorColumn" text="Contractor" prefWidth="75.0"/>
+                    <TableColumn fx:id="transactionFromColumn" text="From" prefWidth="75.0"/>
+                    <TableColumn fx:id="transactionToColumn" text="To" prefWidth="75.0"/>
+                    <TableColumn fx:id="transactionPurchaseColumn" text="Purchase" prefWidth="75.0"/>
                 </columns>
             </TableView>
         </VBox>
