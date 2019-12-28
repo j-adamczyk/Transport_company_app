@@ -6,9 +6,50 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Font?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="app.presenter.EditVehicleViewPresenter"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="570.0" prefWidth="300.0">
+    <top>
+        <HBox>
+            <padding>
+                <Insets top="12" bottom="12" right="12" left="12"/>
+            </padding>
+            <Label fx:id="idLabel" underline="true">
+                <font>
+                    <Font name="System Bold" size="13"/>
+                </font>
+            </Label>
+        </HBox>
+    </top>
+    <center>
+        <VBox spacing="5">
+            <padding>
+                <Insets top="12" bottom="12" right="12" left="12"/>
+            </padding>
+            <Label text="Model"/>
+            <TextField fx:id="modelField"/>
+            <Label text="Registratino No."/>
+            <TextField fx:id="registrationNoField"/>
+            <Label text="Volume"/>
+            <TextField fx:id="cargoVolumeField"/>
+            <Label text="Weight"/>
+            <TextField fx:id="cargoWeightField"/>
+            <Label text="Manufacture Date"/>
+            <DatePicker fx:id="manufactureDateField"/>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox spacing="20" alignment="BASELINE_RIGHT">
+            <padding>
+                <Insets top="12" bottom="12" right="12" left="12"/>
+            </padding>
+            <Button fx:id="acceptButton" onAction="#handleAcceptButtonAction" text="Accept" prefWidth="75"/>
+            <Button fx:id="cancelButton" onAction="#handleCancelButtonAction" text="Cancel" prefWidth="75"/>
+        </HBox>
+    </bottom>
 
 </BorderPane>
+

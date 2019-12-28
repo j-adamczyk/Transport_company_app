@@ -63,7 +63,7 @@ public class VehiclesViewPresenter extends SwitchPresenter{
 
     @FXML
     private void handleAddButtonAction(){
-        appPresenter.showAddVehicleView();
+        vehicles.add(appPresenter.showAddVehicleView());
     }
 
     @FXML
@@ -78,7 +78,8 @@ public class VehiclesViewPresenter extends SwitchPresenter{
 
     @FXML
     private void handleEditButtonAction(){
-//        TODO
+        appPresenter.showEditVehicleView(vehicleTableView.getSelectionModel().getSelectedItem());
+        vehicleTableView.refresh();
     }
 
     @FXML

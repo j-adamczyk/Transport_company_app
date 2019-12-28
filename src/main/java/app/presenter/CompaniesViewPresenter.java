@@ -65,7 +65,7 @@ public class CompaniesViewPresenter extends SwitchPresenter{
 
     @FXML
     private void handleAddButtonAction(){
-        appPresenter.showAddCompanyView();
+        companies.add(appPresenter.showAddCompanyView());
 
     }
     @FXML
@@ -80,14 +80,7 @@ public class CompaniesViewPresenter extends SwitchPresenter{
     @FXML
     private void handleEditButtonAction(){
         appPresenter.showEditCompanyView(companyTableView.getSelectionModel().getSelectedItem());
-//        Company c = new Company("Kompania", new Address("Poland", "Cracow", "22-000", "Hehehihi"),
-//                "999", "aaa@bbb.pl", "Pani zooosia");
-//        CompanySaveCommand csv = new CompanySaveCommand(c);
-//        csv.execute();
-//        appPresenter.showEditCompanyView(c);
-//        CompanyDAO cd = new CompanyDAO();
-//        List<Company> list = cd.findAllCompanies();
-//        for(Company company: list) System.out.println(company);
+        companyTableView.refresh();
     }
 
     @FXML
