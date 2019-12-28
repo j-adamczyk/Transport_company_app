@@ -92,8 +92,9 @@ public class MainAppPresenter {
     public void showEditCompanyView(Company company) {showEditDialogScene(company, "EditCompanyView", "Company");}
     public void showEditDriverView(Driver driver) {showEditDialogScene(driver, "EditDriverView", "Driver");}
     public void showEditTransactionView(Transaction transaction) {showEditDialogScene(transaction, "EditTransactionView", "Transaction");}
-    public void showEditVehicleView(Vehicle vehicle){showEditDialogScene(vehicle, "EditVehicleView", "Vehicle");}
-
+    public void showEditVehicleView(Vehicle vehicle) {
+        showEditDialogScene(vehicle, "EditVehicleView", "Vehicle");
+    }
     public void showSelectedCurrentTransaction(CurrentTransaction currentTransaction) {
         showSelectedDialogScene(currentTransaction, "SelectedCurrentTransactionView", "Current Transaction");}
 
