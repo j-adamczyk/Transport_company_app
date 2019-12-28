@@ -11,7 +11,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="app.presenter.EditTransactionViewPresenter"
-            maxHeight="300.0" prefHeight="300.0" prefWidth="460.0">
+            maxHeight="300.0" prefHeight="300.0" prefWidth="670.0">
     <top>
         <VBox spacing="5">
             <padding>
@@ -30,64 +30,62 @@
         </VBox>
     </top>
     <center>
-        <VBox spacing="2">
-            <padding>
-                <Insets top="12" right="12" bottom="12" left="12"/>
-            </padding>
-            <VBox alignment="TOP_CENTER">
-                <Label text="Address">
-                    <font>
-                        <Font name="System Bold" size="16"/>
-                    </font>
-                </Label>
-            </VBox>
-            <HBox>
-                <VBox spacing="5">
-                    <padding>
-                        <Insets top="12" right="12" bottom="12" left="12"/>
-                    </padding>
-                    <Label text="From">
-                        <font>
-                            <Font name="System Bold" size="16"/>
-                        </font>
-                    </Label>
-                    <Label text="Street"/>
-                    <TextField fx:id="fromStreetField"/>
-                    <Label text="City"/>
-                    <TextField fx:id="fromCityField"/>
-                    <Label text="Postal Code"/>
-                    <TextField fx:id="fromPostalCodeField"/>
-                    <Label text="Country"/>
-                    <TextField fx:id="fromCountryField"/>
-                </VBox>
-                <VBox spacing="5">
-                    <padding>
-                        <Insets top="12" right="12" bottom="12" left="12"/>
-                    </padding>
-                    <Label text="Destination">
-                        <font>
-                            <Font name="System Bold" size="16"/>
-                        </font>
-                    </Label>
-                    <Label text="Street"/>
-                    <TextField fx:id="destinationStreetField"/>
-                    <Label text="City"/>
-                    <TextField fx:id="destinationCityField"/>
-                    <Label text="Postal Code"/>
-                    <TextField fx:id="destinationPostalCodeField"/>
-                    <Label text="Country"/>
-                    <TextField fx:id="destinationCountryField"/>
-                </VBox>
-            </HBox>
-        </VBox>
-    </center>
-    <bottom>
-        <VBox spacing="10">
-            <HBox spacing="10">
+        <HBox spacing="5">
+            <VBox spacing="2">
                 <padding>
                     <Insets top="12" right="12" bottom="12" left="12"/>
                 </padding>
-                <TableView fx:id="cargoTable" maxHeight="200">
+                <VBox alignment="TOP_CENTER">
+                    <Label text="Address">
+                        <font>
+                            <Font name="System Bold" size="16"/>
+                        </font>
+                    </Label>
+                </VBox>
+                <HBox>
+                    <VBox spacing="5">
+                        <padding>
+                            <Insets top="12" right="12" bottom="12" left="12"/>
+                        </padding>
+                        <Label text="From">
+                            <font>
+                                <Font name="System Bold" size="16"/>
+                            </font>
+                        </Label>
+                        <Label text="Street"/>
+                        <TextField fx:id="fromStreetField"/>
+                        <Label text="City"/>
+                        <TextField fx:id="fromCityField"/>
+                        <Label text="Postal Code"/>
+                        <TextField fx:id="fromPostalCodeField"/>
+                        <Label text="Country"/>
+                        <TextField fx:id="fromCountryField"/>
+                    </VBox>
+                    <VBox spacing="5">
+                        <padding>
+                            <Insets top="12" right="12" bottom="12" left="12"/>
+                        </padding>
+                        <Label text="Destination">
+                            <font>
+                                <Font name="System Bold" size="16"/>
+                            </font>
+                        </Label>
+                        <Label text="Street"/>
+                        <TextField fx:id="destinationStreetField"/>
+                        <Label text="City"/>
+                        <TextField fx:id="destinationCityField"/>
+                        <Label text="Postal Code"/>
+                        <TextField fx:id="destinationPostalCodeField"/>
+                        <Label text="Country"/>
+                        <TextField fx:id="destinationCountryField"/>
+                    </VBox>
+                </HBox>
+            </VBox>
+            <VBox spacing="10">
+                <padding>
+                    <Insets top="50" right="12" bottom="12" left="0"/>
+                </padding>
+                <TableView fx:id="cargoTable" maxHeight="150">
                     <columns>
                         <TableColumn fx:id="cargoNameColumn" text="Name" prefWidth="75.0"/>
                         <TableColumn fx:id="cargoUnitsColumn" text="Units" prefWidth="75.0"/>
@@ -95,15 +93,22 @@
                         <TableColumn fx:id="cargoWeightColumn" text="Weight" prefWidth="75.0"/>
                     </columns>
                 </TableView>
-                <VBox spacing="5">
+                <HBox spacing="12">
                     <padding>
                         <Insets top="12" right="12" bottom="12" left="12"/>
                     </padding>
                     <Button text="Add Cargo" onAction="#handleAddCargoButtonAction" fx:id="addCargoButton"/>
                     <Button text="Edit Cargo" onAction="#handleEditCargoButtonAction" fx:id="editCargoButton"/>
                     <Button text="Delete Cargo" onAction="#handleDeleteCargoButtonAction" fx:id="deleteCargoButton"/>
-                </VBox>
-            </HBox>
+                </HBox>
+            </VBox>
+        </HBox>
+    </center>
+    <bottom>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="12" bottom="12" right="12" left="12"/>
+            </padding>
             <HBox spacing="10" alignment="BASELINE_RIGHT">
                 <padding>
                     <Insets top="12" bottom="12" right="12" left="12"/>
@@ -115,3 +120,5 @@
     </bottom>
 
 </BorderPane>
+
+
