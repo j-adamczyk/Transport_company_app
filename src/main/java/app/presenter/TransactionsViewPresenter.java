@@ -1,16 +1,25 @@
 package app.presenter;
 
+import app.command.TransactionDeleteCommand;
 import app.dao.TransactionDAO;
 import app.model.Cargo;
 import app.model.Transaction;
 import app.model.Transport;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class TransactionsViewPresenter extends SwitchPresenter{
+    private ObservableList<Transaction> transactions;
+    private Map<String, Cargo> cargoTypesMap = new HashMap<>();
+    private Map<String, Integer> cargoUnitsMap = new HashMap<>();
+
     @FXML
     private TableView<Cargo> cargoTable;
     @FXML
@@ -49,6 +58,36 @@ public class TransactionsViewPresenter extends SwitchPresenter{
     private Label returnLabel;
 
     @FXML
+    private void initialize(){
+        TransactionDAO transactionDAO = new TransactionDAO();
+        transactionTableView.getSelectionModel().getTableView().getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        transactionContractorColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getContractor().toString()));
+        transactionDateColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getTransactionDate().toString()));
+        transactionFromColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getOrigin().toString()));
+        transactionToColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getDestination().toString()));
+        transactionPurchaseColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getMoney().toString()));
+        transactionIdColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().get_id().toString()));
+        /*cargoNameColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getName()));
+        cargoUnitsColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().get_id().toString()));
+        cargoVolumeColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getVolume().toString()));
+        cargoWeightColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getWeight().toString()));*/
+        //todo
+        this.transactions = FXCollections.observableArrayList();
+        transactions.addAll(transactionDAO.findAllTransactions());
+        transactionTableView.setItems(transactions);
+
+        editButton.disableProperty().bind(
+                Bindings.size(
+                        transactionTableView.getSelectionModel()
+                                .getSelectedItems()).isNotEqualTo(1));
+        deleteButton.disableProperty().bind(
+                Bindings.size(
+                        transactionTableView.getSelectionModel()
+                                .getSelectedItems()).isNotEqualTo(1));
+
+    }
+
+    @FXML
     private void handleAddButtonAction(){
         appPresenter.showAddTransactionView();
 //        TODO
@@ -56,7 +95,12 @@ public class TransactionsViewPresenter extends SwitchPresenter{
     }
     @FXML
     private void handleDeleteButtonAction(){
-//        TODO
+        Transaction toRemove = transactionTableView.getSelectionModel().getSelectedItem();
+        TransactionDeleteCommand tdc = new TransactionDeleteCommand(toRemove.get_id());
+        tdc.execute();
+        transactions.remove(toRemove);
+
+        transactionTableView.refresh();
     }
     @FXML
     private void handleEditButtonAction(){

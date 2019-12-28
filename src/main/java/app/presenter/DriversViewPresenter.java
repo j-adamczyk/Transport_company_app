@@ -1,5 +1,6 @@
 package app.presenter;
 
+import app.command.DriverDeleteCommand;
 import app.dao.DriverDAO;
 import app.model.Driver;
 import javafx.beans.binding.Bindings;
@@ -65,9 +66,9 @@ public class DriversViewPresenter extends SwitchPresenter{
     }
     @FXML
     private void handleDeleteButtonAction(){
-        Driver toRemove = (Driver) driverTableView.getSelectionModel().getSelectedItem();
-        DriverDAO driverDAO = new DriverDAO();
-        driverDAO.delete(toRemove.get_id());
+        Driver toRemove = driverTableView.getSelectionModel().getSelectedItem();
+        DriverDeleteCommand ddc = new DriverDeleteCommand(toRemove.get_id());
+        ddc.execute();
         drivers.remove(toRemove);
 
         driverTableView.refresh();
@@ -76,9 +77,6 @@ public class DriversViewPresenter extends SwitchPresenter{
     private void handleEditButtonAction(){
         appPresenter.showEditDriverView(driverTableView.getSelectionModel().getSelectedItem());
         driverTableView.refresh();
-//        DriverDAO dd = new DriverDAO();
-//        Driver driver = dd.findAllDrivers().get(0);
-//        appPresenter.showEditDriverView(driver);
     }
 
     @FXML

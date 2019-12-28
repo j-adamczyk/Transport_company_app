@@ -1,14 +1,19 @@
 package app.presenter;
 
+import app.command.VehicleDeleteCommand;
+import app.dao.VehicleDAO;
 import app.model.Driver;
 import app.model.Vehicle;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableBooleanValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 
 public class VehiclesViewPresenter extends SwitchPresenter{
+    private ObservableList<Vehicle> vehicles;
 
     @FXML
     private TableView<Vehicle> vehicleTableView;
@@ -34,13 +39,43 @@ public class VehiclesViewPresenter extends SwitchPresenter{
     private Label returnLabel;
 
     @FXML
+    private void initialize(){
+        VehicleDAO vehicleDAO = new VehicleDAO();
+        vehicleTableView.getSelectionModel().getTableView().getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        vehicleCargoVolume.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getCargoVolume().toString()));
+        vehicleCargoWeight.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getCargoWeight().toString()));
+        vehicleManufactureDate.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getManufactureDate().toString()));
+        vehicleModel.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getModel()));
+        vehicleRegistrationNo.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getRegistrationNo()));
+        this.vehicles = FXCollections.observableArrayList();
+        vehicles.addAll(vehicleDAO.findAllVehicles());
+        vehicleTableView.setItems(vehicles);
+
+        editButton.disableProperty().bind(
+                Bindings.size(
+                        vehicleTableView.getSelectionModel()
+                                .getSelectedItems()).isNotEqualTo(1));
+        deleteButton.disableProperty().bind(
+                Bindings.size(
+                        vehicleTableView.getSelectionModel()
+                                .getSelectedItems()).isNotEqualTo(1));
+    }
+
+    @FXML
     private void handleAddButtonAction(){
         appPresenter.showAddVehicleView();
     }
+
     @FXML
     private void handleDeleteButtonAction(){
-//        TODO
+        Vehicle toRemove = vehicleTableView.getSelectionModel().getSelectedItem();
+        VehicleDeleteCommand vdc = new VehicleDeleteCommand(toRemove.get_id());
+        vdc.execute();
+        vehicles.remove(toRemove);
+
+        vehicleTableView.refresh();
     }
+
     @FXML
     private void handleEditButtonAction(){
 //        TODO

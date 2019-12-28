@@ -1,14 +1,23 @@
 package app.presenter;
 
+import app.command.TransportDeleteCommand;
+import app.dao.TransactionDAO;
+import app.dao.TransportDAO;
 import app.model.Duration;
 import app.model.Transport;
+import javafx.beans.binding.Bindings;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import jdk.vm.ci.meta.Local;
 
 import java.time.LocalDateTime;
 
 public class TransportsViewPresenter extends SwitchPresenter{
+    private ObservableList<Transport> transports;
 
     @FXML
     private CheckBox presentCheckBox;
@@ -17,7 +26,7 @@ public class TransportsViewPresenter extends SwitchPresenter{
     @FXML
     private CheckBox pastCheckBox;
     @FXML
-    private TableView transportsTable;
+    private TableView<Transport> transportsTable;
     @FXML
     private TableColumn<Transport, String> cargoColumn;
     @FXML
@@ -55,14 +64,39 @@ public class TransportsViewPresenter extends SwitchPresenter{
     @FXML
     private void initialize(){
         transportsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
-        /*cargoColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getCurrentTransaction()));
-        cargoUnitsColumn.setCellValueFactory(dataValue -> dataValue.getValue());
-        driverColumn.setCellValueFactory(dataValue -> dataValue.getValue());
-        dateColumn.setCellValueFactory(dataValue -> dataValue.getValue());
-        expectedTimeColumn.setCellValueFactory(dataValue -> dataValue.getValue());
-        fromColumn.setCellValueFactory(dataValue -> dataValue.getValue());
-        destinationColumn.setCellValueFactory(dataValue -> dataValue.getValue());
-        vehicleColumn.setCellValueFactory(dataValue -> dataValue.getValue());*/
+        TransportDAO transportDAO = new TransportDAO();
+        dateColumn.setCellValueFactory(value -> new SimpleObjectProperty<>(value.getValue().getDepartureDate()));
+        driverColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getDriver().toString()));
+        vehicleColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getVehicle().toString()));
+        expectedTimeColumn.setCellValueFactory(value -> new SimpleObjectProperty(value.getValue().getExpectedTime()));
+        fromColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getCurrentTransaction().getTransaction().getOrigin().toString()));
+        destinationColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getCurrentTransaction().getTransaction().getDestination().toString()));
+        //todo cargoes
+
+        this.transports = FXCollections.observableArrayList();
+        transports.addAll(transportDAO.findAllTransports());
+        transportsTable.setItems(transports);
+
+        editTransportButton.disableProperty().bind(
+                Bindings.size(
+                        transportsTable.getSelectionModel()
+                                .getSelectedItems()).isNotEqualTo(1));
+        deleteTransportButton.disableProperty().bind(
+                Bindings.size(
+                        transportsTable.getSelectionModel()
+                                .getSelectedItems()).isNotEqualTo(1));
+        vehicleDetButton.disableProperty().bind(
+                Bindings.size(
+                        transportsTable.getSelectionModel()
+                                .getSelectedItems()).isNotEqualTo(1));
+        driverDetButton.disableProperty().bind(
+                Bindings.size(
+                        transportsTable.getSelectionModel()
+                                .getSelectedItems()).isNotEqualTo(1));
+        currTransDetButton.disableProperty().bind(
+                Bindings.size(
+                        transportsTable.getSelectionModel()
+                                .getSelectedItems()).isNotEqualTo(1));
     }
 
     @FXML
@@ -87,7 +121,12 @@ public class TransportsViewPresenter extends SwitchPresenter{
     }
     @FXML
     private void handleDeleteTransportAction(){
-//        TODO
+        Transport toRemove = transportsTable.getSelectionModel().getSelectedItem();
+        TransportDeleteCommand tdc = new TransportDeleteCommand(toRemove.get_id());
+        tdc.execute();
+        transports.remove(toRemove);
+//todo maybe
+        transportsTable.refresh();
     }
     @FXML
     private void handleEditTransportAction(){
