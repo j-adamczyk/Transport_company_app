@@ -11,17 +11,10 @@ import javafx.scene.control.TableView;
 import javafx.stage.Stage;
 
 
-public class SelectedCurrentTransactionPresenter extends DialogPresenter{
+public class SelectedCurrentTransactionPresenter extends SelectedPresenter {
     private CurrentTransaction currentTransaction;
-    private Stage dialogStage;
 
-    public void setDialogStage(Stage dialogStage) {
-        this.dialogStage = dialogStage;
-    }
 
-    public void setData(CurrentTransaction currentTransaction) {
-        this.currentTransaction = currentTransaction;
-    }
 
     @FXML
     private Label transactionLabel;
@@ -48,8 +41,6 @@ public class SelectedCurrentTransactionPresenter extends DialogPresenter{
     @FXML
     private TableColumn<Cargo, String> cargoLeftColumn;
     @FXML
-    private Button editCurrentTransaction;
-    @FXML
     private TableView<Transport> transportTableView;
     @FXML
     private TableColumn<Transport, String> transportIdColumn;
@@ -61,8 +52,17 @@ public class SelectedCurrentTransactionPresenter extends DialogPresenter{
     private TableColumn<Transport, String> transportCargoUnitsColumn;
 
     @FXML
-    private void handleEditCurrentTransactionButton(){
-//        TODO
+    private void initialize(CurrentTransaction currentTransaction){
+    }
+
+    @Override
+    public void setOldObject(Object object){
+        this.currentTransaction = (CurrentTransaction) object;
+        this.transactionLabel.setText("Transaction ID: " + currentTransaction.getTransaction()._id);
+        companyLabel.setText("Company: " + currentTransaction.getTransaction().getContractor().toString());
+        fromLabel.setText("From: " + currentTransaction.getTransaction().getOrigin());
+        destinationLabel.setText("Destination");
+
     }
 
     @FXML

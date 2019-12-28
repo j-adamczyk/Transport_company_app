@@ -1,8 +1,10 @@
 package app.presenter;
 
 import app.command.TransactionDeleteCommand;
+import app.dao.CurrentTransactionDAO;
 import app.dao.TransactionDAO;
 import app.model.Cargo;
+import app.model.CurrentTransaction;
 import app.model.Transaction;
 import app.model.Transport;
 import javafx.beans.binding.Bindings;
@@ -89,17 +91,27 @@ public class TransactionsViewPresenter extends SwitchPresenter{
                 Bindings.size(
                         transactionTableView.getSelectionModel()
                                 .getSelectedItems()).isNotEqualTo(1));
+        seeCompanyButton.disableProperty().bind(
+                Bindings.size(
+                        transactionTableView.getSelectionModel()
+                                .getSelectedItems()).isNotEqualTo(1));
+        seeCurrentStateButton.disableProperty().bind(
+                Bindings.size(
+                        transactionTableView.getSelectionModel()
+                                .getSelectedItems()).isNotEqualTo(1));
 
     }
 
     @FXML
     private void handleAddButtonAction(){
         Transaction newTransaction = appPresenter.showAddTransactionView();
-        transactions.add(newTransaction);
-        transactionTableView.refresh();
-        selectedRaw = -1;
-        transactionTableView.getSelectionModel().select(newTransaction);
-        handleTransactionSelected();
+        if(newTransaction!=null) {
+            transactions.add(newTransaction);
+            transactionTableView.refresh();
+            selectedRaw = -1;
+            transactionTableView.getSelectionModel().select(newTransaction);
+            handleTransactionSelected();
+        }
 //        TODO
 //        IMPORTANT: Add Current Transaction Also!!!
     }
@@ -125,7 +137,9 @@ public class TransactionsViewPresenter extends SwitchPresenter{
     }
     @FXML
     private void handleSeeCurrentTransactionButtonAction(){
-//        TODO
+        CurrentTransaction currentTransaction = new CurrentTransactionDAO()
+                .findByTransactionId(transactionTableView.getSelectionModel().getSelectedItem()._id);
+        appPresenter.showSelectedCurrentTransaction(currentTransaction);
     }
     @FXML
     private void handleSeeCompanyButtonAction(){
@@ -139,15 +153,12 @@ public class TransactionsViewPresenter extends SwitchPresenter{
 
     @FXML
     private void handleTransactionSelected(){
-        System.out.println("Touched");
         if(transactionTableView.getSelectionModel().getSelectedIndex() != selectedRaw){
             selectedRaw = transactionTableView.getSelectionModel().getSelectedIndex();
             cargo.clear();
             Transaction transactionSelected = transactionTableView.getSelectionModel().getSelectedItem();
             cargo.addAll(transactionSelected.getCargoTypes().values());
             cargoTable.refresh();
-            System.out.println("I'm diferent");
         }
-        System.out.println(transactionTableView.getSelectionModel().getSelectedIndex());
     }
 }

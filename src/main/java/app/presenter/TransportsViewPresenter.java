@@ -5,6 +5,7 @@ import app.dao.TransactionDAO;
 import app.dao.TransportDAO;
 import app.model.Cargo;
 import app.model.Duration;
+import app.model.Transaction;
 import app.model.Transport;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -25,6 +26,7 @@ public class TransportsViewPresenter extends SwitchPresenter{
     private ObservableList<Cargo> cargo;
     private Map<String, Cargo> cargoTypesMap = new HashMap<>();
     private Map<String, Integer> cargoUnitsMap = new HashMap<>();
+    int selectedRaw = -1;
 
     @FXML
     private CheckBox presentCheckBox;
@@ -34,10 +36,6 @@ public class TransportsViewPresenter extends SwitchPresenter{
     private CheckBox pastCheckBox;
     @FXML
     private TableView<Transport> transportsTable;
-    @FXML
-    private TableColumn<Transport, String> cargoColumn;
-    @FXML
-    private TableColumn<Transport, Integer> cargoUnitsColumn;
     @FXML
     private TableColumn<Transport, String> driverColumn;
     @FXML
@@ -50,6 +48,16 @@ public class TransportsViewPresenter extends SwitchPresenter{
     private TableColumn<Transport, String> fromColumn;
     @FXML
     private TableColumn<Transport, String> destinationColumn;
+    @FXML
+    private TableView<Cargo> cargoTable;
+    @FXML
+    private TableColumn<Cargo, String> cargoNameColumn;
+    @FXML
+    private TableColumn<Cargo, String> cargoUnitsColumn;
+    @FXML
+    private TableColumn<Cargo, String> cargoVolumeColumn;
+    @FXML
+    private TableColumn<Cargo, String> cargoWeightColumn;
     @FXML
     private DatePicker datePicker;
     @FXML
@@ -78,11 +86,17 @@ public class TransportsViewPresenter extends SwitchPresenter{
         expectedTimeColumn.setCellValueFactory(value -> new SimpleObjectProperty<>(value.getValue().getExpectedTime()));
         fromColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getCurrentTransaction().getTransaction().getOrigin().toString()));
         destinationColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getCurrentTransaction().getTransaction().getDestination().toString()));
-        //todo cargoes
-        //cargoUnitsColumn.setCellValueFactory(value -> new SimpleIntegerProperty(value.));
-
+        cargoNameColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getName()));
+        cargoUnitsColumn.setCellValueFactory(value -> new SimpleStringProperty
+                (transportsTable.getSelectionModel().getSelectedItem()==null ? ""
+                        : transportsTable.getSelectionModel().getSelectedItem().getCargoUnits().get(value.getValue().getName()).toString()));
+        cargoVolumeColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getVolume().toString()));
+        cargoWeightColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getWeight().toString()));
+        this.cargo = FXCollections.observableArrayList();
+        cargoTable.setItems(cargo);
         this.transports = FXCollections.observableArrayList();
         transports.addAll(transportDAO.findAllTransports());
+//        TODO
         transportsTable.setItems(transports);
 
         editTransportButton.disableProperty().bind(
@@ -125,7 +139,10 @@ public class TransportsViewPresenter extends SwitchPresenter{
     }
     @FXML
     private void handleAddTransportAction(){
-        appPresenter.showAddTransportView();
+        Transport addedTransport = appPresenter.showAddTransportView();
+        if(addedTransport != null){
+            this.transports.add(addedTransport);
+        }
     }
     @FXML
     private void handleDeleteTransportAction(){
@@ -146,4 +163,14 @@ public class TransportsViewPresenter extends SwitchPresenter{
         appPresenter.showMainView();
     }
 
+    @FXML
+    private void handleTransportSelected(){
+        if(transportsTable.getSelectionModel().getSelectedIndex() != selectedRaw){
+            selectedRaw = transportsTable.getSelectionModel().getSelectedIndex();
+            cargo.clear();
+            Transport transportSelected = transportsTable.getSelectionModel().getSelectedItem();
+            cargo.addAll(transportSelected.getCargoTypes().values());
+            cargoTable.refresh();
+        }
+    }
 }

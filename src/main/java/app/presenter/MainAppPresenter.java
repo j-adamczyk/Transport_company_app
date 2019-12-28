@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.bson.types.ObjectId;
 
 import java.io.File;
 import java.io.IOException;
@@ -91,6 +92,10 @@ public class MainAppPresenter {
     public void showEditCompanyView(Company company) {showEditDialogScene(company, "EditCompanyView", "Company");}
     public void showEditDriverView(Driver driver) {showEditDialogScene(driver, "EditDriverView", "Driver");}
     public void showEditTransactionView(Transaction transaction) {showEditDialogScene(transaction, "EditTransactionView", "Transaction");}
+    public void showEditVehicleView(Vehicle vehicle){showEditDialogScene(vehicle, "EditVehicleView", "Vehicle");}
+
+    public void showSelectedCurrentTransaction(CurrentTransaction currentTransaction) {
+        showSelectedDialogScene(currentTransaction, "SelectedCurrentTransactionView", "Current Transaction");}
 
     private void switchScene(String viewName, String title){
         this.primaryStage.setTitle(TITLE + " - " + title);
@@ -154,5 +159,29 @@ public class MainAppPresenter {
         }
     }
 
+    private Object showSelectedDialogScene(Object oldObject, String viewName, String title){
+        FXMLLoader loader = new FXMLLoader();
+        try{
+            URL url = new URL(new URL("file:"), "src/main/java/app/view/"+ viewName +".fxml");
+            loader.setLocation(url);
+            Pane page = loader.load();
+            Scene scene = new Scene(page);
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle(TITLE + " - Selected " + title);
+            dialogStage.initModality(Modality.WINDOW_MODAL);
+            dialogStage.initOwner(primaryStage);
+
+            SelectedPresenter presenter = loader.getController();
+            presenter.setDialogStage(dialogStage);
+            presenter.setOldObject(oldObject);
+            dialogStage.setScene(scene);
+            dialogStage.showAndWait();
+            return presenter.getSelectedObject();
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
 
 }

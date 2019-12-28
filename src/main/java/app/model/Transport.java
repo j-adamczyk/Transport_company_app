@@ -93,6 +93,7 @@ public class  Transport {
             if (addedUnits > 0) {
                 // actually add units
                 int currentUnits = this.cargoUnits.getOrDefault(cargoName, 0);
+//               //above line throws NullException TODO
                 currentUnits += addedUnits;
                 this.cargoUnits.put(cargoName, currentUnits);
 

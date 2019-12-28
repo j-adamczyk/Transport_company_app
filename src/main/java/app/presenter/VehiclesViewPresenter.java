@@ -63,7 +63,9 @@ public class VehiclesViewPresenter extends SwitchPresenter{
 
     @FXML
     private void handleAddButtonAction(){
-        vehicles.add(appPresenter.showAddVehicleView());
+        Vehicle addedVehicle = appPresenter.showAddVehicleView();
+        if(addedVehicle != null)
+            vehicles.add(addedVehicle);
     }
 
     @FXML

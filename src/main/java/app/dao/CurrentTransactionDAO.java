@@ -32,6 +32,16 @@ public class CurrentTransactionDAO extends GenericDAO<CurrentTransaction> {
                 .first();
     }
 
+    public CurrentTransaction findByTransactionId(ObjectId id) {
+        return DbConnector
+                .getDB()
+                .getCollection(collName, CurrentTransaction.class)
+                .find(
+                        eq("transaction._id", id),
+                        CurrentTransaction.class)
+                .first();
+    }
+
     @Override
     public void save(CurrentTransaction toSave) {
         DbConnector
