@@ -67,7 +67,4 @@ public class EditVehicleViewPresenter extends EditDialogPresenter{
         dialogStage.close();
     }
 
-
-
-
 }

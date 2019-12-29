@@ -2,8 +2,10 @@ package app.presenter;
 
 import app.TransportCompanyApp;
 import app.model.*;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
@@ -12,6 +14,8 @@ import org.bson.types.ObjectId;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.net.URL;
 
 public class MainAppPresenter {
@@ -29,7 +33,7 @@ public class MainAppPresenter {
             // load layout from FXML file
             FXMLLoader loader = new FXMLLoader();
             URL url = new URL(new URL("file:"), "src/main/java/app/view/MainView.fxml");
-//            URL url = new URL(new URL("file:"), "src/main/java/app/view/AddCompanyView.fxml");
+            //URL url = new URL(new URL("file:"), "src/main/java/app/view/AddTransactionView.fxml");
             loader.setLocation(url);
             Pane rootLayout = loader.load();
             MainViewPresenter presenter = loader.getController();
@@ -114,6 +118,7 @@ public class MainAppPresenter {
     }
 
     private Object showAddDialogScene(String viewName, String title){
+        Thread.setDefaultUncaughtExceptionHandler(MainAppPresenter::showError);
         FXMLLoader loader = new FXMLLoader();
         try {
             URL url = new URL(new URL("file:"), "src/main/java/app/view/"+ viewName +".fxml");
@@ -139,6 +144,7 @@ public class MainAppPresenter {
 
     private void showEditDialogScene(Object oldObject, String viewName, String title){
         FXMLLoader loader = new FXMLLoader();
+        Thread.setDefaultUncaughtExceptionHandler(MainAppPresenter::showError);
         try{
             URL url = new URL(new URL("file:"), "src/main/java/app/view/"+ viewName +".fxml");
             loader.setLocation(url);
@@ -183,6 +189,34 @@ public class MainAppPresenter {
             e.printStackTrace();
         }
         return null;
+    }
+
+    private static void showError(Thread t, Throwable e) {
+        System.err.println("***Default exception handler***");
+        if (Platform.isFxApplicationThread()) {
+            showErrorDialog(e, "Invalid values or empty fields!");
+        } else {
+            System.err.println("An unexpected error occurred in " + t);
+        }
+    }
+
+    private static void showErrorDialog(Throwable e, String message) {
+        StringWriter errorMsg = new StringWriter();
+        e.printStackTrace(new PrintWriter(errorMsg));
+        Stage dialog = new Stage();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        FXMLLoader loader = new FXMLLoader();
+
+        try {
+            URL url = new URL(new URL("file:"), "src/main/java/app/view/ErrorView.fxml");
+            loader.setLocation(url);
+            Parent root = loader.load();
+            ((ErrorViewPresenter)loader.getController()).setErrorText(message);
+            dialog.setScene(new Scene(root, 300, 200));
+            dialog.show();
+        } catch (IOException exc) {
+            exc.printStackTrace();
+        }
     }
 
 }
