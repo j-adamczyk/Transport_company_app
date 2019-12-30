@@ -5,6 +5,7 @@ import app.command.DriverUpdateCommand;
 import app.dao.DriverDAO;
 import app.model.Address;
 import app.model.Driver;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -41,6 +42,18 @@ public class EditDriverViewPresenter extends EditDialogPresenter{
 
     private Driver currentDriver;
 
+    @FXML
+    private void initialize(){
+        acceptButton.disableProperty().bind(
+                Bindings.isEmpty(nameField.textProperty())
+                        .or(Bindings.isEmpty(streetField.textProperty()))
+                        .or(Bindings.isEmpty(cityField.textProperty()))
+                        .or(Bindings.isEmpty(postalCodeField.textProperty()))
+                        .or(Bindings.isEmpty(countryField.textProperty()))
+                        .or(Bindings.isEmpty(salaryField.textProperty()))
+                        .or(Bindings.isEmpty(phoneField.textProperty()))
+        );
+    }
     @Override
     public void setOldObject(Object oldDriver){
         currentDriver = (Driver) oldDriver;

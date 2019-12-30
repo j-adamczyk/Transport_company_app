@@ -6,6 +6,7 @@ import app.model.Address;
 import app.model.Cargo;
 import app.model.Company;
 import app.model.Transaction;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -30,6 +31,16 @@ public class AddCargoPresenter {
     private Button acceptButton;
     @FXML
     private Button cancelButton;
+    @FXML
+    private void initialize(){
+        acceptButton.disableProperty().bind(
+                Bindings.isEmpty(name.textProperty())
+                        .or(Bindings.isEmpty(units.textProperty()))
+                        .or(Bindings.isEmpty(volume.textProperty()))
+                        .or(Bindings.isEmpty(weight.textProperty()))
+        );
+    }
+
     @FXML
     private void handleAcceptButtonAction(){
         String cargoName = name.getText();

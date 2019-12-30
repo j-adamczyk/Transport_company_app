@@ -4,6 +4,7 @@ import app.command.CompanySaveCommand;
 import app.dao.CompanyDAO;
 import app.model.Address;
 import app.model.Company;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -34,6 +35,20 @@ public class AddCompanyViewPresenter extends DialogPresenter{
     private Button acceptButton;
     @FXML
     private Button cancelButton;
+
+    @FXML
+    private void initialize(){
+        acceptButton.disableProperty().bind(
+                Bindings.isEmpty(nameField.textProperty())
+                        .or(Bindings.isEmpty(streetField.textProperty()))
+                        .or(Bindings.isEmpty(cityField.textProperty()))
+                        .or(Bindings.isEmpty(postalCodeField.textProperty()))
+                        .or(Bindings.isEmpty(countryField.textProperty()))
+                        .or(Bindings.isEmpty(phoneField.textProperty()))
+                        .or(Bindings.isEmpty(representativeField.textProperty()))
+                        .or(Bindings.isEmpty(mailField.textProperty()))
+        );
+    }
 
     @FXML
     private void handleAcceptButtonAction(){

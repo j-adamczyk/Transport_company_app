@@ -3,6 +3,7 @@ package app.presenter;
 import app.command.VehicleSaveCommand;
 import app.dao.VehicleDAO;
 import app.model.Vehicle;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -28,6 +29,15 @@ public class AddVehicleViewPresenter extends DialogPresenter{
     @FXML
     private Button cancelButton;
 
+    @FXML
+    private void initialize(){
+        acceptButton.disableProperty().bind(
+                Bindings.isEmpty(modelField.textProperty())
+                        .or(Bindings.isEmpty(registrationField.textProperty()))
+                        .or(Bindings.isEmpty(cargoVolumeField.textProperty()))
+                        .or(Bindings.isEmpty(cargoWeightField.textProperty())));
+
+    }
     @FXML
     private void handleAcceptButtonAction(){
         String model = modelField.getText();

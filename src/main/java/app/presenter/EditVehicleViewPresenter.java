@@ -4,6 +4,7 @@ import app.command.VehicleUpdateCommand;
 import app.dao.VehicleDAO;
 import app.model.Address;
 import app.model.Vehicle;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -11,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.time.LocalDate;
+import java.util.concurrent.ExecutionException;
 
 public class EditVehicleViewPresenter extends EditDialogPresenter{
     @FXML
@@ -32,6 +34,16 @@ public class EditVehicleViewPresenter extends EditDialogPresenter{
 
     private Vehicle currentVehicle;
 
+    @FXML
+    private void initialize(){
+        acceptButton.disableProperty().bind(
+                Bindings.isEmpty(modelField.textProperty())
+                        .or(Bindings.isEmpty(registrationNoField.textProperty()))
+                        .or(Bindings.isEmpty(cargoVolumeField.textProperty()))
+                        .or(Bindings.isEmpty(cargoWeightField.textProperty())));
+
+    }
+
     @Override
     public void setOldObject(Object oldVehicle){
         currentVehicle = (Vehicle) oldVehicle;
@@ -44,24 +56,24 @@ public class EditVehicleViewPresenter extends EditDialogPresenter{
     }
 
     @FXML
-    private void handleAcceptButtonAction(){
-        String model = modelField.getText();
-        String registrationNo = registrationNoField.getText();
-        Double cargoVolume = Double.valueOf(cargoVolumeField.getText());
-        Double cargoWeight = Double.valueOf(cargoWeightField.getText());
-        LocalDate manufactureDate = manufactureDateField.getValue();
-        currentVehicle.setModel(model);
-        currentVehicle.setRegistrationNo(registrationNo);
-        currentVehicle.setCargoVolume(cargoVolume);
-        currentVehicle.setCargoWeight(cargoWeight);
-        currentVehicle.setManufactureDate(manufactureDate);
-
-        VehicleUpdateCommand VUC = new VehicleUpdateCommand(currentVehicle);
-        VUC.execute();
-        VehicleDAO vehicleDao = new VehicleDAO();
-        System.out.println(vehicleDao.findAllVehicles());
-        dialogStage.close();
+    private void handleAcceptButtonAction() {
+            String model = modelField.getText();
+            String registrationNo = registrationNoField.getText();
+            Double cargoVolume = Double.valueOf(cargoVolumeField.getText());
+            Double cargoWeight = Double.valueOf(cargoWeightField.getText());
+            LocalDate manufactureDate = manufactureDateField.getValue();
+            currentVehicle.setModel(model);
+            currentVehicle.setRegistrationNo(registrationNo);
+            currentVehicle.setCargoVolume(cargoVolume);
+            currentVehicle.setCargoWeight(cargoWeight);
+            currentVehicle.setManufactureDate(manufactureDate);
+            VehicleUpdateCommand VUC = new VehicleUpdateCommand(currentVehicle);
+            VUC.execute();
+            VehicleDAO vehicleDao = new VehicleDAO();
+            System.out.println(vehicleDao.findAllVehicles());
+            dialogStage.close();
     }
+
     @FXML
     private void handleCancelButtonAction(){
         dialogStage.close();

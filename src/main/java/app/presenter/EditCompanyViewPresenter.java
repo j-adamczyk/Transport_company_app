@@ -5,6 +5,7 @@ import app.command.CompanyUpdateCommand;
 import app.dao.CompanyDAO;
 import app.model.Address;
 import app.model.Company;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -35,6 +36,19 @@ public class EditCompanyViewPresenter extends EditDialogPresenter {
     private Button cancelButton;
 
     private Company currentCompany;
+    @FXML
+    private void initialize(){
+        acceptButton.disableProperty().bind(
+                Bindings.isEmpty(nameField.textProperty())
+                        .or(Bindings.isEmpty(streetField.textProperty()))
+                        .or(Bindings.isEmpty(cityField.textProperty()))
+                        .or(Bindings.isEmpty(postalCodeField.textProperty()))
+                        .or(Bindings.isEmpty(countryField.textProperty()))
+                        .or(Bindings.isEmpty(phoneField.textProperty()))
+                        .or(Bindings.isEmpty(representativeField.textProperty()))
+                        .or(Bindings.isEmpty(mailField.textProperty()))
+        );
+    }
 
     @Override
     public void setOldObject(Object company){

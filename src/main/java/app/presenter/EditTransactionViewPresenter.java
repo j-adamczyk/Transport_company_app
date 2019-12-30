@@ -5,6 +5,7 @@ import app.command.TransactionSaveCommand;
 import app.command.TransactionUpdateCommand;
 import app.dao.CompanyDAO;
 import app.model.*;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -94,6 +95,18 @@ public class EditTransactionViewPresenter extends EditDialogPresenter {
         cargoWeightColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getWeight().toString()));
         this.cargoes = FXCollections.observableArrayList();
         cargoTable.setItems(cargoes);
+
+        acceptButton.disableProperty().bind(
+                Bindings.isEmpty(purchaseField.textProperty())
+                        .or(Bindings.isEmpty(fromCityField.textProperty()))
+                        .or(Bindings.isEmpty(fromCountryField.textProperty()))
+                        .or(Bindings.isEmpty(fromPostalCodeField.textProperty()))
+                        .or(Bindings.isEmpty(fromStreetField.textProperty()))
+                        .or(Bindings.isEmpty(destinationCityField.textProperty()))
+                        .or(Bindings.isEmpty(destinationCountryField.textProperty()))
+                        .or(Bindings.isEmpty(destinationPostalCodeField.textProperty()))
+                        .or(Bindings.isEmpty(destinationStreetField.textProperty()))
+        );
     }
 
     private void updateCargoTable(){

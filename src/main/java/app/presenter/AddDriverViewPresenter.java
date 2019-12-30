@@ -4,6 +4,7 @@ import app.command.DriverSaveCommand;
 import app.dao.DriverDAO;
 import app.model.Address;
 import app.model.Driver;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -39,6 +40,19 @@ public class AddDriverViewPresenter extends DialogPresenter {
     private Button acceptButton;
     @FXML
     private Button cancelButton;
+
+    @FXML
+    private void initialize(){
+        acceptButton.disableProperty().bind(
+                Bindings.isEmpty(nameField.textProperty())
+                        .or(Bindings.isEmpty(streetField.textProperty()))
+                        .or(Bindings.isEmpty(cityField.textProperty()))
+                        .or(Bindings.isEmpty(postalCodeField.textProperty()))
+                        .or(Bindings.isEmpty(countryField.textProperty()))
+                        .or(Bindings.isEmpty(salaryField.textProperty()))
+                        .or(Bindings.isEmpty(phoneField.textProperty()))
+        );
+    }
 
     @FXML
     private void handleAcceptButtonAction(){

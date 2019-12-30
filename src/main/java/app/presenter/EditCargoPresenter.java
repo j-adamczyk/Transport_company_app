@@ -1,6 +1,7 @@
 package app.presenter;
 
 import app.model.Cargo;
+import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -28,7 +29,12 @@ public class EditCargoPresenter extends EditDialogPresenter {
     private Button cancelButton;
     @FXML
     private void initialize(){
-
+        acceptButton.disableProperty().bind(
+                Bindings.isEmpty(name.textProperty())
+                        .or(Bindings.isEmpty(units.textProperty()))
+                        .or(Bindings.isEmpty(volume.textProperty()))
+                        .or(Bindings.isEmpty(weight.textProperty()))
+        );
     }
 
     @Override

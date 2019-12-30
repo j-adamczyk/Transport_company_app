@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 
 public class MainAppPresenter {
@@ -191,16 +192,17 @@ public class MainAppPresenter {
         return null;
     }
 
-    private static void showError(Thread t, Throwable e) {
+    static void showError(Thread t, Throwable e) {
         System.err.println("***Default exception handler***");
         if (Platform.isFxApplicationThread()) {
-            showErrorDialog(e, "Invalid values or empty fields!");
+            if(e.getCause().toString().equalsIgnoreCase("java.lang.reflect.InvocationTargetException"))
+                showErrorDialog(e, "Invalid value!");
         } else {
             System.err.println("An unexpected error occurred in " + t);
         }
     }
 
-    private static void showErrorDialog(Throwable e, String message) {
+    static void showErrorDialog(Throwable e, String message) {
         StringWriter errorMsg = new StringWriter();
         e.printStackTrace(new PrintWriter(errorMsg));
         Stage dialog = new Stage();

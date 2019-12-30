@@ -5,6 +5,7 @@ import app.command.TransactionSaveCommand;
 import app.dao.CompanyDAO;
 import app.dao.TransactionDAO;
 import app.model.*;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -93,6 +94,18 @@ public class AddTransactionViewPresenter extends DialogPresenter{
         cargoWeightColumn.setCellValueFactory(dataValue -> new SimpleStringProperty(dataValue.getValue().getWeight().toString()));
         this.cargoes = FXCollections.observableArrayList();
         cargoTable.setItems(cargoes);
+
+        acceptButton.disableProperty().bind(
+                Bindings.isEmpty(purchaseField.textProperty())
+                        .or(Bindings.isEmpty(fromCityField.textProperty()))
+                        .or(Bindings.isEmpty(fromCountryField.textProperty()))
+                        .or(Bindings.isEmpty(fromPostalCodeField.textProperty()))
+                        .or(Bindings.isEmpty(fromStreetField.textProperty()))
+                        .or(Bindings.isEmpty(destinationCityField.textProperty()))
+                        .or(Bindings.isEmpty(destinationCountryField.textProperty()))
+                        .or(Bindings.isEmpty(destinationPostalCodeField.textProperty()))
+                        .or(Bindings.isEmpty(destinationStreetField.textProperty()))
+        );
     }
 
     public void updateCargoTable(){
