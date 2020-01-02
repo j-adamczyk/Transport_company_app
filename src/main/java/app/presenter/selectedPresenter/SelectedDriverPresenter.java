@@ -37,8 +37,6 @@ public class SelectedDriverPresenter extends SelectedPresenter{
     private Button deleteButton;
     @FXML
     private Button editButton;
-    @FXML
-    private Label returnLabel;
 
     @FXML
     private void initialize(){

@@ -110,6 +110,9 @@ public class MainAppPresenter {
     public Driver showSelectedDriver(Driver driver, Stage owner) {
         return (Driver) showSelectedDialogScene(driver, "SelectedDriverView", "Driver", owner);
     }
+    public Vehicle showSelectedVehicle(Vehicle vehicle, Stage owner) {
+        return (Vehicle) showSelectedDialogScene(vehicle, "SelectedVehicleView", "Vehicle", owner);
+    }
 
 
     private void switchScene(String viewName, String title){

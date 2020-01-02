@@ -12,6 +12,7 @@ import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -25,6 +26,7 @@ public class AddTransportPresenter extends DialogPresenter {
 
     private ObjectProperty<CurrentTransaction> currentTransactionProperty = new SimpleObjectProperty<>();
     private ObjectProperty<Driver> driverObjectProperty = new SimpleObjectProperty<>();
+    private ObjectProperty<Vehicle> vehicleObjectProperty = new SimpleObjectProperty<>();
 
     @FXML
     private ChoiceBox<String> currentTransactionIdChoiceBox;
@@ -71,11 +73,14 @@ public class AddTransportPresenter extends DialogPresenter {
 
 
         //vehicle box init
-        VehicleDAO vehicleDAO = new VehicleDAO();
-        for(Vehicle v: vehicleDAO.findAllVehicles()) {
-            vehicleMap.put(v.getRegistrationNo(), v);
-            vehicleChoiceBox.getItems().add(v.getRegistrationNo());
-        }
+        vehicleChoiceBox.valueProperty().addListener((o, ov, nv) -> {
+            vehicleObjectProperty.set(vehicleMap.get(nv));
+        });
+        setVehicleChoiceBox(null);
+
+        //date picker init
+        datePicker.setValue(LocalDate.now());
+        //spinner init
 
         hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0,23,12));
         minuteSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 59, 30));
@@ -121,8 +126,11 @@ public class AddTransportPresenter extends DialogPresenter {
 
     @FXML
     private void handleViewVehiclesLabelAction(){
-//        todo
-    };
+        Vehicle selectedVehicle = appPresenter.showSelectedVehicle(
+                vehicleMap.get(vehicleChoiceBox.getValue()), dialogStage
+        );
+        setVehicleChoiceBox(selectedVehicle.getRegistrationNo());
+    }
 
     private void setCurrentTransactionIdChoiceBox(String id){
         CurrentTransactionDAO CTdao = new CurrentTransactionDAO();
@@ -146,6 +154,18 @@ public class AddTransportPresenter extends DialogPresenter {
         }
         if (drivers.isEmpty()) return;
         driverChoiceBox.setValue(nameAndPhone == null?drivers.get(0).getName() + ", " + drivers.get(0).getPhone():nameAndPhone);
+    }
+
+    private void setVehicleChoiceBox(String registrationNo){
+        VehicleDAO vehicleDAO = new VehicleDAO();
+        List<Vehicle> vehicles = vehicleDAO.findAllVehicles();
+        vehicleChoiceBox.getItems().clear();
+        for(Vehicle v: vehicles) {
+            vehicleMap.put(v.getRegistrationNo(), v);
+            vehicleChoiceBox.getItems().add(v.getRegistrationNo());
+        }
+        if (vehicles.isEmpty()) return;
+        vehicleChoiceBox.setValue(registrationNo == null?vehicles.get(0).getRegistrationNo():registrationNo);
     }
 
 }
