@@ -64,7 +64,6 @@ public class SelectedCompanyPresenter extends SelectedPresenter{
         companyTableView.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
             if (nv != null) {
                 selectedCompanyProperty.set(nv);
-                System.out.println(selectedCompanyProperty.get());
             }
         });
 

@@ -10,7 +10,7 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="app.presenter.addPresenter.AddTransportPresenter"
-            prefHeight="400.0" prefWidth="300.0">
+            prefHeight="400.0" prefWidth="320.0">
     <center>
         <VBox spacing="10">
             <padding>
@@ -18,7 +18,7 @@
             </padding>
             <Label text="Current Transaction ID"/>
             <HBox spacing="20">
-                <ChoiceBox fx:id="currentTransactionIdChoiceBox" prefWidth="120"/>
+                <ChoiceBox fx:id="currentTransactionIdChoiceBox" prefWidth="240"/>
                 <Label fx:id="viewCurrentTransactionsLabel" text="view..." onMouseClicked="#handleViewCurrTransLabelAction" textFill="darkblue"/>
             </HBox>
             <Label text="Departure Date"/>
@@ -29,12 +29,12 @@
             </HBox>
             <Label text="Driver"/>
             <HBox spacing="20">
-                <ChoiceBox fx:id="driverChoiceBox" prefWidth="120"/>
+                <ChoiceBox fx:id="driverChoiceBox" prefWidth="240"/>
                 <Label fx:id="viewDriversLabel" onMouseClicked="#handleViewDriversLabelAction" text="view..." textFill="darkblue"/>
             </HBox>
             <Label text="Vehicle"/>
             <HBox spacing="20">
-                <ChoiceBox fx:id="vehicleChoiceBox" prefWidth="120"/>
+                <ChoiceBox fx:id="vehicleChoiceBox" prefWidth="240"/>
                 <Label fx:id="viewVehiclesLabel" onMouseClicked="#handleViewVehiclesLabelAction" text="view..." textFill="darkblue"/>
             </HBox>
         </VBox>

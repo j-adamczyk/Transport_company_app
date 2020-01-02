@@ -5,12 +5,16 @@ import app.dao.DriverDAO;
 import app.dao.VehicleDAO;
 import app.model.CurrentTransaction;
 import app.model.Driver;
+import app.model.Transaction;
 import app.model.Vehicle;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class AddTransportPresenter extends DialogPresenter {
@@ -18,6 +22,9 @@ public class AddTransportPresenter extends DialogPresenter {
     private CurrentTransaction currentTransaction;
     private Driver driver;
     private Vehicle vehicle;
+
+    private ObjectProperty<CurrentTransaction> currentTransactionProperty = new SimpleObjectProperty<>();
+    private ObjectProperty<Driver> driverObjectProperty = new SimpleObjectProperty<>();
 
     @FXML
     private ChoiceBox<String> currentTransactionIdChoiceBox;
@@ -49,18 +56,19 @@ public class AddTransportPresenter extends DialogPresenter {
     @FXML
     private void initialize(){
         //current transaction box init
-        CurrentTransactionDAO CTdao = new CurrentTransactionDAO();
-        for(CurrentTransaction transaction: CTdao.findAllCurrentTransactions()) {
-            currentTransactionMap.put(transaction.get_id().toString(), transaction);
-            currentTransactionIdChoiceBox.getItems().add(transaction.get_id().toString());
-        }
+
+        currentTransactionIdChoiceBox.valueProperty().addListener((o, ov, nv) -> {
+                currentTransactionProperty.set(currentTransactionMap.get(nv));
+                System.out.println(nv);
+        });
+        setCurrentTransactionIdChoiceBox(null);
 
         //driver box init
-        DriverDAO driverDAO = new DriverDAO();
-        for(Driver d: driverDAO.findAllDrivers()) {
-            driverMap.put(d.getName(), d);
-            driverChoiceBox.getItems().addAll(d.getName());
-        }
+        driverChoiceBox.valueProperty().addListener((o, ov, nv) -> {
+            driverObjectProperty.set(driverMap.get(nv));
+        });
+        setDriverChoiceBox(null);
+
 
         //vehicle box init
         VehicleDAO vehicleDAO = new VehicleDAO();
@@ -94,7 +102,10 @@ public class AddTransportPresenter extends DialogPresenter {
 
     @FXML
     private void handleViewCurrTransLabelAction(){
-//        TODO
+        Transaction selectedTransaction = appPresenter.showSelectedTransaction(
+                currentTransactionMap.get(currentTransactionIdChoiceBox.getValue()).getTransaction(), dialogStage);
+        CurrentTransaction currentTransaction = new CurrentTransactionDAO().findByTransactionId(selectedTransaction._id);
+        setCurrentTransactionIdChoiceBox(currentTransaction._id.toString());
     };
     @FXML
     private void handleDatePickerAction(){
@@ -102,11 +113,39 @@ public class AddTransportPresenter extends DialogPresenter {
     };
     @FXML
     private void handleViewDriversLabelAction(){
-//        TODo
-    };
+        Driver selectedDriver = appPresenter.showSelectedDriver(
+                driverMap.get(driverChoiceBox.getValue()), dialogStage
+        );
+        setDriverChoiceBox(selectedDriver.getName() + ", " + selectedDriver.getPhone());
+    }
+
     @FXML
     private void handleViewVehiclesLabelAction(){
 //        todo
     };
+
+    private void setCurrentTransactionIdChoiceBox(String id){
+        CurrentTransactionDAO CTdao = new CurrentTransactionDAO();
+        List<CurrentTransaction> currentTransactions = CTdao.findAllCurrentTransactions();
+        currentTransactionIdChoiceBox.getItems().clear();
+        for(CurrentTransaction transaction: currentTransactions) {
+            currentTransactionMap.put(transaction.get_id().toString(), transaction);
+            currentTransactionIdChoiceBox.getItems().add(transaction.get_id().toString());
+        }
+        if(currentTransactions.isEmpty()) return;
+        currentTransactionIdChoiceBox.setValue(id == null?currentTransactions.get(0).get_id().toString():id);
+    }
+
+    private void setDriverChoiceBox(String nameAndPhone){
+        DriverDAO driverDAO = new DriverDAO();
+        List<Driver> drivers = driverDAO.findAllDrivers();
+        driverChoiceBox.getItems().clear();
+        for(Driver d: drivers) {
+            driverMap.put(d.getName() + ", " + d.getPhone(), d);
+            driverChoiceBox.getItems().addAll(d.getName() + ", " + d.getPhone());
+        }
+        if (drivers.isEmpty()) return;
+        driverChoiceBox.setValue(nameAndPhone == null?drivers.get(0).getName() + ", " + drivers.get(0).getPhone():nameAndPhone);
+    }
 
 }

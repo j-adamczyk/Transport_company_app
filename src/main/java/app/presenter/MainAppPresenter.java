@@ -99,10 +99,18 @@ public class MainAppPresenter {
     public void showEditVehicleView(Vehicle vehicle) {
         showEditDialogScene(vehicle, "EditVehicleView", "Vehicle");
     }
-    public void showSelectedCurrentTransaction(CurrentTransaction currentTransaction, Stage owner) {
-        showSelectedDialogScene(currentTransaction, "SelectedCurrentTransactionView", "Current Transaction", owner);}
-    public void showSelectedCompany(Company company, Stage owner) {
-        showSelectedDialogScene(company, "SelectedCompanyView", "Company", owner);}
+    public CurrentTransaction showSelectedCurrentTransaction(CurrentTransaction currentTransaction, Stage owner) {
+        return (CurrentTransaction) showSelectedDialogScene(currentTransaction, "SelectedCurrentTransactionView", "Current Transaction", owner);}
+    public Company showSelectedCompany(Company company, Stage owner) {
+        return (Company) showSelectedDialogScene(company, "SelectedCompanyView", "Company", owner);
+    }
+    public Transaction showSelectedTransaction(Transaction transaction, Stage owner){
+        return (Transaction) showSelectedDialogScene(transaction, "SelectedTransactionView", "Transaction", owner);
+    }
+    public Driver showSelectedDriver(Driver driver, Stage owner) {
+        return (Driver) showSelectedDialogScene(driver, "SelectedDriverView", "Driver", owner);
+    }
+
 
     private void switchScene(String viewName, String title){
         this.primaryStage.setTitle(TITLE + " - " + title);
@@ -135,6 +143,7 @@ public class MainAppPresenter {
 
             DialogPresenter presenter = loader.getController();
             presenter.setDialogStage(dialogStage);
+            presenter.setAppPresenter(this);
             dialogStage.setScene(scene);
             dialogStage.showAndWait();
             return presenter.getAddedObject();

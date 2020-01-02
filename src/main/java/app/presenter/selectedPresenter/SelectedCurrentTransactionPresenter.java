@@ -88,7 +88,7 @@ public class SelectedCurrentTransactionPresenter extends SelectedPresenter {
 
     @FXML
     private void handleCompanyLabelAction(){
-//        TODO
+        appPresenter.showSelectedCompany(currentTransaction.getTransaction().getContractor(), dialogStage);
     }
     @FXML
     private void handleTransportButtonAction(){
