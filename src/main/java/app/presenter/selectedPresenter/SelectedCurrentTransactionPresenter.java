@@ -54,7 +54,8 @@ public class SelectedCurrentTransactionPresenter extends SelectedPresenter {
     @FXML
     private void initialize(){
         cargoNameColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getName()));
-        cargoUnitsColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getName()));
+        cargoUnitsColumn.setCellValueFactory(value -> new SimpleStringProperty(
+                currentTransaction.getTransaction().getCargo().get(value.getValue().getName()).toString()));
         cargoLeftColumn.setCellValueFactory(value -> new SimpleStringProperty
                 (currentTransaction.getCargoLeft().containsKey(value.getValue().getName()) ?
                         currentTransaction.getCargoLeft().get(value.getValue().getName()).toString() : "0"));
