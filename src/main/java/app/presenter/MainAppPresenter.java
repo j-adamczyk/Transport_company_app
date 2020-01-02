@@ -99,8 +99,10 @@ public class MainAppPresenter {
     public void showEditVehicleView(Vehicle vehicle) {
         showEditDialogScene(vehicle, "EditVehicleView", "Vehicle");
     }
-    public void showSelectedCurrentTransaction(CurrentTransaction currentTransaction) {
-        showSelectedDialogScene(currentTransaction, "SelectedCurrentTransactionView", "Current Transaction");}
+    public void showSelectedCurrentTransaction(CurrentTransaction currentTransaction, Stage owner) {
+        showSelectedDialogScene(currentTransaction, "SelectedCurrentTransactionView", "Current Transaction", owner);}
+    public void showSelectedCompany(Company company, Stage owner) {
+        showSelectedDialogScene(company, "SelectedCompanyView", "Company", owner);}
 
     private void switchScene(String viewName, String title){
         this.primaryStage.setTitle(TITLE + " - " + title);
@@ -166,7 +168,7 @@ public class MainAppPresenter {
         }
     }
 
-    private Object showSelectedDialogScene(Object oldObject, String viewName, String title){
+    private Object showSelectedDialogScene(Object oldObject, String viewName, String title, Stage owner){
         FXMLLoader loader = new FXMLLoader();
         try{
             URL url = new URL(new URL("file:"), "src/main/java/app/view/"+ viewName +".fxml");
@@ -177,11 +179,12 @@ public class MainAppPresenter {
             Stage dialogStage = new Stage();
             dialogStage.setTitle(TITLE + " - Selected " + title);
             dialogStage.initModality(Modality.WINDOW_MODAL);
-            dialogStage.initOwner(primaryStage);
+            dialogStage.initOwner(owner);
 
             SelectedPresenter presenter = loader.getController();
             presenter.setDialogStage(dialogStage);
             presenter.setOldObject(oldObject);
+            presenter.setAppPresenter(this);
             dialogStage.setScene(scene);
             dialogStage.showAndWait();
             return presenter.getSelectedObject();
@@ -201,6 +204,10 @@ public class MainAppPresenter {
         }
     }
 
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
     static void showErrorDialog(Throwable e, String message) {
         StringWriter errorMsg = new StringWriter();
         e.printStackTrace(new PrintWriter(errorMsg));
@@ -218,6 +225,8 @@ public class MainAppPresenter {
         } catch (IOException exc) {
             exc.printStackTrace();
         }
+
+
     }
 
 }

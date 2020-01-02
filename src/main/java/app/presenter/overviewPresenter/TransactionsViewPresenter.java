@@ -4,6 +4,7 @@ import app.command.TransactionDeleteCommand;
 import app.dao.CurrentTransactionDAO;
 import app.dao.TransactionDAO;
 import app.model.Cargo;
+import app.model.Company;
 import app.model.CurrentTransaction;
 import app.model.Transaction;
 import javafx.beans.binding.Bindings;
@@ -138,11 +139,12 @@ public class TransactionsViewPresenter extends SwitchPresenter {
     private void handleSeeCurrentTransactionButtonAction(){
         CurrentTransaction currentTransaction = new CurrentTransactionDAO()
                 .findByTransactionId(transactionTableView.getSelectionModel().getSelectedItem()._id);
-        appPresenter.showSelectedCurrentTransaction(currentTransaction);
+        appPresenter.showSelectedCurrentTransaction(currentTransaction, appPresenter.getPrimaryStage());
     }
     @FXML
     private void handleSeeCompanyButtonAction(){
-//        TODO
+        Company company = transactionTableView.getSelectionModel().getSelectedItem().getContractor();
+        appPresenter.showSelectedCompany(company, appPresenter.getPrimaryStage());
     }
 
     @FXML
