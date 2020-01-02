@@ -10,8 +10,8 @@
 <?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="app.presenter.SelectedCurrentTransactionPresenter"
-            prefHeight="440.0" prefWidth="500.0">
+            fx:controller="app.presenter.selectedPresenter.SelectedCurrentTransactionPresenter"
+            prefHeight="600.0" prefWidth="500.0">
     <top>
         <VBox spacing="10">
             <padding>
@@ -37,7 +37,7 @@
     <center>
         <VBox spacing="10">
         <padding>
-            <Insets top="15" bottom="12" left="15" right="12" />
+            <Insets bottom="12" left="15" right="12" />
         </padding>
             <TableView fx:id="cargoTable" prefHeight="150">
                 <columns>
@@ -53,19 +53,22 @@
     <bottom>
         <VBox spacing="10">
             <padding>
-                <Insets top="15" bottom="20" left="15" right="12" />
+                <Insets top="12" bottom="20" left="15" right="12" />
             </padding>
-            <Label text="Transports">
-                <font>
-                    <Font name="System Bold" size="13"/>
-                </font>
-            </Label>
+            <HBox spacing="250">
+                <Label text="Transports">
+                    <font>
+                        <Font name="System Bold" size="13"/>
+                    </font>
+                </Label>
+                <VBox alignment="TOP_RIGHT">
+                    <Button fx:id="transportButton" text="See Transport" onAction="#handleTransportButtonAction"/>
+                </VBox>
+            </HBox>
             <TableView fx:id="transportTableView" prefHeight="150">
                 <columns>
                     <TableColumn fx:id="transportIdColumn" text="Id" prefWidth="75.0"/>
                     <TableColumn fx:id="transportDateColumn" text="Date" prefWidth="75.0"/>
-                    <TableColumn fx:id="transportCargoColumn" text="Cargo" prefWidth="75.0"/>
-                    <TableColumn fx:id="transportCargoUnitsColumn" text="Units" prefWidth="75.0"/>
                 </columns>
             </TableView>
         </VBox>

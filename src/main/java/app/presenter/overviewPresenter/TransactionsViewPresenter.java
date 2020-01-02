@@ -1,4 +1,4 @@
-package app.presenter;
+package app.presenter.overviewPresenter;
 
 import app.command.TransactionDeleteCommand;
 import app.dao.CurrentTransactionDAO;
@@ -6,7 +6,6 @@ import app.dao.TransactionDAO;
 import app.model.Cargo;
 import app.model.CurrentTransaction;
 import app.model.Transaction;
-import app.model.Transport;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -17,7 +16,7 @@ import javafx.scene.control.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TransactionsViewPresenter extends SwitchPresenter{
+public class TransactionsViewPresenter extends SwitchPresenter {
     private ObservableList<Transaction> transactions;
     private ObservableList<Cargo> cargo;
     private Map<String, Cargo> cargoTypesMap = new HashMap<>();

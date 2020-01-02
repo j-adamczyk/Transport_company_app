@@ -1,8 +1,7 @@
-package app.presenter;
+package app.presenter.editPresenter;
 
 import app.command.VehicleUpdateCommand;
 import app.dao.VehicleDAO;
-import app.model.Address;
 import app.model.Vehicle;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
@@ -12,7 +11,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.time.LocalDate;
-import java.util.concurrent.ExecutionException;
 
 public class EditVehicleViewPresenter extends EditDialogPresenter{
     @FXML

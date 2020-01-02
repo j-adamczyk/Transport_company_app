@@ -1,18 +1,16 @@
-package app.presenter;
+package app.presenter.addPresenter;
 
 import app.command.VehicleSaveCommand;
-import app.dao.VehicleDAO;
 import app.model.Vehicle;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import java.time.LocalDate;
 
-public class AddVehicleViewPresenter extends DialogPresenter{
+public class AddVehicleViewPresenter extends DialogPresenter {
 
     @FXML
     private TextField modelField;

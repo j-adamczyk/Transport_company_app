@@ -1,27 +1,23 @@
-package app.presenter;
+package app.presenter.overviewPresenter;
 
 import app.command.TransportDeleteCommand;
-import app.dao.TransactionDAO;
 import app.dao.TransportDAO;
 import app.model.Cargo;
 import app.model.Duration;
-import app.model.Transaction;
 import app.model.Transport;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import jdk.vm.ci.meta.Local;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TransportsViewPresenter extends SwitchPresenter{
+public class TransportsViewPresenter extends SwitchPresenter {
     private ObservableList<Transport> transports;
     private ObservableList<Cargo> cargo;
     private Map<String, Cargo> cargoTypesMap = new HashMap<>();

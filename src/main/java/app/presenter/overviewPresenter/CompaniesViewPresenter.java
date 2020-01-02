@@ -1,11 +1,8 @@
-package app.presenter;
+package app.presenter.overviewPresenter;
 
 import app.command.CompanyDeleteCommand;
-import app.command.CompanySaveCommand;
 import app.dao.CompanyDAO;
-import app.model.Address;
 import app.model.Company;
-import app.model.Driver;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -13,9 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-import java.util.List;
-
-public class CompaniesViewPresenter extends SwitchPresenter{
+public class CompaniesViewPresenter extends SwitchPresenter {
     private ObservableList<Company> companies;
 
     @FXML

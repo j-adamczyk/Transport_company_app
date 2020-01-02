@@ -1,4 +1,4 @@
-package app.presenter;
+package app.presenter.overviewPresenter;
 
 import app.command.DriverDeleteCommand;
 import app.dao.DriverDAO;
@@ -10,7 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-public class DriversViewPresenter extends SwitchPresenter{
+public class DriversViewPresenter extends SwitchPresenter {
     private ObservableList<Driver> drivers;
 
     @FXML

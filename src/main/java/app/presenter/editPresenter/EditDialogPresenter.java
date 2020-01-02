@@ -1,4 +1,4 @@
-package app.presenter;
+package app.presenter.editPresenter;
 
 import javafx.stage.Stage;
 

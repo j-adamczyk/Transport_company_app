@@ -1,8 +1,6 @@
-package app.presenter;
+package app.presenter.editPresenter;
 
-import app.command.CompanySaveCommand;
 import app.command.CompanyUpdateCommand;
-import app.dao.CompanyDAO;
 import app.model.Address;
 import app.model.Company;
 import javafx.beans.binding.Bindings;

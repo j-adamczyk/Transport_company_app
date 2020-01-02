@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="app.presenter.CompaniesViewPresenter"
+            fx:controller="app.presenter.overviewPresenter.CompaniesViewPresenter"
             prefHeight="400.0" prefWidth="600.0">
     <top>
         <VBox spacing="10">

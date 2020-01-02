@@ -1,10 +1,9 @@
-package app.presenter;
+package app.presenter.addPresenter;
 
-import app.command.CurrentTransactionSaveCommand;
 import app.command.TransactionSaveCommand;
-import app.command.TransactionUpdateCommand;
 import app.dao.CompanyDAO;
 import app.model.*;
+import app.presenter.editPresenter.EditCargoPresenter;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -16,20 +15,18 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.graalvm.compiler.core.common.type.ArithmeticOpTable;
 
 import java.io.IOException;
 import java.net.URL;
+
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
-public class EditTransactionViewPresenter extends EditDialogPresenter {
+public class AddTransactionViewPresenter extends DialogPresenter {
     private Map<String, Cargo> cargoTypesMap = new HashMap<>();
     private Map<String, Integer> cargoUnitsMap = new HashMap<>();
     private ObservableList<Cargo> cargoes;
-    @FXML
-    private Label idLabel;
     @FXML
     private ChoiceBox<String> contractorChoiceBox;
     @FXML
@@ -54,9 +51,9 @@ public class EditTransactionViewPresenter extends EditDialogPresenter {
     private TextField destinationPostalCodeField;
     @FXML
     private TextField destinationCountryField;
-    //cargo table
-    @FXML
-    private TableView<Cargo> cargoTable;
+   //cargo table
+   @FXML
+   private TableView<Cargo> cargoTable;
     @FXML
     private TableColumn<Cargo, String> cargoNameColumn;
     @FXML
@@ -80,9 +77,6 @@ public class EditTransactionViewPresenter extends EditDialogPresenter {
     public final ObservableList<Cargo> getCargoes() {
         return cargoes;
     }
-
-    private Transaction currentTransaction;
-
     @FXML
     private void initialize(){
         CompanyDAO companyDao = new CompanyDAO();
@@ -109,29 +103,9 @@ public class EditTransactionViewPresenter extends EditDialogPresenter {
         );
     }
 
-    private void updateCargoTable(){
+    public void updateCargoTable(){
         cargoes.clear();
         cargoes.addAll(cargoTypesMap.values());
-    }
-
-    @Override
-    public void setOldObject(Object transaction){
-        this.currentTransaction = (Transaction) transaction;
-        idLabel.setText("Transaction id: " + currentTransaction._id);
-        contractorChoiceBox.setValue(currentTransaction.getContractor().getName());
-        purchaseField.setText(currentTransaction.getMoney().toString());
-        transactionDatePicker.setValue(currentTransaction.getTransactionDate());
-        fromStreetField.setText(currentTransaction.getOrigin().getStreet());
-        fromCityField.setText(currentTransaction.getOrigin().getCity());
-        fromCountryField.setText(currentTransaction.getOrigin().getCountry());
-        fromPostalCodeField.setText(currentTransaction.getOrigin().getPostalCode());
-        destinationStreetField.setText(currentTransaction.getDestination().getStreet());
-        destinationCityField.setText(currentTransaction.getDestination().getCity());
-        destinationCountryField.setText(currentTransaction.getDestination().getCountry());
-        destinationPostalCodeField.setText(currentTransaction.getDestination().getPostalCode());
-        cargoTypesMap = currentTransaction.getCargoTypes();
-        cargoUnitsMap = currentTransaction.getCargo();
-        updateCargoTable();
     }
 
     @FXML
@@ -154,29 +128,16 @@ public class EditTransactionViewPresenter extends EditDialogPresenter {
 
         CompanyDAO companyDAO = new CompanyDAO();
         Company company = companyDAO.findByName(contractorName).get(0);
-        updateTransaction(company, cargoTypesMap, cargoUnitsMap,
+        Transaction transaction = new Transaction(company, cargoTypesMap, cargoUnitsMap,
                 from, destination, money, transactionDate);
-        TransactionUpdateCommand TUC = new TransactionUpdateCommand(currentTransaction);
-        TUC.execute();
+        addedObject = transaction;
+        TransactionSaveCommand TSC = new TransactionSaveCommand(transaction);
+        TSC.execute();
         dialogStage.close();
-//        CurrentTransaction currentTransaction = new CurrentTransaction(transaction, cargoUnitsMap);
-//        CurrentTransactionSaveCommand CTSC = new CurrentTransactionSaveCommand(currentTransaction);
-//        System.out.println(transactionDAO.findAllTransactions());
-    }
-
-    private void updateTransaction(Company company, Map<String, Cargo> cargoTypesMap, Map<String, Integer> cargoUnitsMap,
-                                   Address origin, Address destination, Double purchase, LocalDate transactionDate){
-        currentTransaction.setContractor(company);
-        currentTransaction.setCargoTypes(cargoTypesMap);
-        currentTransaction.setCargo(cargoUnitsMap);
-        currentTransaction.setOrigin(origin);
-        currentTransaction.setDestination(destination);
-        currentTransaction.setMoney(purchase);
-        currentTransaction.setTransactionDate(transactionDate);
     }
     @FXML
     private void handleCancelButtonAction(){
-        dialogStage.close();
+            dialogStage.close();
     }
     @FXML
     private void handleAddCargoButtonAction(){

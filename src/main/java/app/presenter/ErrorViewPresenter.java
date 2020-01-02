@@ -1,10 +1,9 @@
 package app.presenter;
 
-import javafx.event.ActionEvent;
+import app.presenter.editPresenter.EditDialogPresenter;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.stage.Stage;
 
 public class ErrorViewPresenter extends EditDialogPresenter {
 

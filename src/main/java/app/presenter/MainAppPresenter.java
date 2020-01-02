@@ -1,22 +1,21 @@
 package app.presenter;
 
-import app.TransportCompanyApp;
 import app.model.*;
+import app.presenter.addPresenter.DialogPresenter;
+import app.presenter.editPresenter.EditDialogPresenter;
+import app.presenter.overviewPresenter.SwitchPresenter;
+import app.presenter.selectedPresenter.SelectedPresenter;
 import javafx.application.Platform;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.bson.types.ObjectId;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 
 public class MainAppPresenter {

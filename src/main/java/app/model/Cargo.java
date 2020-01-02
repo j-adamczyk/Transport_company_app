@@ -76,4 +76,13 @@ public class Cargo {
     public int hashCode() {
         return Objects.hash(get_id(), getName(), getVolume(), getWeight());
     }
+
+    @Override
+    public String toString() {
+        return "Cargo{" +
+                "name='" + name + '\'' +
+                ", volume=" + volume +
+                ", weight=" + weight +
+                '}';
+    }
 }

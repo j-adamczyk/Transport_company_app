@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="app.presenter.EditTransactionViewPresenter"
+            fx:controller="app.presenter.editPresenter.EditTransactionViewPresenter"
             maxHeight="300.0" prefHeight="300.0" prefWidth="670.0">
     <top>
         <VBox spacing="5">

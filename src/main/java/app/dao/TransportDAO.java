@@ -57,4 +57,12 @@ public class TransportDAO extends GenericDAO<Transport>{
                 .find()
                 .into(new ArrayList<>());
     }
+
+    public List<Transport> findByCurrentTransaction(ObjectId id) {
+        return DbConnector
+                .getDB()
+                .getCollection(collName, Transport.class)
+                .find(eq("currentTransaction._id", id))
+                .into(new ArrayList<>());
+    }
 }

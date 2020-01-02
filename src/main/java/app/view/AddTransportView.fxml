@@ -9,7 +9,7 @@
 <?import javafx.geometry.Insets?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="app.presenter.AddTransportPresenter"
+            fx:controller="app.presenter.addPresenter.AddTransportPresenter"
             prefHeight="400.0" prefWidth="300.0">
     <center>
         <VBox spacing="10">

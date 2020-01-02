@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="app.presenter.EditVehicleViewPresenter"
+            fx:controller="app.presenter.editPresenter.EditVehicleViewPresenter"
             prefHeight="570.0" prefWidth="300.0">
     <top>
         <HBox>

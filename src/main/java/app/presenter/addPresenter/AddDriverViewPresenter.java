@@ -1,22 +1,18 @@
-package app.presenter;
+package app.presenter.addPresenter;
 
 import app.command.DriverSaveCommand;
-import app.command.DriverUpdateCommand;
-import app.dao.DriverDAO;
 import app.model.Address;
 import app.model.Driver;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.time.LocalDate;
 
-public class EditDriverViewPresenter extends EditDialogPresenter{
-    @FXML
-    private Label idLabel;
+
+public class AddDriverViewPresenter extends DialogPresenter {
     @FXML
     private TextField nameField;
     @FXML
@@ -40,8 +36,6 @@ public class EditDriverViewPresenter extends EditDialogPresenter{
     @FXML
     private Button cancelButton;
 
-    private Driver currentDriver;
-
     @FXML
     private void initialize(){
         acceptButton.disableProperty().bind(
@@ -53,20 +47,6 @@ public class EditDriverViewPresenter extends EditDialogPresenter{
                         .or(Bindings.isEmpty(salaryField.textProperty()))
                         .or(Bindings.isEmpty(phoneField.textProperty()))
         );
-    }
-    @Override
-    public void setOldObject(Object oldDriver){
-        currentDriver = (Driver) oldDriver;
-        idLabel.setText("Driver id: " + currentDriver._id);
-        nameField.setText(currentDriver.getName());
-        streetField.setText(currentDriver.getAddress().getStreet());
-        cityField.setText(currentDriver.getAddress().getCity());
-        postalCodeField.setText(currentDriver.getAddress().getPostalCode());
-        countryField.setText(currentDriver.getAddress().getCountry());
-        phoneField.setText(currentDriver.getPhone());
-        salaryField.setText(currentDriver.getSalary().toString());
-        birthDatePicker.setValue(currentDriver.getBirthDate());
-        hireDatePicker.setValue(currentDriver.getHireDate());
     }
 
     @FXML
@@ -81,20 +61,14 @@ public class EditDriverViewPresenter extends EditDialogPresenter{
         LocalDate birthDate = birthDatePicker.getValue();
         LocalDate hireDate = hireDatePicker.getValue();
         Address address = new Address(country, city, postalCode, street);
-        currentDriver.setName(name);
-        currentDriver.setAddress(address);
-        currentDriver.setPhone(phone);
-        currentDriver.setSalary(salary);
-        currentDriver.setBirthDate(birthDate);
-        currentDriver.setHireDate(hireDate);
-        DriverUpdateCommand DUC = new DriverUpdateCommand(currentDriver);
-        DUC.execute();
-        DriverDAO driverDao = new DriverDAO();
-        System.out.println(driverDao.findAllDrivers());
+        addedObject = new Driver(name, birthDate, hireDate, phone, address, salary);
+        DriverSaveCommand DSC = new DriverSaveCommand((Driver) addedObject);
+        DSC.execute();
         dialogStage.close();
     }
     @FXML
     private void handleCancelButtonAction(){
-        dialogStage.close();
+            dialogStage.close();
     }
+
 }

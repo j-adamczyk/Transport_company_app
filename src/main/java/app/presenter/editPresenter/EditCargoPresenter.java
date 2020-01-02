@@ -1,11 +1,6 @@
-package app.presenter;
+package app.presenter.editPresenter;
 
-import app.command.CompanySaveCommand;
-import app.dao.CompanyDAO;
-import app.model.Address;
 import app.model.Cargo;
-import app.model.Company;
-import app.model.Transaction;
 import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -14,10 +9,11 @@ import javafx.stage.Stage;
 
 import java.util.Map;
 
-public class AddCargoPresenter {
+public class EditCargoPresenter extends EditDialogPresenter {
     private Stage dialogStage;
     private Map<String, Cargo> cargoTypesMap;  // map Cargo.name -> Cargo
     private Map<String, Integer> cargoUnitsMap;
+    private Cargo oldCargo;
     @FXML
     private TextField name;
     @FXML
@@ -41,6 +37,14 @@ public class AddCargoPresenter {
         );
     }
 
+    @Override
+    public void setOldObject(Object object){
+        oldCargo = (Cargo) object;
+        name.setText(oldCargo.getName());
+        units.setText(cargoUnitsMap.get(oldCargo.getName()).toString());
+        volume.setText(oldCargo.getVolume().toString());
+        weight.setText(oldCargo.getWeight().toString());
+    }
     @FXML
     private void handleAcceptButtonAction(){
         String cargoName = name.getText();
@@ -48,9 +52,13 @@ public class AddCargoPresenter {
         Double cargoVolume = Double.valueOf(volume.getText());
         Double cargoWeight = Double.valueOf(weight.getText());
         Cargo cargo = new Cargo(cargoName, cargoVolume, cargoWeight);
+        cargoTypesMap.remove(oldCargo.getName());
+        cargoUnitsMap.remove(oldCargo.getName());
         cargoTypesMap.put(cargoName, cargo);
         cargoUnitsMap.put(cargoName, cargoUnits);
+        for(String s: cargoUnitsMap.keySet()) System.out.println(s);
         dialogStage.close();
+//        TODO
     }
     @FXML
     private void handleCancelButtonAction(){

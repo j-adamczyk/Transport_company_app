@@ -1,18 +1,16 @@
-package app.presenter;
+package app.presenter.overviewPresenter;
 
 import app.command.VehicleDeleteCommand;
 import app.dao.VehicleDAO;
-import app.model.Driver;
 import app.model.Vehicle;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
-public class VehiclesViewPresenter extends SwitchPresenter{
+public class VehiclesViewPresenter extends SwitchPresenter {
     private ObservableList<Vehicle> vehicles;
 
     @FXML

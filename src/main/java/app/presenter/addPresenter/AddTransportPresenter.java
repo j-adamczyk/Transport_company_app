@@ -1,31 +1,19 @@
-package app.presenter;
+package app.presenter.addPresenter;
 
-import app.command.TransportSaveCommand;
 import app.dao.CurrentTransactionDAO;
 import app.dao.DriverDAO;
 import app.dao.VehicleDAO;
 import app.model.CurrentTransaction;
 import app.model.Driver;
-import app.model.Transport;
 import app.model.Vehicle;
-import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.util.converter.LocalTimeStringConverter;
-import org.bson.types.ObjectId;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.FormatStyle;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class AddTransportPresenter extends DialogPresenter{
+public class AddTransportPresenter extends DialogPresenter {
 
     private CurrentTransaction currentTransaction;
     private Driver driver;
