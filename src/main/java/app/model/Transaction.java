@@ -5,6 +5,8 @@ import app.command.CurrentTransactionSaveCommand;
 import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
@@ -22,6 +24,9 @@ public class Transaction {
     private Double money;
     private LocalDate transactionDate;
 
+    private Map<ObjectId, LocalDateTime> transports; // map transport _id -> date of departure
+    private boolean editable; // currentTransaction can be edited ONLY if no
+
     // for MongoDB serializer
     public Transaction() {}
 
@@ -35,6 +40,9 @@ public class Transaction {
         this.destination = destination;
         this.money = money;
         this.transactionDate = transactionDate;
+
+        this.transports = new HashMap<>();
+        this.editable = true;
 
         CurrentTransaction currentTransaction = new CurrentTransaction(this, cargo);
         CurrentTransactionSaveCommand command = new CurrentTransactionSaveCommand(currentTransaction);
@@ -89,6 +97,48 @@ public class Transaction {
         return money;
     }
 
+    public void setMoney(Double money) {
+        this.money = money;
+    }
+
+    public LocalDate getTransactionDate() {
+        return transactionDate;
+    }
+
+    public void setTransactionDate(LocalDate transactionDate) {
+        this.transactionDate = transactionDate;
+    }
+
+    public Map<ObjectId, LocalDateTime> getTransports() {
+        return transports;
+    }
+
+    public void setTransports(Map<ObjectId, LocalDateTime> transports) {
+        this.transports = transports;
+    }
+
+    public void addTransport(Transport transport) {
+        this.transports.put(transport.get_id(), transport.getDepartureDate());
+    }
+
+    public boolean isEditable() {
+        if (!editable)
+            return false;
+
+        LocalDateTime current = LocalDateTime.now();
+        for (Map.Entry<ObjectId, LocalDateTime> entry : transports.entrySet())
+            if (current.isAfter(entry.getValue())) {
+                this.editable = false;
+                return false;
+            }
+
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
@@ -100,19 +150,9 @@ public class Transaction {
                 ", destination=" + destination +
                 ", money=" + money +
                 ", transactionDate=" + transactionDate +
+                ", transports=" + transports.toString() +
+                ", editable=" + editable +
                 '}';
-    }
-
-    public void setMoney(Double money) {
-        this.money = money;
-    }
-
-    public LocalDate getTransactionDate() {
-        return transactionDate;
-    }
-
-    public void setTransactionDate(LocalDate transactionDate) {
-        this.transactionDate = transactionDate;
     }
 
     @Override

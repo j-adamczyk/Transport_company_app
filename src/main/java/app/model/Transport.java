@@ -40,8 +40,10 @@ public class  Transport {
 
         // calculate optimal cargo to transport, fill cargoTypes and cargo fields
         this.cargoTypes = new HashMap<>();
-        this.cargoTypes = new HashMap<>();
+        this.cargoUnits = new HashMap<>();
         calculateCargo();
+
+        this.currentTransaction.getTransaction().addTransport(this);
     }
 
     private void calculateExpectedTime() {
@@ -93,7 +95,6 @@ public class  Transport {
             if (addedUnits > 0) {
                 // actually add units
                 int currentUnits = this.cargoUnits.getOrDefault(cargoName, 0);
-//               //above line throws NullException TODO
                 currentUnits += addedUnits;
                 this.cargoUnits.put(cargoName, currentUnits);
 
