@@ -1,4 +1,4 @@
-import app.GoogleDistanceMatrix;
+import app.google_api.GoogleDistanceMatrix;
 import app.model.Address;
 import app.model.Duration;
 import org.junit.Test;

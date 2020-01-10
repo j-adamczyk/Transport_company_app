@@ -1,4 +1,4 @@
-package app;
+package app.google_api;
 
 import app.model.Address;
 import app.model.Duration;
@@ -7,6 +7,8 @@ import com.google.maps.DistanceMatrixApiRequest;
 import com.google.maps.GeoApiContext;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.*;
+
+import static app.google_api.GoogleAPIAddressConverter.addressToGoogleAPIString;
 
 import java.io.IOException;
 
@@ -25,8 +27,8 @@ public class GoogleDistanceMatrix {
     public static Duration getTravelTime(Address origin, Address destination) {
         try {
             DistanceMatrixApiRequest request = DistanceMatrixApi.newRequest(context);
-            DistanceMatrix distances = request.origins(origin.toStringGoogleAPI())
-                    .destinations(destination.toStringGoogleAPI())
+            DistanceMatrix distances = request.origins(addressToGoogleAPIString(origin))
+                    .destinations(addressToGoogleAPIString(destination))
                     .mode(TravelMode.DRIVING)
                     .units(Unit.METRIC)
                     .await();

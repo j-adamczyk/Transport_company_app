@@ -1,6 +1,6 @@
 package app.model;
 
-import app.GoogleDistanceMatrix;
+import app.google_api.GoogleDistanceMatrix;
 import org.bson.types.ObjectId;
 
 

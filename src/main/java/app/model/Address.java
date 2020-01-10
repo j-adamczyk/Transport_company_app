@@ -90,15 +90,4 @@ public class Address {
                 postalCode + ", " +
                 street + " ";
     }
-
-
-    /**
-     * Version of toString to use with Google Matrix API to calculate distance between two Addresses.
-     * @return String in format appropriate for Google Matrix API
-     */
-    public String toStringGoogleAPI() {
-        return street + ", " +
-                city +  ", " +
-                country;
-    }
 }
