@@ -172,7 +172,7 @@ public class  Transport {
         if (this == o)
             return true;
 
-        if (!(o instanceof Transport))
+        if (o == null || getClass() != o.getClass())
             return false;
 
         Transport transport = (Transport) o;

@@ -62,7 +62,7 @@ public class Cargo {
         if (this == o)
             return true;
 
-        if (!(o instanceof Cargo))
+        if (o == null || getClass() != o.getClass())
             return false;
 
         Cargo cargo = (Cargo) o;

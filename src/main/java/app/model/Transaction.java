@@ -120,7 +120,7 @@ public class Transaction {
         if (this == o)
             return true;
 
-        if (!(o instanceof Transaction))
+        if (o == null || getClass() != o.getClass())
             return false;
 
         Transaction that = (Transaction) o;

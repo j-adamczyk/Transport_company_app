@@ -89,7 +89,7 @@ public class Vehicle {
         if (this == o)
             return true;
 
-        if (!(o instanceof Vehicle))
+        if (o == null || getClass() != o.getClass())
             return false;
 
         Vehicle vehicle = (Vehicle) o;

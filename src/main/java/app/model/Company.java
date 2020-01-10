@@ -76,7 +76,7 @@ public class Company {
         if (this == o)
             return true;
 
-        if (!(o instanceof Company))
+        if (o == null || getClass() != o.getClass())
             return false;
 
         Company company = (Company) o;

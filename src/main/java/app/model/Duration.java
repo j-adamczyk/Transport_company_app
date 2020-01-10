@@ -39,7 +39,7 @@ public class Duration {
         if (this == o)
             return true;
 
-        if (!(o instanceof Duration))
+        if (o == null || getClass() != o.getClass())
             return false;
 
         Duration duration = (Duration) o;

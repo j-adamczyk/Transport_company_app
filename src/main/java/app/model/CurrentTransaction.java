@@ -48,7 +48,7 @@ public class CurrentTransaction {
         if (this == o)
             return true;
 
-        if (!(o instanceof CurrentTransaction))
+        if (o == null || getClass() != o.getClass())
             return false;
 
         CurrentTransaction that = (CurrentTransaction) o;

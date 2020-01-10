@@ -99,7 +99,7 @@ public class Driver {
         if (this == o)
             return true;
 
-        if (!(o instanceof Driver))
+        if (o == null || getClass() != o.getClass())
             return false;
 
         Driver driver = (Driver) o;
