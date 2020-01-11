@@ -1,42 +1,58 @@
 package app.command;
 
+import app.dao.CurrentTransactionDAO;
 import app.dao.TransactionDAO;
 import app.log.EntryType;
 import app.log.LogEntry;
 import app.log.Logger;
+import app.model.CurrentTransaction;
 import app.model.Transaction;
 import org.bson.types.ObjectId;
 
 public class TransactionDeleteCommand implements Command {
-    private ObjectId _id;
+    private TransactionDAO transactionDAO;
+    private CurrentTransactionDAO currentTransactionDAO;
+
+    private ObjectId transaction_id;
     private Transaction transaction;
 
-    public TransactionDeleteCommand(ObjectId _id) {
-        this._id = _id;
+    private ObjectId currentTransaction_id;
+    private CurrentTransaction currentTransaction;
+
+    public TransactionDeleteCommand(ObjectId transaction_id) {
+        this.transactionDAO = new TransactionDAO();
+        this.currentTransactionDAO = new CurrentTransactionDAO();
+        this.transaction_id = transaction_id;
     }
 
     @Override
     public void execute() {
-        TransactionDAO dao = new TransactionDAO();
-        this.transaction = dao.find(_id);
-        dao.delete(_id);
+        this.transaction = transactionDAO.find(transaction_id);
+        this.currentTransaction = transaction.getCurrentTransaction();
+        this.currentTransaction_id = currentTransaction.get_id();
+
+        transactionDAO.delete(transaction_id);
+        currentTransactionDAO.delete(currentTransaction_id);
 
         Logger.log(new LogEntry(EntryType.DELETE, transaction.toString()));
+        Logger.log(new LogEntry(EntryType.DELETE, currentTransaction.toString()));
     }
 
     @Override
     public void undo() {
-        TransactionDAO dao = new TransactionDAO();
-        dao.save(transaction);
+        transactionDAO.save(transaction);
+        currentTransactionDAO.save(currentTransaction);
 
         Logger.log(new LogEntry(EntryType.CREATE, transaction.toString()));
+        Logger.log(new LogEntry(EntryType.CREATE, currentTransaction.toString()));
     }
 
     @Override
     public void redo() {
-        TransactionDAO dao = new TransactionDAO();
-        dao.delete(_id);
+        transactionDAO.delete(transaction_id);
+        currentTransactionDAO.delete(currentTransaction_id);
 
         Logger.log(new LogEntry(EntryType.DELETE, transaction.toString()));
+        Logger.log(new LogEntry(EntryType.DELETE, currentTransaction.toString()));
     }
 }
