@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 import app.presenter.MainAppPresenter;
 
 public class TransportCompanyApp extends Application {
-
     private Stage primaryStage;
     private MainAppPresenter presenter;
 
