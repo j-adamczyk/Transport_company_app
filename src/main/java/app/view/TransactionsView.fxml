@@ -41,7 +41,7 @@
                     <TableColumn fx:id="transactionContractorColumn" text="Contractor" prefWidth="75.0"/>
                     <TableColumn fx:id="transactionFromColumn" text="From" prefWidth="75.0"/>
                     <TableColumn fx:id="transactionToColumn" text="To" prefWidth="75.0"/>
-                    <TableColumn fx:id="transactionPurchaseColumn" text="Purchase" prefWidth="75.0"/>
+                    <TableColumn fx:id="transactionPurchaseColumn" text="Price" prefWidth="75.0"/>
                 </columns>
             </TableView>
         </VBox>

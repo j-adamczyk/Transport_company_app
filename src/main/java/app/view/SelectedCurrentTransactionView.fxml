@@ -26,7 +26,7 @@
             <Label fx:id="fromLabel" text="From: "/>
             <Label fx:id="destinationLabel" text="Destination: "/>
             <Label fx:id="transactionDateLabel" text="TransactionDate: "/>
-            <Label fx:id="transactionPurchaseLabel" text="Purchase: "/>
+            <Label fx:id="transactionPurchaseLabel" text="Price: "/>
             <Label text="Cargo">
                 <font>
                     <Font name="System Bold" size="13"/>

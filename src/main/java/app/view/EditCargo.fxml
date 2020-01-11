@@ -18,7 +18,7 @@
             </padding>
             <Label text="Name"/>
             <TextField fx:id="name"/>
-            <Label text="Units"/>
+            <Label text="Amount of units"/>
             <TextField fx:id="units"/>
             <Label text="Volume [l]"/>
             <TextField fx:id="volume"/>
