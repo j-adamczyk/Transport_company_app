@@ -25,7 +25,8 @@ public class Transaction {
     private LocalDate transactionDate;
 
     private Map<ObjectId, LocalDateTime> transports; // map transport _id -> date of departure
-    private boolean editable; // currentTransaction can be edited ONLY if no
+    // currentTransaction can be edited ONLY if no transport carried a part of it
+    private boolean editable;
 
     // for MongoDB serializer
     public Transaction() {}

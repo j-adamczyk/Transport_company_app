@@ -26,6 +26,9 @@ public class  Transport {
     private Map<String, Cargo> cargoTypes;  // map Cargo.name -> Cargo
     private Map<String, Integer> cargoUnits;     // map Cargo.name -> Cargo units
 
+    // transport can be edited ONLY if it hasn't departed yet
+    private boolean editable;
+
     // for MongoDB serializer
     public Transport() {}
 
@@ -35,6 +38,7 @@ public class  Transport {
         this.driver = driver;
         this.vehicle = vehicle;
         this.departureDate = departureDate;
+        this.editable = true;
 
         calculateExpectedTime();
 
@@ -168,6 +172,23 @@ public class  Transport {
         this.cargoUnits = cargoUnits;
     }
 
+    public boolean isEditable() {
+        if (!editable)
+            return false;
+
+        LocalDateTime current = LocalDateTime.now();
+        if (current.isAfter(departureDate)) {
+            this.editable = false;
+            return false;
+        }
+
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)
@@ -183,12 +204,15 @@ public class  Transport {
                 Objects.equals(getVehicle(), transport.getVehicle()) &&
                 Objects.equals(getCargoUnits(), transport.getCargoUnits()) &&
                 Objects.equals(getDepartureDate(), transport.getDepartureDate()) &&
-                Objects.equals(getExpectedTime(), transport.getExpectedTime());
+                Objects.equals(getExpectedTime(), transport.getExpectedTime()) &&
+                Objects.equals(isEditable(), transport.isEditable());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(get_id(), getCurrentTransaction(), getDriver(), getVehicle(), getCargoUnits(), getDepartureDate(), getExpectedTime());
+        return Objects.hash(get_id(), getCurrentTransaction(), getDriver(),
+                getVehicle(), getCargoUnits(), getDepartureDate(), getExpectedTime(),
+                isEditable());
     }
 
     @Override
@@ -201,6 +225,7 @@ public class  Transport {
                 ", cargoUnits=" + cargoUnits +
                 ", departureDate=" + departureDate +
                 ", expectedTime=" + expectedTime +
+                ", isEditable=" + editable +
                 '}';
     }
 }
