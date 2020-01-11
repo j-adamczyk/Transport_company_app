@@ -1,12 +1,10 @@
 package app.presenter.addPresenter;
 
+import app.command.TransportSaveCommand;
 import app.dao.CurrentTransactionDAO;
 import app.dao.DriverDAO;
 import app.dao.VehicleDAO;
-import app.model.CurrentTransaction;
-import app.model.Driver;
-import app.model.Transaction;
-import app.model.Vehicle;
+import app.model.*;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
@@ -100,9 +98,9 @@ public class AddTransportPresenter extends DialogPresenter {
         vehicle = vehicleMap.get(vehicleChoiceBox.getValue());
         LocalDateTime dateTime = datePicker.getValue()
                 .atTime((Integer)hourSpinner.getValue(),(Integer) minuteSpinner.getValue());
-//        Transport transport = new Transport(currentTransaction, driver, vehicle, dateTime);
-//        new TransportSaveCommand(transport).execute();
-//        addedObject = transport;
+        Transport transport = new Transport(currentTransaction, driver, vehicle, dateTime);
+        new TransportSaveCommand(transport).execute();
+        addedObject = transport;
         dialogStage.close();
     };
 

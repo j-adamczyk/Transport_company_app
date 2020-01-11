@@ -30,6 +30,7 @@ public class CurrentTransactionDAO extends GenericDAO<CurrentTransaction> {
                         eq("_id", id),
                         CurrentTransaction.class)
                 .first();
+
     }
 
     public CurrentTransaction findByTransactionId(ObjectId id) {
