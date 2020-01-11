@@ -9,6 +9,8 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -16,10 +18,16 @@ import javafx.scene.control.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 public class TransportsViewPresenter extends SwitchPresenter {
+    private ObservableList<Transport> allTransports;
     private ObservableList<Transport> transports;
+    private ObservableList<Transport> pastTransports = FXCollections.observableArrayList();
+    private ObservableList<Transport> currentTransports = FXCollections.observableArrayList();
+    private List<Transport> futureTransports = FXCollections.observableArrayList();
     private ObservableList<Cargo> cargo;
     private Map<String, Cargo> cargoTypesMap = new HashMap<>();
     private Map<String, Integer> cargoUnitsMap = new HashMap<>();
@@ -55,8 +63,6 @@ public class TransportsViewPresenter extends SwitchPresenter {
     private TableColumn<Cargo, String> cargoVolumeColumn;
     @FXML
     private TableColumn<Cargo, String> cargoWeightColumn;
-    @FXML
-    private DatePicker datePicker;
     @FXML
     private Button driverDetButton;
     @FXML
@@ -95,8 +101,43 @@ public class TransportsViewPresenter extends SwitchPresenter {
         this.cargo = FXCollections.observableArrayList();
         cargoTable.setItems(cargo);
         this.transports = FXCollections.observableArrayList();
-        transports.addAll(transportDAO.findAllTransports());
-//        TODO checkboxes
+        sortTransports();
+
+//        checkboxes
+        pastCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            public void changed(ObservableValue<? extends Boolean> ov,
+                                Boolean old_val, Boolean new_val) {
+                if(pastCheckBox.isSelected()) {
+                    transports.addAll(pastTransports);
+                } else {
+                    transports.removeAll(pastTransports);
+                }
+            }
+        });
+        futureCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            public void changed(ObservableValue<? extends Boolean> ov,
+                                Boolean old_val, Boolean new_val) {
+                if(futureCheckBox.isSelected()) {
+                    transports.addAll(futureTransports);
+                } else {
+                    transports.removeAll(futureTransports);
+                }
+            }
+        });
+        presentCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+            public void changed(ObservableValue<? extends Boolean> ov,
+                                Boolean old_val, Boolean new_val) {
+                if(presentCheckBox.isSelected()) {
+                    transports.addAll(currentTransports);
+                } else {
+                    transports.removeAll(currentTransports);
+                }
+            }
+        });
+
+        presentCheckBox.setSelected(true);
+        futureCheckBox.setSelected(true);
+
         transportsTable.setItems(transports);
 
         editTransportButton.disableProperty().bind(
@@ -130,11 +171,6 @@ public class TransportsViewPresenter extends SwitchPresenter {
     }
 
     @FXML
-    private void handleDatePickerAction(){
-//        TODO
-    }
-
-    @FXML
     private void handleDriverDetAction(){
         appPresenter.showSelectedDriver(transportsTable.getSelectionModel().getSelectedItem().getDriver(),
                 appPresenter.getPrimaryStage());
@@ -157,29 +193,87 @@ public class TransportsViewPresenter extends SwitchPresenter {
     private void handleAddTransportAction(){
         Transport addedTransport = appPresenter.showAddTransportView();
         if(addedTransport != null){
-            this.transports.add(addedTransport);
+            sortAddedTransport(addedTransport);
         }
     }
 
     @FXML
     private void handleDeleteTransportAction(){
         Transport toRemove = transportsTable.getSelectionModel().getSelectedItem();
+        if (pastTransports.contains(toRemove)) {
+            pastTransports.remove(toRemove);
+        }
+        if (currentTransports.contains(toRemove)) {
+            currentTransports.remove(toRemove);
+        }
+        if (futureTransports.contains(toRemove)) {
+            futureTransports.remove(toRemove);
+        }
         TransportDeleteCommand tdc = new TransportDeleteCommand(toRemove.get_id());
         tdc.execute();
         transports.remove(toRemove);
-//todo maybe
         transportsTable.refresh();
     }
 
     @FXML
     private void handleEditTransportAction(){
         appPresenter.showEditTransportView(transportsTable.getSelectionModel().getSelectedItem());
+        sortTransports();
         transportsTable.refresh();
     }
 
     @FXML
     private void handleReturnLabel() {
         appPresenter.showMainView();
+    }
+
+    private void sortTransports() {
+        if(allTransports == null) {
+            TransportDAO TD = new TransportDAO();
+            allTransports = FXCollections.observableArrayList();
+            allTransports.addAll(TD.findAllTransports());
+        }
+        pastTransports.clear();
+        currentTransports.clear();
+        futureTransports.clear();
+        for(Transport transport: allTransports) {
+            if (transport.getDepartureDate()
+                    .plusHours(transport.getExpectedTime().getHours())
+                    .plusMinutes(transport.getExpectedTime().getMinutes())
+                    .isBefore(LocalDateTime.now())) {
+                pastTransports.add(transport);
+            }
+            if(transport.getDepartureDate()
+                        .isAfter(LocalDateTime.now())) {
+                    futureTransports.add(transport);
+                }
+            else {
+                currentTransports.add(transport);
+            }
+        }
+    }
+
+    private void sortAddedTransport(Transport transport){
+        if(transport.getDepartureDate()
+                .plusHours(transport.getExpectedTime().getHours())
+                .plusMinutes(transport.getExpectedTime().getMinutes())
+                .isBefore(LocalDateTime.now())) {
+            pastTransports.add(transport);
+        }
+        if(transport.getDepartureDate()
+                .isAfter(LocalDateTime.now())) {
+            futureTransports.add(transport);
+        }
+        else {
+            currentTransports.add(transport);
+        }
+
+        pastCheckBox.setSelected(!pastCheckBox.isSelected());
+        pastCheckBox.setSelected(!pastCheckBox.isSelected());
+        presentCheckBox.setSelected(!presentCheckBox.isSelected());
+        presentCheckBox.setSelected(!presentCheckBox.isSelected());
+        futureCheckBox.setSelected(!futureCheckBox.isSelected());
+        futureCheckBox.setSelected(!futureCheckBox.isSelected());
     }
 
 }

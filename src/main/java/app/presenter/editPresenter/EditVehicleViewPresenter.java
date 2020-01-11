@@ -67,8 +67,6 @@ public class EditVehicleViewPresenter extends EditDialogPresenter{
             currentVehicle.setManufactureDate(manufactureDate);
             VehicleUpdateCommand VUC = new VehicleUpdateCommand(currentVehicle);
             VUC.execute();
-            VehicleDAO vehicleDao = new VehicleDAO();
-            System.out.println(vehicleDao.findAllVehicles());
             dialogStage.close();
     }
 

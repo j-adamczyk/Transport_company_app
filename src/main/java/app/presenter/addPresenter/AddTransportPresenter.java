@@ -133,7 +133,6 @@ public class AddTransportPresenter extends DialogPresenter {
     private void setTransactionChoiceBox(String id){
         TransactionDAO Tdao = new TransactionDAO();
         List<Transaction> transactions = Tdao.findAllUndoneTransactions();
-        System.out.println("TRA" + transactions);
         transactionIdChoiceBox.getItems().clear();
         for(Transaction transaction: transactions) {
             transactionMap.put(transaction.get_id().toString(), transaction);

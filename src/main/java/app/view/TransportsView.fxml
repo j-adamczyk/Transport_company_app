@@ -70,7 +70,6 @@
             <padding>
                 <Insets top="12" bottom="12" left="15" right="12" />
             </padding>
-            <DatePicker fx:id="datePicker" onAction="#handleDatePickerAction"/>
             <Button text="Add Transport" fx:id="addTransportButton" onAction="#handleAddTransportAction" prefWidth="150"/>
             <Button text="Edit Transport" fx:id="editTransportButton" onAction="#handleEditTransportAction" prefWidth="150"/>
             <Button text="Delete Transport" fx:id="deleteTransportButton" onAction="#handleDeleteTransportAction" prefWidth="150"/>

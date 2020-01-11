@@ -58,7 +58,6 @@ public class EditCargoPresenter extends EditDialogPresenter {
         cargoUnitsMap.remove(oldCargo.getName());
         cargoTypesMap.put(cargoName, cargo);
         cargoUnitsMap.put(cargoName, cargoUnits);
-        for(String s: cargoUnitsMap.keySet()) System.out.println(s);
         dialogStage.close();
     }
 
