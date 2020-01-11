@@ -92,7 +92,7 @@ public class TransportsViewPresenter extends SwitchPresenter {
         cargoTable.setItems(cargo);
         this.transports = FXCollections.observableArrayList();
         transports.addAll(transportDAO.findAllTransports());
-//        TODO
+//        TODO checkboxes
         transportsTable.setItems(transports);
 
         editTransportButton.disableProperty().bind(
@@ -121,18 +121,22 @@ public class TransportsViewPresenter extends SwitchPresenter {
     private void handleDatePickerAction(){
 //        TODO
     }
+
     @FXML
     private void handleDriverDetAction(){
 //        TODO
     }
+
     @FXML
     private void handleCurrTransDetAction(){
 //        TODO
     }
+
     @FXML
     private void handleVehicleDetAction(){
 //        TODO
     }
+
     @FXML
     private void handleAddTransportAction(){
         Transport addedTransport = appPresenter.showAddTransportView();
@@ -140,6 +144,7 @@ public class TransportsViewPresenter extends SwitchPresenter {
             this.transports.add(addedTransport);
         }
     }
+
     @FXML
     private void handleDeleteTransportAction(){
         Transport toRemove = transportsTable.getSelectionModel().getSelectedItem();
@@ -149,6 +154,7 @@ public class TransportsViewPresenter extends SwitchPresenter {
 //todo maybe
         transportsTable.refresh();
     }
+
     @FXML
     private void handleEditTransportAction(){
 //        TODO

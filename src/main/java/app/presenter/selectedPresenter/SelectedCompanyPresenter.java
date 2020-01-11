@@ -87,6 +87,7 @@ public class SelectedCompanyPresenter extends SelectedPresenter{
             companies.add(addedCompany);
 
     }
+
     @FXML
     private void handleDeleteButtonAction(){
         Company toRemove = companyTableView.getSelectionModel().getSelectedItem();
@@ -96,6 +97,7 @@ public class SelectedCompanyPresenter extends SelectedPresenter{
 
         companyTableView.refresh();
     }
+
     @FXML
     private void handleEditButtonAction(){
         appPresenter.showEditCompanyView(companyTableView.getSelectionModel().getSelectedItem());

@@ -18,6 +18,7 @@ public class AddCargoPresenter {
     private Stage dialogStage;
     private Map<String, Cargo> cargoTypesMap;  // map Cargo.name -> Cargo
     private Map<String, Integer> cargoUnitsMap;
+
     @FXML
     private TextField name;
     @FXML
@@ -26,11 +27,11 @@ public class AddCargoPresenter {
     private TextField volume;
     @FXML
     private TextField weight;
-
     @FXML
     private Button acceptButton;
     @FXML
     private Button cancelButton;
+
     @FXML
     private void initialize(){
         acceptButton.disableProperty().bind(
@@ -52,6 +53,7 @@ public class AddCargoPresenter {
         cargoUnitsMap.put(cargoName, cargoUnits);
         dialogStage.close();
     }
+
     @FXML
     private void handleCancelButtonAction(){
         dialogStage.close();

@@ -53,6 +53,7 @@ public class EditDriverViewPresenter extends EditDialogPresenter{
                         .or(Bindings.isEmpty(phoneField.textProperty()))
         );
     }
+
     @Override
     public void setOldObject(Object oldDriver){
         currentDriver = (Driver) oldDriver;
@@ -92,6 +93,7 @@ public class EditDriverViewPresenter extends EditDialogPresenter{
         System.out.println(driverDao.findAllDrivers());
         dialogStage.close();
     }
+
     @FXML
     private void handleCancelButtonAction(){
         dialogStage.close();

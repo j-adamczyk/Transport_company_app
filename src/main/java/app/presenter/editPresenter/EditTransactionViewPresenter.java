@@ -157,9 +157,6 @@ public class EditTransactionViewPresenter extends EditDialogPresenter {
         TransactionUpdateCommand TUC = new TransactionUpdateCommand(currentTransaction);
         TUC.execute();
         dialogStage.close();
-//        CurrentTransaction currentTransaction = new CurrentTransaction(transaction, cargoUnitsMap);
-//        CurrentTransactionSaveCommand CTSC = new CurrentTransactionSaveCommand(currentTransaction);
-//        System.out.println(transactionDAO.findAllTransactions());
     }
 
     private void updateTransaction(Company company, Map<String, Cargo> cargoTypesMap, Map<String, Integer> cargoUnitsMap,

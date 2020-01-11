@@ -27,6 +27,7 @@ public class EditCargoPresenter extends EditDialogPresenter {
     private Button acceptButton;
     @FXML
     private Button cancelButton;
+
     @FXML
     private void initialize(){
         acceptButton.disableProperty().bind(
@@ -45,6 +46,7 @@ public class EditCargoPresenter extends EditDialogPresenter {
         volume.setText(oldCargo.getVolume().toString());
         weight.setText(oldCargo.getWeight().toString());
     }
+
     @FXML
     private void handleAcceptButtonAction(){
         String cargoName = name.getText();
@@ -58,8 +60,8 @@ public class EditCargoPresenter extends EditDialogPresenter {
         cargoUnitsMap.put(cargoName, cargoUnits);
         for(String s: cargoUnitsMap.keySet()) System.out.println(s);
         dialogStage.close();
-//        TODO
     }
+
     @FXML
     private void handleCancelButtonAction(){
         dialogStage.close();

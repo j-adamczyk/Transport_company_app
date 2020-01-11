@@ -34,6 +34,7 @@ public class EditCompanyViewPresenter extends EditDialogPresenter {
     private Button cancelButton;
 
     private Company currentCompany;
+
     @FXML
     private void initialize(){
         acceptButton.disableProperty().bind(
@@ -80,10 +81,9 @@ public class EditCompanyViewPresenter extends EditDialogPresenter {
         this.currentCompany.setRepresentative(representative);
         CompanyUpdateCommand CUC = new CompanyUpdateCommand(currentCompany);
         CUC.execute();
-//        CompanyDAO companyDao = new CompanyDAO();
-//        System.out.println(companyDao.findAllCompanies());
         dialogStage.close();
     }
+
     @FXML
     private void handleCancelButtonAction(){
         dialogStage.close();
