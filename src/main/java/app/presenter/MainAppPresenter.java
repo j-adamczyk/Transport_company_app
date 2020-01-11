@@ -94,22 +94,31 @@ public class MainAppPresenter {
     }
 
     public void showEditCompanyView(Company company) {showEditDialogScene(company, "EditCompanyView", "Company");}
+
     public void showEditDriverView(Driver driver) {showEditDialogScene(driver, "EditDriverView", "Driver");}
+
     public void showEditTransactionView(Transaction transaction) {showEditDialogScene(transaction, "EditTransactionView", "Transaction");}
+
     public void showEditVehicleView(Vehicle vehicle) {
         showEditDialogScene(vehicle, "EditVehicleView", "Vehicle");
     }
+
     public CurrentTransaction showSelectedCurrentTransaction(CurrentTransaction currentTransaction, Stage owner) {
-        return (CurrentTransaction) showSelectedDialogScene(currentTransaction, "SelectedCurrentTransactionView", "Current Transaction", owner);}
+        return (CurrentTransaction) showSelectedDialogScene(currentTransaction, "SelectedCurrentTransactionView", "Current Transaction", owner);
+    }
+
     public Company showSelectedCompany(Company company, Stage owner) {
         return (Company) showSelectedDialogScene(company, "SelectedCompanyView", "Company", owner);
     }
+
     public Transaction showSelectedTransaction(Transaction transaction, Stage owner){
         return (Transaction) showSelectedDialogScene(transaction, "SelectedTransactionView", "Transaction", owner);
     }
+
     public Driver showSelectedDriver(Driver driver, Stage owner) {
         return (Driver) showSelectedDialogScene(driver, "SelectedDriverView", "Driver", owner);
     }
+
     public Vehicle showSelectedVehicle(Vehicle vehicle, Stage owner) {
         return (Vehicle) showSelectedDialogScene(vehicle, "SelectedVehicleView", "Vehicle", owner);
     }
@@ -210,7 +219,8 @@ public class MainAppPresenter {
         System.err.println("***Default exception handler***");
         if (Platform.isFxApplicationThread()) {
             if(e.getCause().toString().equalsIgnoreCase("java.lang.reflect.InvocationTargetException"))
-                showErrorDialog(e, "Invalid value!");
+//                showErrorDialog(e, "Invalid value!");
+                e.printStackTrace();
         } else {
             System.err.println("An unexpected error occurred in " + t);
         }

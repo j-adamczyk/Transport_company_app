@@ -82,6 +82,8 @@ public class SelectedCurrentTransactionPresenter extends SelectedPresenter {
         transactionDateLabel.setText("Date: " + currentTransaction.getTransaction().getTransactionDate());
         transactionPurchaseLabel.setText("Purchase: " + currentTransaction.getTransaction().getMoney().toString());
         cargo.addAll(currentTransaction.getTransaction().getCargoTypes().values());
+        System.out.println(currentTransaction.getTransaction().getCargo().values());
+        System.out.println(currentTransaction.getTransaction().getCargoTypes().values());
         cargoTable.refresh();
         transports.addAll(new TransportDAO().findByCurrentTransaction(currentTransaction._id));
         transportTableView.refresh();

@@ -154,6 +154,8 @@ public class EditTransactionViewPresenter extends EditDialogPresenter {
         Company company = companyDAO.findByName(contractorName).get(0);
         updateTransaction(company, cargoTypesMap, cargoUnitsMap,
                 from, destination, money, transactionDate);
+        System.out.println("Types " +  cargoTypesMap);
+        System.out.println("Units" + cargoUnitsMap);
         TransactionUpdateCommand TUC = new TransactionUpdateCommand(currentTransaction);
         TUC.execute();
         dialogStage.close();
@@ -169,10 +171,12 @@ public class EditTransactionViewPresenter extends EditDialogPresenter {
         currentTransaction.setMoney(purchase);
         currentTransaction.setTransactionDate(transactionDate);
     }
+
     @FXML
     private void handleCancelButtonAction(){
         dialogStage.close();
     }
+
     @FXML
     private void handleAddCargoButtonAction(){
         FXMLLoader loader = new FXMLLoader();
