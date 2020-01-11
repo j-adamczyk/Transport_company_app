@@ -83,36 +83,36 @@ public class  Transport {
         double currVolume = 0;
         double maxVolume = vehicle.getCargoVolume();
 
-        Map<String, Integer> newCargoUnits = this.currentTransaction.getCargoLeft();
+        Map<String, Integer> cargoUnitsTaken = new HashMap<>();
 
         for (Map.Entry<String, Cargo> entry : possibleCargoTypes.entrySet()) {
             String cargoName = entry.getKey();
             Cargo cargoType = entry.getValue();
 
             // calculate how many units we can add with respect to weight and volume capacity of the vehicle
-            int addedUnits = 0;
+            int takenUnits = 0;
             while (currWeight + cargoType.getWeight() <= maxWeight &&
                    currVolume + cargoType.getVolume() <= maxVolume) {
-                addedUnits += 1;
+                takenUnits += 1;
                 currWeight += cargoType.getWeight();
                 currVolume += cargoType.getVolume();
             }
 
-            if (addedUnits > 0) {
-                // actually add units
+            if (takenUnits > 0) {
+                cargoUnitsTaken.put(cargoName, takenUnits);
+
+                // actually add units to the transport
                 int currentUnits = this.cargoUnits.getOrDefault(cargoName, 0);
-                currentUnits += addedUnits;
+                currentUnits += takenUnits;
                 this.cargoUnits.put(cargoName, currentUnits);
 
-                // add cargo type to transported cargo types
+                // add cargo type to transported cargo types in transport
                 this.cargoTypes.put(cargoName, cargoType);
-
-                // remove units from those waiting for transport
-                newCargoUnits.put(cargoName, newCargoUnits.get(cargoName) - addedUnits);
             }
         }
 
-        this.currentTransaction.setCargoLeft(newCargoUnits);
+        // take cargo units from currentTransaction (and possibly set Transaction as "done")
+        this.currentTransaction.removeCargo(cargoUnitsTaken);
     }
 
     public ObjectId get_id() {

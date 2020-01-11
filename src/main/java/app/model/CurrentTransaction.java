@@ -51,6 +51,8 @@ public class CurrentTransaction {
             Integer presentCargoCount = this.cargoLeft.getOrDefault(cargoName, 0);
             this.cargoLeft.put(cargoName, presentCargoCount + cargoCount);
         }
+
+        this.transaction.setDone(false);
     }
 
     public void removeCargo(Map<String, Integer> cargoUnits) {
@@ -59,12 +61,15 @@ public class CurrentTransaction {
             Integer cargoCount = entry.getValue();
 
             Integer presentCargoCount = this.cargoLeft.getOrDefault(cargoName, 0);
-            Integer newCargoCount = presentCargoCount - cargoCount;
+            int newCargoCount = presentCargoCount - cargoCount;
             if (newCargoCount < 0)
                 throw new IllegalArgumentException("Taking more cargo than is available!");
 
             this.cargoLeft.put(cargoName, newCargoCount);
         }
+
+        if (this.cargoLeft.size() == 0)
+            this.transaction.setDone(true);
     }
 
     @Override

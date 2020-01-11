@@ -26,8 +26,10 @@ public class Transaction {
     private CurrentTransaction currentTransaction;
 
     private Map<ObjectId, LocalDateTime> transports; // map transport _id -> date of departure
-    // currentTransaction can be edited ONLY if no transport carried a part of it
+    // Transaction can be edited ONLY if no transport carried a part of it
     private boolean editable;
+    // Transaction is done when everything from it's currentTransaction's cargoLeft is taken
+    private boolean done;
 
     // for MongoDB serializer
     public Transaction() {}
@@ -49,6 +51,7 @@ public class Transaction {
 
         this.transports = new HashMap<>();
         this.editable = true;
+        this.done = false;
     }
 
     public ObjectId get_id() {
@@ -146,6 +149,14 @@ public class Transaction {
         this.editable = editable;
     }
 
+    public boolean isDone() {
+        return done;
+    }
+
+    public void setDone(boolean done) {
+        this.done = done;
+    }
+
     @Override
     public String toString() {
         return "Transaction{" +
@@ -159,6 +170,7 @@ public class Transaction {
                 ", transactionDate=" + transactionDate +
                 ", transports=" + transports.toString() +
                 ", editable=" + editable +
+                ", done=" + done +
                 '}';
     }
 
