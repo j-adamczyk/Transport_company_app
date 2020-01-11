@@ -34,7 +34,6 @@ public class TransportUpdateCommand implements Command {
         transportDAO.update(oldTransport.get_id(), newTransport);
         currentTransactionDAO.update(oldCurrentTransaction.get_id(), newCurrentTransaction);
 
-
         Logger.log(new LogEntry(EntryType.UPDATE, oldTransport.toString()
                 + " -> " + newTransport.toString()));
         Logger.log(new LogEntry(EntryType.UPDATE, oldCurrentTransaction.toString()

@@ -34,18 +34,18 @@ public class TransportDeleteCommand implements Command {
         this.transportDAO = new TransportDAO();
         this.currentTransactionDAO = new CurrentTransactionDAO();
         this.transactionDAO = new TransactionDAO();
+
         this._id = _id;
+        this.transport = transportDAO.find(_id);
+        this.currentTransaction = transport.getCurrentTransaction();
+        this.transaction = currentTransaction.getTransaction();
+
+        oldCurrentTransactionString = currentTransaction.toString();
+        oldTransactionString = transport.toString();
     }
 
     @Override
     public void execute() {
-        this.transport = transportDAO.find(_id);
-        this.transaction = currentTransaction.getTransaction();
-        this.currentTransaction = currentTransactionDAO.findByTransactionId(transaction.get_id());
-
-        oldCurrentTransactionString = currentTransaction.toString();
-        oldTransactionString = transport.toString();
-
         // removing transport -> put cargo back
         currentTransaction.addCargo(transport.getCargoUnits());
         transaction.removeTransport(transport);

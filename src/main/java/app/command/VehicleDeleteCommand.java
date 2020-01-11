@@ -16,11 +16,11 @@ public class VehicleDeleteCommand implements Command {
     public VehicleDeleteCommand(ObjectId _id) {
         this.dao = new VehicleDAO();
         this._id = _id;
+        this.vehicle = dao.find(_id);
     }
 
     @Override
     public void execute() {
-        this.vehicle = dao.find(_id);
         dao.delete(_id);
 
         Logger.log(new LogEntry(EntryType.DELETE, vehicle.toString()));

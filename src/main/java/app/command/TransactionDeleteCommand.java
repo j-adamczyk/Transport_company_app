@@ -24,14 +24,14 @@ public class TransactionDeleteCommand implements Command {
         this.currentTransactionDAO = new CurrentTransactionDAO();
 
         this.transaction_id = transaction_id;
+        this.transaction = transactionDAO.find(transaction_id);
+
+        this.currentTransaction = currentTransactionDAO.findByTransactionId(transaction_id);
+        this.currentTransaction_id = currentTransaction.get_id();
     }
 
     @Override
     public void execute() {
-        this.transaction = transactionDAO.find(transaction_id);
-        this.currentTransaction = currentTransactionDAO.findByTransactionId(transaction_id);
-        this.currentTransaction_id = currentTransaction.get_id();
-
         transactionDAO.delete(transaction_id);
         currentTransactionDAO.delete(currentTransaction_id);
 

@@ -15,12 +15,13 @@ public class DriverUpdateCommand implements Command {
 
     public DriverUpdateCommand(Driver driver) {
         this.dao = new DriverDAO();
+
+        this.oldDriver = dao.find(driver.get_id());
         this.newDriver = driver;
     }
 
     @Override
     public void execute() {
-        this.oldDriver = dao.find(newDriver.get_id());
         dao.update(oldDriver.get_id(), newDriver);
 
         Logger.log(new LogEntry(EntryType.UPDATE, oldDriver.toString()

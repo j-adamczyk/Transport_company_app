@@ -16,11 +16,11 @@ public class CurrentTransactionDeleteCommand implements Command {
     public CurrentTransactionDeleteCommand(ObjectId _id) {
         this.dao = new CurrentTransactionDAO();
         this._id = _id;
+        this.currentTransaction = dao.find(_id);
     }
 
     @Override
     public void execute() {
-        this.currentTransaction = dao.find(_id);
         dao.delete(_id);
 
         Logger.log(new LogEntry(EntryType.DELETE, currentTransaction.toString()));

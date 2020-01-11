@@ -16,11 +16,11 @@ public class CompanyDeleteCommand implements Command {
     public CompanyDeleteCommand(ObjectId _id) {
         this.dao = new CompanyDAO();
         this._id = _id;
+        this.company = dao.find(_id);
     }
 
     @Override
     public void execute() {
-        this.company = dao.find(_id);
         dao.delete(_id);
 
         Logger.log(new LogEntry(EntryType.DELETE, company.toString()));

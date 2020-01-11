@@ -15,11 +15,11 @@ public class VehicleUpdateCommand implements Command {
     public VehicleUpdateCommand(Vehicle vehicle) {
         this.dao = new VehicleDAO();
         this.newVehicle = vehicle;
+        this.oldVehicle = dao.find(newVehicle.get_id());
     }
 
     @Override
     public void execute() {
-        this.oldVehicle = dao.find(newVehicle.get_id());
         dao.update(oldVehicle.get_id(), newVehicle);
 
         Logger.log(new LogEntry(EntryType.UPDATE, oldVehicle.toString()

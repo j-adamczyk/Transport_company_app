@@ -22,6 +22,9 @@ public class TransactionUpdateCommand implements Command {
         this.transactionDAO = new TransactionDAO();
         this.currentTransactionDAO = new CurrentTransactionDAO();
 
+        this.oldTransaction = transactionDAO.find(transaction.get_id());
+        this.oldCurrentTransaction = currentTransactionDAO.findByTransactionId(oldTransaction.get_id());
+
         this.newTransaction = transaction;
         this.newCurrentTransaction = new CurrentTransaction(transaction.getCurrentTransactionId(),
                 transaction, transaction.getCargo());
@@ -29,9 +32,6 @@ public class TransactionUpdateCommand implements Command {
 
     @Override
     public void execute() {
-        this.oldTransaction = transactionDAO.find(newTransaction.get_id());
-        this.oldCurrentTransaction = currentTransactionDAO.findByTransactionId(oldTransaction.get_id());
-
         transactionDAO.update(oldTransaction.get_id(), newTransaction);
         currentTransactionDAO.update(oldCurrentTransaction.get_id(), newCurrentTransaction);
 

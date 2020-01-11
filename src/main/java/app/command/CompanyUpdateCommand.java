@@ -14,12 +14,13 @@ public class CompanyUpdateCommand implements Command {
 
     public CompanyUpdateCommand(Company company) {
         this.dao = new CompanyDAO();
+
+        this.oldCompany = dao.find(company.get_id());
         this.newCompany = company;
     }
 
     @Override
     public void execute() {
-        this.oldCompany = dao.find(newCompany.get_id());
         dao.update(oldCompany.get_id(), newCompany);
 
         Logger.log(new LogEntry(EntryType.UPDATE, oldCompany.toString() + " -> " + newCompany.toString()));

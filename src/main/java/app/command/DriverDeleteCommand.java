@@ -16,11 +16,11 @@ public class DriverDeleteCommand implements Command {
     public DriverDeleteCommand(ObjectId _id) {
         this.dao = new DriverDAO();
         this._id = _id;
+        this.driver = dao.find(_id);
     }
 
     @Override
     public void execute() {
-        this.driver = dao.find(_id);
         dao.delete(_id);
 
         Logger.log(new LogEntry(EntryType.DELETE, driver.toString()));

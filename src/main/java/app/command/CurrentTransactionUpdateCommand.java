@@ -14,12 +14,13 @@ public class CurrentTransactionUpdateCommand implements Command {
 
     public CurrentTransactionUpdateCommand(CurrentTransaction currentTransaction) {
         this.dao = new CurrentTransactionDAO();
+
+        this.oldCurrentTransaction = dao.find(currentTransaction.get_id());
         this.newCurrentTransaction = currentTransaction;
     }
 
     @Override
     public void execute() {
-        this.oldCurrentTransaction = dao.find(newCurrentTransaction.get_id());
         dao.update(oldCurrentTransaction.get_id(), newCurrentTransaction);
 
         Logger.log(new LogEntry(EntryType.UPDATE, oldCurrentTransaction.toString()
