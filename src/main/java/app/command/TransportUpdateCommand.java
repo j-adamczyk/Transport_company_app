@@ -18,7 +18,7 @@ public class TransportUpdateCommand implements Command {
     public void execute() {
         TransportDAO dao = new TransportDAO();
         this.oldTransport = dao.find(newTransport.get_id());
-        dao.update(newTransport.get_id(), newTransport);
+        dao.update(oldTransport.get_id(), newTransport);
 
         Logger.log(new LogEntry(EntryType.UPDATE, oldTransport.toString()
                 + " -> " + newTransport.toString()));
@@ -27,7 +27,7 @@ public class TransportUpdateCommand implements Command {
     @Override
     public void undo() {
         TransportDAO dao = new TransportDAO();
-        dao.update(oldTransport.get_id(), oldTransport);
+        dao.update(newTransport.get_id(), oldTransport);
 
         Logger.log(new LogEntry(EntryType.UPDATE, newTransport.toString()
                 + " -> " + oldTransport.toString()));
@@ -36,7 +36,7 @@ public class TransportUpdateCommand implements Command {
     @Override
     public void redo() {
         TransportDAO dao = new TransportDAO();
-        dao.update(newTransport.get_id(), newTransport);
+        dao.update(oldTransport.get_id(), newTransport);
 
         Logger.log(new LogEntry(EntryType.UPDATE, oldTransport.toString()
                 + " -> " + newTransport.toString()));

@@ -18,7 +18,7 @@ public class CurrentTransactionUpdateCommand implements Command {
     public void execute() {
         CurrentTransactionDAO dao = new CurrentTransactionDAO();
         this.oldCurrentTransaction = dao.find(newCurrentTransaction.get_id());
-        dao.update(newCurrentTransaction.get_id(), newCurrentTransaction);
+        dao.update(oldCurrentTransaction.get_id(), newCurrentTransaction);
 
         Logger.log(new LogEntry(EntryType.UPDATE, oldCurrentTransaction.toString()
                 + " -> " + newCurrentTransaction.toString()));
@@ -27,7 +27,7 @@ public class CurrentTransactionUpdateCommand implements Command {
     @Override
     public void undo() {
         CurrentTransactionDAO dao = new CurrentTransactionDAO();
-        dao.update(oldCurrentTransaction.get_id(), oldCurrentTransaction);
+        dao.update(newCurrentTransaction.get_id(), oldCurrentTransaction);
 
         Logger.log(new LogEntry(EntryType.UPDATE, newCurrentTransaction.toString()
                 + " -> " + oldCurrentTransaction.toString()));
@@ -36,9 +36,9 @@ public class CurrentTransactionUpdateCommand implements Command {
     @Override
     public void redo() {
         CurrentTransactionDAO dao = new CurrentTransactionDAO();
-        dao.update(newCurrentTransaction.get_id(), newCurrentTransaction);
+        dao.update(oldCurrentTransaction.get_id(), newCurrentTransaction);
 
-        Logger.log(new LogEntry(EntryType.UPDATE, newCurrentTransaction.toString()
-                + " -> " + oldCurrentTransaction.toString()));
+        Logger.log(new LogEntry(EntryType.UPDATE, oldCurrentTransaction.toString()
+                + " -> " + newCurrentTransaction.toString()));
     }
 }
