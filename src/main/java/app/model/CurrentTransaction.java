@@ -23,6 +23,12 @@ public class CurrentTransaction {
         this.cargoLeft = cargoLeft;
     }
 
+    public CurrentTransaction(ObjectId _id, Transaction transaction, Map<String, Integer> cargoLeft) {
+        this._id = _id;
+        this.transaction = transaction;
+        this.cargoLeft = cargoLeft;
+    }
+
     public ObjectId get_id() {
         return _id;
     }

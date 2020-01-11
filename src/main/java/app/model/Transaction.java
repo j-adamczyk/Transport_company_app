@@ -23,6 +23,7 @@ public class Transaction {
     private Address destination;
     private Double money;
     private LocalDate transactionDate;
+    private ObjectId currentTransactionId;
 
     // map transport _id -> date of departure
     // should really be ObjectId -> LocalDateTime, but BSON serializer does not allow ObjectId as key
@@ -49,6 +50,7 @@ public class Transaction {
         this.transactionDate = transactionDate;
 
         CurrentTransaction currentTransaction = new CurrentTransaction(this, cargo);
+        this.currentTransactionId = currentTransaction.get_id();
         CurrentTransactionSaveCommand command = new CurrentTransactionSaveCommand(currentTransaction);
         CommandRegistry.getInstance().executeCommand(command);
 
@@ -115,6 +117,10 @@ public class Transaction {
 
     public void setTransactionDate(LocalDate transactionDate) {
         this.transactionDate = transactionDate;
+    }
+
+    public ObjectId getCurrentTransactionId() {
+        return currentTransactionId;
     }
 
     public Map<String, LocalDateTime> getTransports() {

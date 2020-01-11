@@ -23,7 +23,8 @@ public class TransactionUpdateCommand implements Command {
         this.currentTransactionDAO = new CurrentTransactionDAO();
 
         this.newTransaction = transaction;
-        this.newCurrentTransaction = currentTransactionDAO.findByTransactionId(newTransaction.get_id());
+        this.newCurrentTransaction = new CurrentTransaction(transaction.getCurrentTransactionId(),
+                transaction, transaction.getCargo());
     }
 
     @Override
