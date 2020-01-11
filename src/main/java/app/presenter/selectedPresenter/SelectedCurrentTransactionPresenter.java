@@ -94,6 +94,6 @@ public class SelectedCurrentTransactionPresenter extends SelectedPresenter {
 
     @FXML
     private void handleTransportButtonAction(){
-//        TODO
+        appPresenter.showSelectedTransport(transportTableView.getSelectionModel().getSelectedItem(), dialogStage);
     }
 }

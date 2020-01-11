@@ -1,8 +1,9 @@
-package app.presenter.overviewPresenter;
+package app.presenter.selectedPresenter;
 
 import app.command.TransportDeleteCommand;
 import app.dao.TransportDAO;
 import app.model.Cargo;
+import app.model.Driver;
 import app.model.Duration;
 import app.model.Transport;
 import javafx.beans.binding.Bindings;
@@ -18,11 +19,11 @@ import javafx.scene.control.*;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class TransportsViewPresenter extends SwitchPresenter {
+public class SelectedTransportPresenter extends SelectedPresenter{
+
     private ObservableList<Transport> allTransports;
     private ObservableList<Transport> transports;
     private ObservableList<Transport> pastTransports = FXCollections.observableArrayList();
@@ -170,6 +171,25 @@ public class TransportsViewPresenter extends SwitchPresenter {
         });
     }
 
+    @Override
+    public void setOldObject(Object object){
+        Transport selectedTransport = (Transport) object;
+        if(pastTransports.contains(selectedTransport)) {
+            pastCheckBox.setSelected(true);
+        } else if (currentTransports.contains(selectedTransport)) {
+            presentCheckBox.setSelected(true);
+        } else {
+            futureCheckBox.setSelected(true);
+        }
+        transportsTable.getSelectionModel().select(selectedTransport);
+    }
+
+    @Override
+    public Transport getSelectedObject(){
+        return this.selectedTransportProperty.get();
+    }
+
+
     @FXML
     private void handleDriverDetAction(){
         appPresenter.showSelectedDriver(transportsTable.getSelectionModel().getSelectedItem().getDriver(),
@@ -202,16 +222,16 @@ public class TransportsViewPresenter extends SwitchPresenter {
         Transport toRemove = transportsTable.getSelectionModel().getSelectedItem();
         if (pastTransports.contains(toRemove)) {
             pastTransports.remove(toRemove);
-        } else if (currentTransports.contains(toRemove)) {
+        }
+        if (currentTransports.contains(toRemove)) {
             currentTransports.remove(toRemove);
-        } else {
+        }
+        if (futureTransports.contains(toRemove)) {
             futureTransports.remove(toRemove);
         }
         TransportDeleteCommand tdc = new TransportDeleteCommand(toRemove.get_id());
         tdc.execute();
-        if (transports.contains(toRemove)) {
-            transports.remove(toRemove);
-        }
+        transports.remove(toRemove);
         transportsTable.refresh();
     }
 
@@ -244,9 +264,9 @@ public class TransportsViewPresenter extends SwitchPresenter {
                 pastTransports.add(transport);
             }
             if(transport.getDepartureDate()
-                        .isAfter(LocalDateTime.now())) {
-                    futureTransports.add(transport);
-                }
+                    .isAfter(LocalDateTime.now())) {
+                futureTransports.add(transport);
+            }
             else {
                 currentTransports.add(transport);
             }
@@ -275,5 +295,4 @@ public class TransportsViewPresenter extends SwitchPresenter {
         futureCheckBox.setSelected(!futureCheckBox.isSelected());
         futureCheckBox.setSelected(!futureCheckBox.isSelected());
     }
-
 }

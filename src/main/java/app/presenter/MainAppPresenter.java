@@ -127,6 +127,10 @@ public class MainAppPresenter {
         return (Vehicle) showSelectedDialogScene(vehicle, "SelectedVehicleView", "Vehicle", owner);
     }
 
+    public void showSelectedTransport(Transport transport, Stage owner) {
+        showSelectedDialogScene(transport, "SelectedTransportView", "Transport", owner);
+    }
+
 
     private void switchScene(String viewName, String title){
         this.primaryStage.setTitle(TITLE + " - " + title);
