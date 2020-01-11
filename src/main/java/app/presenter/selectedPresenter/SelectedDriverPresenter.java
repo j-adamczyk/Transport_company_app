@@ -42,6 +42,15 @@ public class SelectedDriverPresenter extends SelectedPresenter{
     private void initialize(){
         DriverDAO driverDAO = new DriverDAO();
         driverTableView.getSelectionModel().getTableView().getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        driverTableView.setRowFactory( tv -> {
+            TableRow<Driver> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    dialogStage.close();
+                }
+            });
+            return row ;
+        });
         driverName.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getName()));
         driverBirthDay.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getBirthDate().toString()));
         driverHireDate.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getHireDate().toString()));

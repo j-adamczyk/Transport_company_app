@@ -43,6 +43,15 @@ public class SelectedVehiclePresenter extends SelectedPresenter{
     private void initialize(){
         VehicleDAO vehicleDAO = new VehicleDAO();
         vehicleTableView.getSelectionModel().getTableView().getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
+        vehicleTableView.setRowFactory( tv -> {
+            TableRow<Vehicle> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                    dialogStage.close();
+                }
+            });
+            return row ;
+        });
         vehicleCargoVolume.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getCargoVolume().toString()));
         vehicleCargoWeight.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getCargoWeight().toString()));
         vehicleManufactureDate.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getManufactureDate().toString()));
@@ -65,6 +74,8 @@ public class SelectedVehiclePresenter extends SelectedPresenter{
                 selectedVehicleProperty.set(nv);
             }
         });
+
+
 
     }
 

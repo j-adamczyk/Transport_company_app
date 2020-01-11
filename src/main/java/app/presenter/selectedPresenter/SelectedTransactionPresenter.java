@@ -66,6 +66,15 @@ public class SelectedTransactionPresenter extends SelectedPresenter{
         @FXML
         private void initialize(){
             TransactionDAO transactionDAO = new TransactionDAO();
+            transactionTableView.setRowFactory( tv -> {
+                TableRow<Transaction> row = new TableRow<>();
+                row.setOnMouseClicked(event -> {
+                    if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
+                        dialogStage.close();
+                    }
+                });
+                return row ;
+            });
             transactionTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
             transactionContractorColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getContractor().toString()));
             transactionDateColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getTransactionDate().toString()));

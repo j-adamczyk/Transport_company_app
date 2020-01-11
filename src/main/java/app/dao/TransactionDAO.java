@@ -57,4 +57,12 @@ public class TransactionDAO extends GenericDAO<Transaction>{
                 .find()
                 .into(new ArrayList<>());
     }
+
+    public List<Transaction> findAllUndoneTransactions() {
+        return DbConnector
+                .getDB()
+                .getCollection(collName, Transaction.class)
+                .find(eq("done", false))
+                .into(new ArrayList<>());
+    }
 }

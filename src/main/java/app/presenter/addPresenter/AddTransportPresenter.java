@@ -3,12 +3,14 @@ package app.presenter.addPresenter;
 import app.command.TransportSaveCommand;
 import app.dao.CurrentTransactionDAO;
 import app.dao.DriverDAO;
+import app.dao.TransactionDAO;
 import app.dao.VehicleDAO;
 import app.model.*;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.bson.types.ObjectId;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -18,19 +20,15 @@ import java.util.Map;
 
 public class AddTransportPresenter extends DialogPresenter {
 
-    private CurrentTransaction currentTransaction;
-    private Driver driver;
-    private Vehicle vehicle;
-
-    private ObjectProperty<CurrentTransaction> currentTransactionProperty = new SimpleObjectProperty<>();
+    private ObjectProperty<Transaction> transactionProperty = new SimpleObjectProperty<>();
     private ObjectProperty<Driver> driverObjectProperty = new SimpleObjectProperty<>();
     private ObjectProperty<Vehicle> vehicleObjectProperty = new SimpleObjectProperty<>();
 
     @FXML
-    private ChoiceBox<String> currentTransactionIdChoiceBox;
-    private Map<String, CurrentTransaction> currentTransactionMap = new LinkedHashMap<>();
+    private ChoiceBox<String> transactionIdChoiceBox;
+    private Map<String, Transaction> transactionMap = new LinkedHashMap<>();
     @FXML
-    private Label viewCurrentTransactionsLabel;
+    private Label viewTransactionsLabel;
     @FXML
     private ChoiceBox<String> driverChoiceBox;
     private Map<String, Driver> driverMap = new LinkedHashMap<>();
@@ -55,13 +53,12 @@ public class AddTransportPresenter extends DialogPresenter {
 
     @FXML
     private void initialize(){
-        //current transaction box init
+        //transaction box init
 
-        currentTransactionIdChoiceBox.valueProperty().addListener((o, ov, nv) -> {
-                currentTransactionProperty.set(currentTransactionMap.get(nv));
-                System.out.println(nv);
+        transactionIdChoiceBox.valueProperty().addListener((o, ov, nv) -> {
+                transactionProperty.set(transactionMap.get(nv));
         });
-        setCurrentTransactionIdChoiceBox(null);
+        setTransactionChoiceBox(null);
 
         //driver box init
         driverChoiceBox.valueProperty().addListener((o, ov, nv) -> {
@@ -93,9 +90,10 @@ public class AddTransportPresenter extends DialogPresenter {
 
     @FXML
     private void handleAcceptButtonAction(){
-        currentTransaction = currentTransactionMap.get(currentTransactionIdChoiceBox.getValue());
-        driver = driverMap.get(driverChoiceBox.getValue());
-        vehicle = vehicleMap.get(vehicleChoiceBox.getValue());
+        CurrentTransactionDAO CTD = new CurrentTransactionDAO();
+        CurrentTransaction currentTransaction = CTD.findByTransactionId(new ObjectId(transactionIdChoiceBox.getValue()));
+        Driver driver = driverMap.get(driverChoiceBox.getValue());
+        Vehicle vehicle = vehicleMap.get(vehicleChoiceBox.getValue());
         LocalDateTime dateTime = datePicker.getValue()
                 .atTime((Integer)hourSpinner.getValue(),(Integer) minuteSpinner.getValue());
         Transport transport = new Transport(currentTransaction, driver, vehicle, dateTime);
@@ -105,11 +103,10 @@ public class AddTransportPresenter extends DialogPresenter {
     };
 
     @FXML
-    private void handleViewCurrTransLabelAction(){
+    private void handleViewTransLabelAction(){
         Transaction selectedTransaction = appPresenter.showSelectedTransaction(
-                currentTransactionMap.get(currentTransactionIdChoiceBox.getValue()).getTransaction(), dialogStage);
-        CurrentTransaction currentTransaction = new CurrentTransactionDAO().findByTransactionId(selectedTransaction._id);
-        setCurrentTransactionIdChoiceBox(currentTransaction._id.toString());
+                transactionMap.get(transactionIdChoiceBox.getValue()), dialogStage);
+        setTransactionChoiceBox(selectedTransaction._id.toString());
     };
 
     @FXML
@@ -133,16 +130,17 @@ public class AddTransportPresenter extends DialogPresenter {
         setVehicleChoiceBox(selectedVehicle.getRegistrationNo());
     }
 
-    private void setCurrentTransactionIdChoiceBox(String id){
-        CurrentTransactionDAO CTdao = new CurrentTransactionDAO();
-        List<CurrentTransaction> currentTransactions = CTdao.findAllCurrentTransactions();
-        currentTransactionIdChoiceBox.getItems().clear();
-        for(CurrentTransaction transaction: currentTransactions) {
-            currentTransactionMap.put(transaction.get_id().toString(), transaction);
-            currentTransactionIdChoiceBox.getItems().add(transaction.get_id().toString());
+    private void setTransactionChoiceBox(String id){
+        TransactionDAO Tdao = new TransactionDAO();
+        List<Transaction> transactions = Tdao.findAllUndoneTransactions();
+        System.out.println("TRA" + transactions);
+        transactionIdChoiceBox.getItems().clear();
+        for(Transaction transaction: transactions) {
+            transactionMap.put(transaction.get_id().toString(), transaction);
+            transactionIdChoiceBox.getItems().add(transaction.get_id().toString());
         }
-        if(currentTransactions.isEmpty()) return;
-        currentTransactionIdChoiceBox.setValue(id == null?currentTransactions.get(0).get_id().toString():id);
+        if(transactions.isEmpty()) return;
+        transactionIdChoiceBox.setValue(id == null?transactions.get(0).get_id().toString():id);
     }
 
     private void setDriverChoiceBox(String nameAndPhone){

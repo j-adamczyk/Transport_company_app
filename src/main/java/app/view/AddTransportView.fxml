@@ -18,8 +18,8 @@
             </padding>
             <Label text="Current Transaction ID"/>
             <HBox spacing="20">
-                <ChoiceBox fx:id="currentTransactionIdChoiceBox" prefWidth="240"/>
-                <Label fx:id="viewCurrentTransactionsLabel" text="view..." onMouseClicked="#handleViewCurrTransLabelAction" textFill="darkblue"/>
+                <ChoiceBox fx:id="transactionIdChoiceBox" prefWidth="240"/>
+                <Label fx:id="viewTransactionsLabel" text="view..." onMouseClicked="#handleViewTransLabelAction" textFill="darkblue"/>
             </HBox>
             <Label text="Departure Date"/>
             <DatePicker fx:id="datePicker" onAction="#handleDatePickerAction"/>
