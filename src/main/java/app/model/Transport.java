@@ -89,10 +89,13 @@ public class  Transport {
             String cargoName = entry.getKey();
             Cargo cargoType = entry.getValue();
 
+            int maxUnits = cargoLeft.get(cargoName);
+
             // calculate how many units we can add with respect to weight and volume capacity of the vehicle
             int takenUnits = 0;
             while (currWeight + cargoType.getWeight() <= maxWeight &&
-                   currVolume + cargoType.getVolume() <= maxVolume) {
+                   currVolume + cargoType.getVolume() <= maxVolume &&
+                   takenUnits < maxUnits) {
                 takenUnits += 1;
                 currWeight += cargoType.getWeight();
                 currVolume += cargoType.getVolume();

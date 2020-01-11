@@ -132,11 +132,19 @@ public class Transaction {
     }
 
     public void addTransport(Transport transport) {
+        // can be null, since MongoDB does not store empty maps and instead returns null on database read
+        if (this.transports == null)
+            this.transports = new HashMap<>();
+
         this.transports.put(transport.get_id().toString(), transport.getDepartureDate());
         this.editable = false;
     }
 
     public void removeTransport(Transport transport) {
+        // can be null, since MongoDB does not store empty maps and instead returns null on database read
+        if (this.transports == null)
+            this.transports = new HashMap<>();
+
         this.transports.remove(transport.get_id().toString());
         if (this.transports.size() == 0)
             this.editable = true;
