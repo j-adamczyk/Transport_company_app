@@ -120,19 +120,16 @@ public class Transaction {
 
     public void addTransport(Transport transport) {
         this.transports.put(transport.get_id(), transport.getDepartureDate());
+        this.editable = false;
+    }
+
+    public void removeTransport(Transport transport) {
+        this.transports.remove(transport.get_id());
+        if (this.transports.size() == 0)
+            this.editable = true;
     }
 
     public boolean isEditable() {
-        if (!editable)
-            return false;
-
-        LocalDateTime current = LocalDateTime.now();
-        for (Map.Entry<ObjectId, LocalDateTime> entry : transports.entrySet())
-            if (current.isAfter(entry.getValue())) {
-                this.editable = false;
-                return false;
-            }
-
         return editable;
     }
 
