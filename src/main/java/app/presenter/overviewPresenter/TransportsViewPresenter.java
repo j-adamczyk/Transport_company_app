@@ -157,7 +157,8 @@ public class TransportsViewPresenter extends SwitchPresenter {
 
     @FXML
     private void handleEditTransportAction(){
-//        TODO
+        appPresenter.showEditTransportView(transportsTable.getSelectionModel().getSelectedItem());
+        transportsTable.refresh();
     }
 
     @FXML

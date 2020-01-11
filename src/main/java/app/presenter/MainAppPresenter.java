@@ -103,6 +103,10 @@ public class MainAppPresenter {
         showEditDialogScene(vehicle, "EditVehicleView", "Vehicle");
     }
 
+    public void showEditTransportView(Transport transport) {
+        showEditDialogScene(transport, "EditTransportView", "Transport");
+    }
+
     public CurrentTransaction showSelectedCurrentTransaction(CurrentTransaction currentTransaction, Stage owner) {
         return (CurrentTransaction) showSelectedDialogScene(currentTransaction, "SelectedCurrentTransactionView", "Current Transaction", owner);
     }

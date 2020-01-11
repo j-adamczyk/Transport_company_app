@@ -1,5 +1,6 @@
 package app.presenter.editPresenter;
 
+import app.presenter.MainAppPresenter;
 import javafx.stage.Stage;
 
 public class EditDialogPresenter {
@@ -9,7 +10,11 @@ public class EditDialogPresenter {
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
+    protected MainAppPresenter appPresenter;
 
+    public void setAppPresenter(MainAppPresenter presenter){
+        this.appPresenter = presenter;
+    }
     public void setOldObject(Object oldObject) {
         this.oldObject = oldObject;
     }
