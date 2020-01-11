@@ -30,6 +30,7 @@ public class TransactionUpdateCommand implements Command {
     public void execute() {
         this.oldTransaction = transactionDAO.find(newTransaction.get_id());
         this.oldCurrentTransaction = oldTransaction.getCurrentTransaction();
+
         transactionDAO.update(oldTransaction.get_id(), newTransaction);
         currentTransactionDAO.update(oldCurrentTransaction.get_id(), newCurrentTransaction);
 
