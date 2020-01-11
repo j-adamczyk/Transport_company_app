@@ -29,7 +29,7 @@ public class TransactionDeleteCommand implements Command {
     @Override
     public void execute() {
         this.transaction = transactionDAO.find(transaction_id);
-        this.currentTransaction = transaction.getCurrentTransaction();
+        this.currentTransaction = currentTransactionDAO.findByTransactionId(transaction_id);
         this.currentTransaction_id = currentTransaction.get_id();
 
         transactionDAO.delete(transaction_id);

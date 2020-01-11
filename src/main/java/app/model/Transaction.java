@@ -23,7 +23,6 @@ public class Transaction {
     private Address destination;
     private Double money;
     private LocalDate transactionDate;
-    private CurrentTransaction currentTransaction;
 
     private Map<ObjectId, LocalDateTime> transports; // map transport _id -> date of departure
     // Transaction can be edited ONLY if no transport carried a part of it
@@ -45,8 +44,8 @@ public class Transaction {
         this.money = money;
         this.transactionDate = transactionDate;
 
-        this.currentTransaction = new CurrentTransaction(this, cargo);
-        CurrentTransactionSaveCommand command = new CurrentTransactionSaveCommand(this.currentTransaction);
+        CurrentTransaction currentTransaction = new CurrentTransaction(this, cargo);
+        CurrentTransactionSaveCommand command = new CurrentTransactionSaveCommand(currentTransaction);
         CommandRegistry.getInstance().executeCommand(command);
 
         this.transports = new HashMap<>();
@@ -112,14 +111,6 @@ public class Transaction {
 
     public void setTransactionDate(LocalDate transactionDate) {
         this.transactionDate = transactionDate;
-    }
-
-    public CurrentTransaction getCurrentTransaction() {
-        return currentTransaction;
-    }
-
-    public void setCurrentTransaction(CurrentTransaction currentTransaction) {
-        this.currentTransaction = currentTransaction;
     }
 
     public Map<ObjectId, LocalDateTime> getTransports() {

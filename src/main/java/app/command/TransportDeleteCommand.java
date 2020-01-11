@@ -40,8 +40,8 @@ public class TransportDeleteCommand implements Command {
     @Override
     public void execute() {
         this.transport = transportDAO.find(_id);
-        this.currentTransaction = transaction.getCurrentTransaction();
         this.transaction = currentTransaction.getTransaction();
+        this.currentTransaction = currentTransactionDAO.findByTransactionId(transaction.get_id());
 
         oldCurrentTransactionString = currentTransaction.toString();
         oldTransactionString = transport.toString();
