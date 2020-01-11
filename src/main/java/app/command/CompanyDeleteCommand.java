@@ -8,16 +8,18 @@ import app.model.Company;
 import org.bson.types.ObjectId;
 
 public class CompanyDeleteCommand implements Command {
+    CompanyDAO dao;
+
     private ObjectId _id;
     private Company company;
 
     public CompanyDeleteCommand(ObjectId _id) {
+        this.dao = new CompanyDAO();
         this._id = _id;
     }
 
     @Override
     public void execute() {
-        CompanyDAO dao = new CompanyDAO();
         this.company = dao.find(_id);
         dao.delete(_id);
 
@@ -26,7 +28,6 @@ public class CompanyDeleteCommand implements Command {
 
     @Override
     public void undo() {
-        CompanyDAO dao = new CompanyDAO();
         dao.save(company);
 
         Logger.log(new LogEntry(EntryType.CREATE, company.toString()));
@@ -34,7 +35,6 @@ public class CompanyDeleteCommand implements Command {
 
     @Override
     public void redo() {
-        CompanyDAO dao = new CompanyDAO();
         dao.delete(_id);
 
         Logger.log(new LogEntry(EntryType.DELETE, company.toString()));

@@ -7,15 +7,17 @@ import app.log.Logger;
 import app.model.Company;
 
 public class CompanySaveCommand implements Command {
+    CompanyDAO dao;
+
     private Company company;
 
     public CompanySaveCommand(Company company) {
+        this.dao = new CompanyDAO();
         this.company = company;
     }
 
     @Override
     public void execute() {
-        CompanyDAO dao = new CompanyDAO();
         dao.save(company);
 
         Logger.log(new LogEntry(EntryType.CREATE, company.toString()));
@@ -23,7 +25,6 @@ public class CompanySaveCommand implements Command {
 
     @Override
     public void undo() {
-        CompanyDAO dao = new CompanyDAO();
         dao.delete(company.get_id());
 
         Logger.log(new LogEntry(EntryType.DELETE, company.toString()));
@@ -31,7 +32,6 @@ public class CompanySaveCommand implements Command {
 
     @Override
     public void redo() {
-        CompanyDAO dao = new CompanyDAO();
         dao.save(company);
 
         Logger.log(new LogEntry(EntryType.CREATE, company.toString()));
