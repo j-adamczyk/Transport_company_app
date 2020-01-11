@@ -24,9 +24,13 @@ public class Transaction {
     private Double money;
     private LocalDate transactionDate;
 
-    private Map<ObjectId, LocalDateTime> transports; // map transport _id -> date of departure
+    // map transport _id -> date of departure
+    // should really be ObjectId -> LocalDateTime, but BSON serializer does not allow ObjectId as key
+    private Map<String, LocalDateTime> transports;
+
     // Transaction can be edited ONLY if no transport carried a part of it
     private boolean editable;
+
     // Transaction is done when everything from it's currentTransaction's cargoLeft is taken
     private boolean done;
 
@@ -113,21 +117,21 @@ public class Transaction {
         this.transactionDate = transactionDate;
     }
 
-    public Map<ObjectId, LocalDateTime> getTransports() {
+    public Map<String, LocalDateTime> getTransports() {
         return transports;
     }
 
-    public void setTransports(Map<ObjectId, LocalDateTime> transports) {
+    public void setTransports(Map<String, LocalDateTime> transports) {
         this.transports = transports;
     }
 
     public void addTransport(Transport transport) {
-        this.transports.put(transport.get_id(), transport.getDepartureDate());
+        this.transports.put(transport.get_id().toString(), transport.getDepartureDate());
         this.editable = false;
     }
 
     public void removeTransport(Transport transport) {
-        this.transports.remove(transport.get_id());
+        this.transports.remove(transport.get_id().toString());
         if (this.transports.size() == 0)
             this.editable = true;
     }
