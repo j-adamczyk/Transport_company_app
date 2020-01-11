@@ -78,11 +78,14 @@ public class TransportsViewPresenter extends SwitchPresenter {
         transportsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         TransportDAO transportDAO = new TransportDAO();
         dateColumn.setCellValueFactory(value -> new SimpleObjectProperty<>(value.getValue().getDepartureDate()));
-        driverColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getDriver().toString()));
-        vehicleColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getVehicle().toString()));
+        driverColumn.setCellValueFactory(value -> new SimpleStringProperty(
+                value.getValue().getDriver().getName()));
+        vehicleColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getVehicle().getRegistrationNo()));
         expectedTimeColumn.setCellValueFactory(value -> new SimpleObjectProperty<>(value.getValue().getExpectedTime()));
-        fromColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getCurrentTransaction().getTransaction().getOrigin().toString()));
-        destinationColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getCurrentTransaction().getTransaction().getDestination().toString()));
+        fromColumn.setCellValueFactory(
+                value -> new SimpleStringProperty(value.getValue().getCurrentTransaction().getTransaction().getOrigin().toString()));
+        destinationColumn.setCellValueFactory(
+                value -> new SimpleStringProperty(value.getValue().getCurrentTransaction().getTransaction().getDestination().toString()));
         cargoNameColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getName()));
         cargoUnitsColumn.setCellValueFactory(value -> new SimpleStringProperty
                 (transportsTable.getSelectionModel().getSelectedItem()==null ? ""

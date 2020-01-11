@@ -20,11 +20,11 @@ public class DbConnectorTests {
 
     @After
     public void setupDatabase() {
-        DbConnector.getInstance().setDbTypeAndLoad(false);
+        DbConnector.getInstance().setDbTypeAndLoad(true);
         this.db = DbConnector.getDB();
         // clear all collections with empty Document filter
         for (String collectionName: db.listCollectionNames())
-            db.getCollection(collectionName).deleteMany(new Document());
+            db.getCollection("transports").deleteMany(new Document());
     }
 
     @Test
