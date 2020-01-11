@@ -46,7 +46,6 @@ public class  Transport {
         this.cargoTypes = new HashMap<>();
         this.cargoUnits = new HashMap<>();
         calculateAndTakeCargo();
-
         this.currentTransaction.getTransaction().addTransport(this);
     }
 
@@ -55,6 +54,7 @@ public class  Transport {
         Address destination = currentTransaction.getTransaction().getDestination();
 
         this.expectedTime = GoogleDistanceMatrix.getTravelTime(origin, destination);
+        System.out.println("Exp time: " + expectedTime);
     }
 
     // TODO: add more sophisticated cargo choosing method than simple weight

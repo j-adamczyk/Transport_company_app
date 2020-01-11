@@ -128,7 +128,11 @@ public class Transaction {
     }
 
     public void setTransports(Map<String, LocalDateTime> transports) {
-        this.transports = transports;
+        if(transports == null){
+            this.transports = new HashMap<>();
+        } else {
+            this.transports = transports;
+        }
     }
 
     public void addTransport(Transport transport) {
