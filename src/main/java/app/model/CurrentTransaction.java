@@ -43,6 +43,39 @@ public class CurrentTransaction {
         this.cargoLeft = cargoLeft;
     }
 
+    public void addCargo(Map<String, Integer> cargoUnits) {
+        for (Map.Entry<String, Integer> entry: cargoUnits.entrySet()) {
+            String cargoName = entry.getKey();
+            Integer cargoCount = entry.getValue();
+
+            Integer presentCargoCount = this.cargoLeft.getOrDefault(cargoName, 0);
+            this.cargoLeft.put(cargoName, presentCargoCount + cargoCount);
+        }
+    }
+
+    public void removeCargo(Map<String, Integer> cargoUnits) {
+        for (Map.Entry<String, Integer> entry: cargoUnits.entrySet()) {
+            String cargoName = entry.getKey();
+            Integer cargoCount = entry.getValue();
+
+            Integer presentCargoCount = this.cargoLeft.getOrDefault(cargoName, 0);
+            Integer newCargoCount = presentCargoCount - cargoCount;
+            if (newCargoCount < 0)
+                throw new IllegalArgumentException("Taking more cargo than is available!");
+
+            this.cargoLeft.put(cargoName, newCargoCount);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "CurrentTransaction{" +
+                "_id=" + _id +
+                ", Transaction_id=" + transaction.get_id() +
+                ", cargoLeft=" + cargoLeft.toString() +
+                '}';
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o)

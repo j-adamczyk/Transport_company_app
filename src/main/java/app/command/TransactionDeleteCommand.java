@@ -22,6 +22,7 @@ public class TransactionDeleteCommand implements Command {
     public TransactionDeleteCommand(ObjectId transaction_id) {
         this.transactionDAO = new TransactionDAO();
         this.currentTransactionDAO = new CurrentTransactionDAO();
+
         this.transaction_id = transaction_id;
     }
 

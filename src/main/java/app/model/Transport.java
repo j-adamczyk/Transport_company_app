@@ -45,7 +45,7 @@ public class  Transport {
         // calculate optimal cargo to transport, fill cargoTypes and cargo fields
         this.cargoTypes = new HashMap<>();
         this.cargoUnits = new HashMap<>();
-        calculateCargo();
+        calculateAndTakeCargo();
 
         this.currentTransaction.getTransaction().addTransport(this);
     }
@@ -58,7 +58,7 @@ public class  Transport {
     }
 
     // TODO: add more sophisticated cargo choosing method than simple weight
-    private void calculateCargo() {
+    private void calculateAndTakeCargo() {
         Map<String, Integer> cargoLeft = currentTransaction.getCargoLeft();
 
         // filter only those cargo types that are in cargoLeft;
@@ -83,6 +83,8 @@ public class  Transport {
         double currVolume = 0;
         double maxVolume = vehicle.getCargoVolume();
 
+        Map<String, Integer> newCargoUnits = this.currentTransaction.getCargoLeft();
+
         for (Map.Entry<String, Cargo> entry : possibleCargoTypes.entrySet()) {
             String cargoName = entry.getKey();
             Cargo cargoType = entry.getValue();
@@ -106,10 +108,11 @@ public class  Transport {
                 this.cargoTypes.put(cargoName, cargoType);
 
                 // remove units from those waiting for transport
-                Map<String, Integer> newCargoUnits = this.currentTransaction.getCargoLeft();
                 newCargoUnits.put(cargoName, newCargoUnits.get(cargoName) - addedUnits);
             }
         }
+
+        this.currentTransaction.setCargoLeft(newCargoUnits);
     }
 
     public ObjectId get_id() {

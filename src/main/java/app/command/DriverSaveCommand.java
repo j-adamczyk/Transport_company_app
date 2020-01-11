@@ -7,15 +7,17 @@ import app.log.Logger;
 import app.model.Driver;
 
 public class DriverSaveCommand implements Command {
+    DriverDAO dao;
+
     private Driver driver;
 
     public DriverSaveCommand(Driver driver) {
+        this.dao = new DriverDAO();
         this.driver = driver;
     }
 
     @Override
     public void execute() {
-        DriverDAO dao = new DriverDAO();
         dao.save(driver);
 
         Logger.log(new LogEntry(EntryType.CREATE, driver.toString()));
@@ -23,7 +25,6 @@ public class DriverSaveCommand implements Command {
 
     @Override
     public void undo() {
-        DriverDAO dao = new DriverDAO();
         dao.delete(driver.get_id());
 
         Logger.log(new LogEntry(EntryType.DELETE, driver.toString()));
@@ -31,7 +32,6 @@ public class DriverSaveCommand implements Command {
 
     @Override
     public void redo() {
-        DriverDAO dao = new DriverDAO();
         dao.save(driver);
 
         Logger.log(new LogEntry(EntryType.CREATE, driver.toString()));
