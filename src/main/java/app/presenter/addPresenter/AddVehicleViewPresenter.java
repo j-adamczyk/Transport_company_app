@@ -36,6 +36,7 @@ public class AddVehicleViewPresenter extends DialogPresenter {
                         .or(Bindings.isEmpty(cargoWeightField.textProperty())));
 
     }
+
     @FXML
     private void handleAcceptButtonAction(){
         String model = modelField.getText();
@@ -48,6 +49,7 @@ public class AddVehicleViewPresenter extends DialogPresenter {
         VSC.execute();
         dialogStage.close();
     }
+
     @FXML
     private void handleCancelButtonAction(){
             dialogStage.close();

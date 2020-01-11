@@ -25,7 +25,6 @@ public class CompaniesViewPresenter extends SwitchPresenter {
     private TableColumn<Company, String> companyPhone;
     @FXML
     private TableColumn<Company, String> companyAddress;
-
     @FXML
     private Button addButton;
     @FXML
@@ -65,6 +64,7 @@ public class CompaniesViewPresenter extends SwitchPresenter {
             companies.add(addedCompany);
 
     }
+
     @FXML
     private void handleDeleteButtonAction(){
         Company toRemove = companyTableView.getSelectionModel().getSelectedItem();
@@ -74,6 +74,7 @@ public class CompaniesViewPresenter extends SwitchPresenter {
 
         companyTableView.refresh();
     }
+
     @FXML
     private void handleEditButtonAction(){
         appPresenter.showEditCompanyView(companyTableView.getSelectionModel().getSelectedItem());

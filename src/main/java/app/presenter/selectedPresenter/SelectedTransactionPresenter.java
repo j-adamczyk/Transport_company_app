@@ -121,9 +121,8 @@ public class SelectedTransactionPresenter extends SelectedPresenter{
                 transactionTableView.refresh();
                 transactionTableView.getSelectionModel().select(newTransaction);
             }
-//        TODO
-//        IMPORTANT: Add Current Transaction Also!!!
         }
+
         @FXML
         private void handleDeleteButtonAction(){
             Transaction toRemove = transactionTableView.getSelectionModel().getSelectedItem();
@@ -132,17 +131,20 @@ public class SelectedTransactionPresenter extends SelectedPresenter{
             transactions.remove(toRemove);
             transactionTableView.refresh();
         }
+
         @FXML
         private void handleEditButtonAction(){
             appPresenter.showEditTransactionView(transactionTableView.getSelectionModel().getSelectedItem());
             transactionTableView.refresh();
         }
+
         @FXML
         private void handleSeeCurrentTransactionButtonAction(){
             CurrentTransaction currentTransaction = new CurrentTransactionDAO()
                     .findByTransactionId(transactionTableView.getSelectionModel().getSelectedItem()._id);
             appPresenter.showSelectedCurrentTransaction(currentTransaction, appPresenter.getPrimaryStage());
         }
+
         @FXML
         private void handleSeeCompanyButtonAction(){
             Company company = transactionTableView.getSelectionModel().getSelectedItem().getContractor();

@@ -66,6 +66,7 @@ public class AddDriverViewPresenter extends DialogPresenter {
         DSC.execute();
         dialogStage.close();
     }
+
     @FXML
     private void handleCancelButtonAction(){
             dialogStage.close();

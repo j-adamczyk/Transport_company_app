@@ -68,6 +68,7 @@ public class DriversViewPresenter extends SwitchPresenter {
             driverTableView.refresh();
         }
     }
+
     @FXML
     private void handleDeleteButtonAction(){
         Driver toRemove = driverTableView.getSelectionModel().getSelectedItem();
@@ -77,6 +78,7 @@ public class DriversViewPresenter extends SwitchPresenter {
 
         driverTableView.refresh();
     }
+
     @FXML
     private void handleEditButtonAction(){
         appPresenter.showEditDriverView(driverTableView.getSelectionModel().getSelectedItem());

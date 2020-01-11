@@ -78,6 +78,7 @@ public class SelectedDriverPresenter extends SelectedPresenter{
     public Driver getSelectedObject(){
         return this.selectedDriverProperty.get();
     }
+
     @FXML
     private void handleAddButtonAction(){
         Driver addedDriver = appPresenter.showAddDriverView();
@@ -86,6 +87,7 @@ public class SelectedDriverPresenter extends SelectedPresenter{
             driverTableView.refresh();
         }
     }
+
     @FXML
     private void handleDeleteButtonAction(){
         Driver toRemove = driverTableView.getSelectionModel().getSelectedItem();
@@ -94,6 +96,7 @@ public class SelectedDriverPresenter extends SelectedPresenter{
         drivers.remove(toRemove);
         driverTableView.refresh();
     }
+
     @FXML
     private void handleEditButtonAction(){
         appPresenter.showEditDriverView(driverTableView.getSelectionModel().getSelectedItem());

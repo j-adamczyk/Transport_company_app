@@ -112,9 +112,8 @@ public class TransactionsViewPresenter extends SwitchPresenter {
             transactionTableView.getSelectionModel().select(newTransaction);
             handleTransactionSelected();
         }
-//        TODO
-//        IMPORTANT: Add Current Transaction Also!!!
     }
+
     @FXML
     private void handleDeleteButtonAction(){
         Transaction toRemove = transactionTableView.getSelectionModel().getSelectedItem();
@@ -125,16 +124,15 @@ public class TransactionsViewPresenter extends SwitchPresenter {
         selectedRaw = -1;
         handleTransactionSelected();
     }
+
     @FXML
     private void handleEditButtonAction(){
         appPresenter.showEditTransactionView(transactionTableView.getSelectionModel().getSelectedItem());
         transactionTableView.refresh();
         selectedRaw = -1;
         handleTransactionSelected();
-//        Transaction transaction = new TransactionDAO().findAllTransactions().get(1);
-//        System.out.println(transaction);
-//        appPresenter.showEditTransactionView(transaction);
     }
+
     @FXML
     private void handleSeeCurrentTransactionButtonAction(){
         CurrentTransaction currentTransaction = new CurrentTransactionDAO()

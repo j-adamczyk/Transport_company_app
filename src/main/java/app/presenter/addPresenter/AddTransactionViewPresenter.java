@@ -77,6 +77,7 @@ public class AddTransactionViewPresenter extends DialogPresenter {
     public final ObservableList<Cargo> getCargoes() {
         return cargoes;
     }
+
     @FXML
     private void initialize(){
         CompanyDAO companyDao = new CompanyDAO();
@@ -103,7 +104,7 @@ public class AddTransactionViewPresenter extends DialogPresenter {
         );
     }
 
-    public void updateCargoTable(){
+    private void updateCargoTable(){
         cargoes.clear();
         cargoes.addAll(cargoTypesMap.values());
     }
@@ -135,10 +136,12 @@ public class AddTransactionViewPresenter extends DialogPresenter {
         TSC.execute();
         dialogStage.close();
     }
+
     @FXML
     private void handleCancelButtonAction(){
             dialogStage.close();
     }
+
     @FXML
     private void handleAddCargoButtonAction(){
         FXMLLoader loader = new FXMLLoader();
@@ -192,6 +195,7 @@ public class AddTransactionViewPresenter extends DialogPresenter {
             e.printStackTrace();
         }
     }
+
     @FXML
     private void handleDeleteCargoButtonAction() {
         cargoTypesMap.remove(cargoTable.getSelectionModel().getSelectedItem().getName());

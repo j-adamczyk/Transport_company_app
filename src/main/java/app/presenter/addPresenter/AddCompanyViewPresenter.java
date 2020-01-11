@@ -61,6 +61,7 @@ public class AddCompanyViewPresenter extends DialogPresenter {
         CSC.execute();
         dialogStage.close();
     }
+
     @FXML
     private void handleCancelButtonAction(){
             dialogStage.close();

@@ -92,6 +92,7 @@ public class AddTransportPresenter extends DialogPresenter {
     private void handleCancelButtonAction(){
             dialogStage.close();
     }
+
     @FXML
     private void handleAcceptButtonAction(){
         currentTransaction = currentTransactionMap.get(currentTransactionIdChoiceBox.getValue());
@@ -112,10 +113,12 @@ public class AddTransportPresenter extends DialogPresenter {
         CurrentTransaction currentTransaction = new CurrentTransactionDAO().findByTransactionId(selectedTransaction._id);
         setCurrentTransactionIdChoiceBox(currentTransaction._id.toString());
     };
+
     @FXML
     private void handleDatePickerAction(){
 //        TODO
     };
+
     @FXML
     private void handleViewDriversLabelAction(){
         Driver selectedDriver = appPresenter.showSelectedDriver(
