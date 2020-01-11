@@ -184,6 +184,7 @@ public class MainAppPresenter {
             dialogStage.initOwner(primaryStage);
 
             EditDialogPresenter presenter = loader.getController();
+            presenter.setAppPresenter(this);
             presenter.setDialogStage(dialogStage);
             presenter.setOldObject(oldObject);
             dialogStage.setScene(scene);

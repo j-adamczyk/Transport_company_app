@@ -89,8 +89,6 @@ public class EditDriverViewPresenter extends EditDialogPresenter{
         currentDriver.setHireDate(hireDate);
         DriverUpdateCommand DUC = new DriverUpdateCommand(currentDriver);
         DUC.execute();
-        DriverDAO driverDao = new DriverDAO();
-        System.out.println(driverDao.findAllDrivers());
         dialogStage.close();
     }
 

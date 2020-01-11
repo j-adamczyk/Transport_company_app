@@ -6,6 +6,7 @@ import app.model.Cargo;
 import app.model.Duration;
 import app.model.Transport;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -22,7 +23,7 @@ public class TransportsViewPresenter extends SwitchPresenter {
     private ObservableList<Cargo> cargo;
     private Map<String, Cargo> cargoTypesMap = new HashMap<>();
     private Map<String, Integer> cargoUnitsMap = new HashMap<>();
-    int selectedRaw = -1;
+    private ObjectProperty<Transport> selectedTransportProperty = new SimpleObjectProperty<>();
 
     @FXML
     private CheckBox presentCheckBox;
@@ -115,6 +116,14 @@ public class TransportsViewPresenter extends SwitchPresenter {
                 Bindings.size(
                         transportsTable.getSelectionModel()
                                 .getSelectedItems()).isNotEqualTo(1));
+        transportsTable.getSelectionModel().selectedItemProperty().addListener((o, ov, nv) -> {
+            if (nv != null) {
+                cargo.clear();
+                selectedTransportProperty.set(nv);
+                cargo.addAll(selectedTransportProperty.get().getCargoTypes().values());
+                cargoTable.refresh();
+            }
+        });
     }
 
     @FXML
@@ -124,17 +133,21 @@ public class TransportsViewPresenter extends SwitchPresenter {
 
     @FXML
     private void handleDriverDetAction(){
-//        TODO
+        appPresenter.showSelectedDriver(transportsTable.getSelectionModel().getSelectedItem().getDriver(),
+                appPresenter.getPrimaryStage());
     }
 
     @FXML
     private void handleCurrTransDetAction(){
-//        TODO
+        appPresenter.showSelectedTransaction(
+                transportsTable.getSelectionModel().getSelectedItem().getCurrentTransaction().getTransaction(),
+                appPresenter.getPrimaryStage());
     }
 
     @FXML
     private void handleVehicleDetAction(){
-//        TODO
+        appPresenter.showSelectedVehicle(transportsTable.getSelectionModel().getSelectedItem().getVehicle(),
+                appPresenter.getPrimaryStage());
     }
 
     @FXML
@@ -166,14 +179,4 @@ public class TransportsViewPresenter extends SwitchPresenter {
         appPresenter.showMainView();
     }
 
-    @FXML
-    private void handleTransportSelected(){
-        if(transportsTable.getSelectionModel().getSelectedIndex() != selectedRaw){
-            selectedRaw = transportsTable.getSelectionModel().getSelectedIndex();
-            cargo.clear();
-            Transport transportSelected = transportsTable.getSelectionModel().getSelectedItem();
-            cargo.addAll(transportSelected.getCargoTypes().values());
-            cargoTable.refresh();
-        }
-    }
 }

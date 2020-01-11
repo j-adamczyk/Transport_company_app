@@ -34,7 +34,7 @@
             </HBox>
             <Label text="Vehicle"/>
             <HBox spacing="20">
-                <ChoiceBox fx:id="vehicleChoiceBox" prefWidth="240"/>
+                <Label fx:id="vehicleLabel"/>
                 <Label fx:id="viewVehiclesLabel" onMouseClicked="#handleViewVehiclesLabelAction" text="view..." textFill="darkblue"/>
             </HBox>
         </VBox>

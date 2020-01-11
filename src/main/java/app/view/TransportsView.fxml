@@ -42,8 +42,7 @@
             <padding>
                 <Insets top="12" bottom="12" left="15" right="12" />
             </padding>
-            <TableView fx:id="transportsTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER"
-                       onMousePressed="#handleTransportSelected">
+            <TableView fx:id="transportsTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                     <columns>
                         <TableColumn fx:id="driverColumn" prefWidth="75.0" text="Driver" />
                         <TableColumn fx:id="dateColumn" prefWidth="75.0" text="Date" />

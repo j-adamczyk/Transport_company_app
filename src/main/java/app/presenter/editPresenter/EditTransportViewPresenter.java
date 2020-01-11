@@ -29,7 +29,6 @@ public class EditTransportViewPresenter extends EditDialogPresenter{
     @FXML
     Spinner minuteSpinner;
     private ObjectProperty<Driver> driverObjectProperty = new SimpleObjectProperty<>();
-    private ObjectProperty<Vehicle> vehicleObjectProperty = new SimpleObjectProperty<>();
     private BooleanProperty dateTimeProperty = new SimpleBooleanProperty();
     private Transport transport;
     @FXML
@@ -44,8 +43,7 @@ public class EditTransportViewPresenter extends EditDialogPresenter{
     @FXML
     private DatePicker datePicker;
     @FXML
-    private ChoiceBox<String> vehicleChoiceBox;
-    private Map<String, Vehicle> vehicleMap = new LinkedHashMap<>();
+    private Label vehicleLabel;
     @FXML
     private Label viewVehiclesLabel;
     @FXML
@@ -62,13 +60,6 @@ public class EditTransportViewPresenter extends EditDialogPresenter{
             driverObjectProperty.set(driverMap.get(nv));
         });
         setDriverChoiceBox(null);
-
-
-        //vehicle box init
-        vehicleChoiceBox.valueProperty().addListener((o, ov, nv) -> {
-            vehicleObjectProperty.set(vehicleMap.get(nv));
-        });
-        setVehicleChoiceBox(null);
 
         datePicker.setValue(LocalDate.now());
         hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory
@@ -96,7 +87,7 @@ public class EditTransportViewPresenter extends EditDialogPresenter{
     public void setOldObject(Object transport){
         this.transport = (Transport) transport;
         transactionIdLabel.setText("Transaction id: " + this.transport.getCurrentTransaction().getTransaction()._id);
-        driverChoiceBox.setValue(this.transport.getDriver().getName() + " " + this.transport.getDriver().getPhone());
+        driverChoiceBox.setValue(this.transport.getDriver().getName() + ", " + this.transport.getDriver().getPhone());
         datePicker.setValue(this.transport.getDepartureDate().toLocalDate());
         hourSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory
                 (0, 23, this.transport.getDepartureDate().getHour()));
@@ -104,7 +95,7 @@ public class EditTransportViewPresenter extends EditDialogPresenter{
                 (0, 59, this.transport.getDepartureDate().getMinute()));
         hourSpinner.setEditable(true);
         minuteSpinner.setEditable(true);
-        vehicleChoiceBox.setValue(this.transport.getVehicle().getRegistrationNo());
+        vehicleLabel.setText("Vehicle registration number: " + this.transport.getVehicle().getRegistrationNo());
     }
 
     @FXML
@@ -112,19 +103,17 @@ public class EditTransportViewPresenter extends EditDialogPresenter{
         dialogStage.close();
     }
 
-    private void updateTransport(Driver driver, LocalDateTime dateTime, Vehicle vehicle){
+    private void updateTransport(Driver driver, LocalDateTime dateTime){
         transport.setDriver(driver);
         transport.setDepartureDate(dateTime);
-        transport.setVehicle(vehicle);
     }
 
     @FXML
     private void handleAcceptButtonAction(){
         Driver driver = driverMap.get(driverChoiceBox.getValue());
-        Vehicle vehicle = vehicleMap.get(vehicleChoiceBox.getValue());
         LocalDateTime dateTime = datePicker.getValue()
                 .atTime((Integer)hourSpinner.getValue(),(Integer) minuteSpinner.getValue());
-        updateTransport(driver, dateTime, vehicle);
+        updateTransport(driver, dateTime);
         new TransportUpdateCommand(transport).execute();
         dialogStage.close();
     };
@@ -150,10 +139,8 @@ public class EditTransportViewPresenter extends EditDialogPresenter{
 
     @FXML
     private void handleViewVehiclesLabelAction(){
-        Vehicle selectedVehicle = appPresenter.showSelectedVehicle(
-                vehicleMap.get(vehicleChoiceBox.getValue()), dialogStage
-        );
-        setVehicleChoiceBox(selectedVehicle.getRegistrationNo());
+        System.out.println("Transport " + transport);
+        appPresenter.showSelectedVehicle(transport.getVehicle(), dialogStage);
     }
 
     private void setDriverChoiceBox(String nameAndPhone){
@@ -168,15 +155,4 @@ public class EditTransportViewPresenter extends EditDialogPresenter{
         driverChoiceBox.setValue(nameAndPhone == null?drivers.get(0).getName() + ", " + drivers.get(0).getPhone():nameAndPhone);
     }
 
-    private void setVehicleChoiceBox(String registrationNo){
-        VehicleDAO vehicleDAO = new VehicleDAO();
-        List<Vehicle> vehicles = vehicleDAO.findAllVehicles();
-        vehicleChoiceBox.getItems().clear();
-        for(Vehicle v: vehicles) {
-            vehicleMap.put(v.getRegistrationNo(), v);
-            vehicleChoiceBox.getItems().add(v.getRegistrationNo());
-        }
-        if (vehicles.isEmpty()) return;
-        vehicleChoiceBox.setValue(registrationNo == null?vehicles.get(0).getRegistrationNo():registrationNo);
-    }
 }
