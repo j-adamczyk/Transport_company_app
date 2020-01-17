@@ -7,8 +7,13 @@ import app.model.Cargo;
 import app.model.Company;
 import app.model.CurrentTransaction;
 import app.model.Transaction;
+import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
+import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -87,6 +92,9 @@ public class TransactionsViewPresenter extends SwitchPresenter {
                 Bindings.size(
                         transactionTableView.getSelectionModel()
                                 .getSelectedItems()).isNotEqualTo(1));
+        /*editButton.disableProperty().bind(
+                value -> new SimpleBooleanProperty(transactionTableView.getSelectionModel().getSelectedItem().isEditable())
+        );*///todo - disable button when transaction is not editable
         deleteButton.disableProperty().bind(
                 Bindings.size(
                         transactionTableView.getSelectionModel()

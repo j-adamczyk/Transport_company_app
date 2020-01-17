@@ -33,14 +33,18 @@ public class MainAppPresenter {
             // load layout from FXML file
             FXMLLoader loader = new FXMLLoader();
             URL url = new URL(new URL("file:"), "src/main/java/app/view/MainView.fxml");
+            URL style = new URL(new URL("file:"), "src/main/java/app/presenter/style/darkTheme.css");
             //URL url = new URL(new URL("file:"), "src/main/java/app/view/AddTransactionView.fxml");
             loader.setLocation(url);
             Pane rootLayout = loader.load();
+            //rootLayout.setStyle("-fx-base: rgba(60, 60, 60, 255);");
             MainViewPresenter presenter = loader.getController();
             presenter.setAppPresenter(this);
 
             // add layout to a scene and show them all
             Scene scene = new Scene(rootLayout);
+            scene.getStylesheets().add(getClass().getResource("darkTheme.css").toExternalForm());//todo - dark mode
+            //scene.getStylesheets().add("darkTheme.css");//jedno z dwoch powinno działać, nie działa zadne, bo nie widzi tego cssa niiiigdzie
             primaryStage.setScene(scene);
             primaryStage.show();
 
