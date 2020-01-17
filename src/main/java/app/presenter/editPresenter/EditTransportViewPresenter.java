@@ -140,7 +140,6 @@ public class EditTransportViewPresenter extends EditDialogPresenter{
 
     @FXML
     private void handleViewVehiclesLabelAction(){
-        System.out.println("Transport " + transport);
         appPresenter.showSelectedVehicle(transport.getVehicle(), dialogStage);
     }
 

@@ -14,6 +14,9 @@
 
     <center>
         <ScrollPane>
+            <padding>
+                <Insets top="20" bottom="30" right="20" left="20"/>
+            </padding>
             <content>
                 <Label fx:id="errorMessage" wrapText="true" />
             </content>

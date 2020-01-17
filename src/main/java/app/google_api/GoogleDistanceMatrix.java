@@ -2,6 +2,7 @@ package app.google_api;
 
 import app.model.Address;
 import app.model.Duration;
+import app.presenter.MainAppPresenter;
 import com.google.maps.DistanceMatrixApi;
 import com.google.maps.DistanceMatrixApiRequest;
 import com.google.maps.GeoApiContext;
@@ -24,7 +25,7 @@ public class GoogleDistanceMatrix {
             .apiKey(API_KEY)
             .build();
 
-    public static Duration getTravelTime(Address origin, Address destination) {
+    public static Duration getTravelTime(Address origin, Address destination) throws IllegalArgumentException {
         try {
             DistanceMatrixApiRequest request = DistanceMatrixApi.newRequest(context);
             DistanceMatrix distances = request.origins(addressToGoogleAPIString(origin))
@@ -40,10 +41,10 @@ public class GoogleDistanceMatrix {
                 return new Duration(hours, minutes);
             }
             catch (NullPointerException e) {
-                return null;
+                MainAppPresenter.showErrorDialog(e, "Couldn't count time");
             }
         } catch (ApiException | InterruptedException | IOException e) {
-            e.printStackTrace();
+            MainAppPresenter.showErrorDialog(e, e.getMessage());
         }
 
         return null;

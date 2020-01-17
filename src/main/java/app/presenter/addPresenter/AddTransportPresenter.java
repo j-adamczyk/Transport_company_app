@@ -7,6 +7,7 @@ import app.dao.DriverDAO;
 import app.dao.TransactionDAO;
 import app.dao.VehicleDAO;
 import app.model.*;
+import app.presenter.MainAppPresenter;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.fxml.FXML;
@@ -97,9 +98,14 @@ public class AddTransportPresenter extends DialogPresenter {
         Vehicle vehicle = vehicleMap.get(vehicleChoiceBox.getValue());
         LocalDateTime dateTime = datePicker.getValue()
                 .atTime((Integer)hourSpinner.getValue(),(Integer) minuteSpinner.getValue());
-        Transport transport = new Transport(currentTransaction, driver, vehicle, dateTime);
-        CommandRegistry.getInstance().executeCommand(new TransportSaveCommand(transport));
-        addedObject = transport;
+        try {
+            Transport transport = new Transport(currentTransaction, driver, vehicle, dateTime);
+            CommandRegistry.getInstance().executeCommand(new TransportSaveCommand(transport));
+            addedObject = transport;
+        } catch (IllegalArgumentException e) {
+            MainAppPresenter.showErrorDialog(e, e.getMessage());
+            return;
+        }
         dialogStage.close();
     };
 

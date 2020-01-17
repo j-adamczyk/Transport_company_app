@@ -34,7 +34,6 @@ public class MainAppPresenter {
             // load layout from FXML file
             FXMLLoader loader = new FXMLLoader();
             URL url = new URL(new URL("file:"), "src/main/java/app/view/MainView.fxml");
-            //URL url = new URL(new URL("file:"), "src/main/java/app/view/AddTransactionView.fxml");
             loader.setLocation(url);
             Pane rootLayout = loader.load();
             MainViewPresenter presenter = loader.getController();
@@ -150,7 +149,6 @@ public class MainAppPresenter {
     }
 
     private Object showAddDialogScene(String viewName, String title){
-        Thread.setDefaultUncaughtExceptionHandler(MainAppPresenter::showError);
         FXMLLoader loader = new FXMLLoader();
         try {
             URL url = new URL(new URL("file:"), "src/main/java/app/view/"+ viewName +".fxml");
@@ -177,7 +175,6 @@ public class MainAppPresenter {
 
     private void showEditDialogScene(Object oldObject, String viewName, String title){
         FXMLLoader loader = new FXMLLoader();
-        Thread.setDefaultUncaughtExceptionHandler(MainAppPresenter::showError);
         try{
             URL url = new URL(new URL("file:"), "src/main/java/app/view/"+ viewName +".fxml");
             loader.setLocation(url);
@@ -230,7 +227,7 @@ public class MainAppPresenter {
         System.err.println("***Default exception handler***");
         if (Platform.isFxApplicationThread()) {
             if(e.getCause().toString().equalsIgnoreCase("java.lang.reflect.InvocationTargetException"))
-//                showErrorDialog(e, "Invalid value!");
+                showErrorDialog(e, "Invalid value!");
                 e.printStackTrace();
         } else {
             System.err.println("An unexpected error occurred in " + t);
@@ -241,7 +238,7 @@ public class MainAppPresenter {
         return primaryStage;
     }
 
-    static void showErrorDialog(Throwable e, String message) {
+    public static void showErrorDialog(Throwable e, String message) {
         StringWriter errorMsg = new StringWriter();
         e.printStackTrace(new PrintWriter(errorMsg));
         Stage dialog = new Stage();
@@ -258,8 +255,6 @@ public class MainAppPresenter {
         } catch (IOException exc) {
             exc.printStackTrace();
         }
-
-
     }
 
 }

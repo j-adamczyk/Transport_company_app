@@ -53,7 +53,7 @@ public class MainViewPresenter extends SwitchPresenter {
             image.setImage(im);
         } catch (MalformedURLException e) {
             e.printStackTrace();
-//            TODO exception handling
+            MainAppPresenter.showErrorDialog(e, "Cannot reach logo.");
         }
 
     }

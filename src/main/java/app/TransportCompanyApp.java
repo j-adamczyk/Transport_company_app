@@ -15,7 +15,6 @@ public class TransportCompanyApp extends Application {
         this.primaryStage = primaryStage;
         presenter = new MainAppPresenter(primaryStage);
         this.presenter.initRootLayout();
-        //this.primaryStage.show();
     }
 
     public static void main(String[] args) {
@@ -26,7 +25,8 @@ public class TransportCompanyApp extends Application {
             db.getName();
         } catch (Exception e) {
             e.printStackTrace();
-            // TODO: GUI error window
+            MainAppPresenter.showErrorDialog(e, "Cannot connect database - check internet connection");
+            return;
         }
 
         launch(args);

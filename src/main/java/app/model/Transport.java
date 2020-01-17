@@ -32,7 +32,7 @@ public class  Transport {
     // for MongoDB serializer
     public Transport() {}
 
-    public Transport(CurrentTransaction currentTransaction, Driver driver, Vehicle vehicle, LocalDateTime departureDate) {
+    public Transport(CurrentTransaction currentTransaction, Driver driver, Vehicle vehicle, LocalDateTime departureDate) throws IllegalArgumentException{
         this._id = new ObjectId();
         this.currentTransaction = currentTransaction;
         this.driver = driver;
@@ -54,11 +54,10 @@ public class  Transport {
         Address destination = currentTransaction.getTransaction().getDestination();
 
         this.expectedTime = GoogleDistanceMatrix.getTravelTime(origin, destination);
-        System.out.println("Exp time: " + expectedTime);
     }
 
     // TODO: add more sophisticated cargo choosing method than simple weight
-    private void calculateAndTakeCargo() {
+    private void calculateAndTakeCargo() throws IllegalArgumentException {
         Map<String, Integer> cargoLeft = currentTransaction.getCargoLeft();
 
         // filter only those cargo types that are in cargoLeft;
@@ -116,7 +115,7 @@ public class  Transport {
 
         if (cargoUnitsTaken.size() == 0)
             throw new IllegalArgumentException("Vehicle too small for this transport!");
-//      TODO method has to throw exception and then handle
+
 
         // take cargo units from currentTransaction (and possibly set Transaction as "done")
         this.currentTransaction.removeCargo(cargoUnitsTaken);
