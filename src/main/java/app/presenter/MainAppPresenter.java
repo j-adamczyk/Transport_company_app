@@ -36,11 +36,14 @@ public class MainAppPresenter {
             URL url = new URL(new URL("file:"), "src/main/java/app/view/MainView.fxml");
             loader.setLocation(url);
             Pane rootLayout = loader.load();
+            //rootLayout.setStyle("-fx-base: rgba(60, 60, 60, 255);");
             MainViewPresenter presenter = loader.getController();
             presenter.setAppPresenter(this);
 
             // add layout to a scene and show them all
             Scene scene = new Scene(rootLayout);
+            scene.getStylesheets().add(getClass().getResource("darkTheme.css").toExternalForm());//todo - dark mode
+            //scene.getStylesheets().add("darkTheme.css");//jedno z dwoch powinno działać, nie działa zadne, bo nie widzi tego cssa niiiigdzie
             primaryStage.setScene(scene);
             primaryStage.show();
 
@@ -142,13 +145,13 @@ public class MainAppPresenter {
             Scene scene = new Scene(page);
             primaryStage.setScene(scene);
             ((SwitchPresenter) loader.getController()).setAppPresenter(this);
-            CommandRegistry.getInstance().clear();
         }catch (IOException e){
             e.printStackTrace();
         }
     }
 
     private Object showAddDialogScene(String viewName, String title){
+        Thread.setDefaultUncaughtExceptionHandler(MainAppPresenter::showError);
         FXMLLoader loader = new FXMLLoader();
         try {
             URL url = new URL(new URL("file:"), "src/main/java/app/view/"+ viewName +".fxml");
