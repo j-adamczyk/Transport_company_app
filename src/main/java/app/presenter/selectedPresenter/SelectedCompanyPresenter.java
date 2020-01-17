@@ -1,5 +1,6 @@
 package app.presenter.selectedPresenter;
 
+import app.command.CommandRegistry;
 import app.command.CompanyDeleteCommand;
 import app.dao.CompanyDAO;
 import app.model.Company;
@@ -92,7 +93,8 @@ public class SelectedCompanyPresenter extends SelectedPresenter{
     private void handleDeleteButtonAction(){
         Company toRemove = companyTableView.getSelectionModel().getSelectedItem();
         CompanyDeleteCommand cdc = new CompanyDeleteCommand(toRemove.get_id());
-        cdc.execute();
+        CommandRegistry.getInstance().executeCommand(cdc);
+
         companies.remove(toRemove);
 
         companyTableView.refresh();

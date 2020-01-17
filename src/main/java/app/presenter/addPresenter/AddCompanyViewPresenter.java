@@ -1,5 +1,6 @@
 package app.presenter.addPresenter;
 
+import app.command.CommandRegistry;
 import app.command.CompanySaveCommand;
 import app.model.Address;
 import app.model.Company;
@@ -58,7 +59,7 @@ public class AddCompanyViewPresenter extends DialogPresenter {
         Address address = new Address(country, city, postalCode, street);
         addedObject = new Company(name, address, phone, mail, representative);
         CompanySaveCommand CSC = new CompanySaveCommand((Company) addedObject);
-        CSC.execute();
+        CommandRegistry.getInstance().executeCommand(CSC);
         dialogStage.close();
     }
 

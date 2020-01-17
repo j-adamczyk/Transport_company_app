@@ -1,5 +1,6 @@
 package app.presenter.selectedPresenter;
 
+import app.command.CommandRegistry;
 import app.command.TransportDeleteCommand;
 import app.dao.TransportDAO;
 import app.model.Cargo;
@@ -230,7 +231,8 @@ public class SelectedTransportPresenter extends SelectedPresenter{
             futureTransports.remove(toRemove);
         }
         TransportDeleteCommand tdc = new TransportDeleteCommand(toRemove.get_id());
-        tdc.execute();
+        CommandRegistry.getInstance().executeCommand(tdc);
+
         transports.remove(toRemove);
         transportsTable.refresh();
     }

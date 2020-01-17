@@ -1,5 +1,6 @@
 package app.presenter.addPresenter;
 
+import app.command.CommandRegistry;
 import app.command.VehicleSaveCommand;
 import app.model.Vehicle;
 import javafx.beans.binding.Bindings;
@@ -46,7 +47,8 @@ public class AddVehicleViewPresenter extends DialogPresenter {
         Double cargoVolume = Double.valueOf(cargoVolumeField.getText());
         addedObject = new Vehicle(model, registrationNo, manufactureDate, cargoVolume, cargoWeight);
         VehicleSaveCommand VSC = new VehicleSaveCommand((Vehicle) addedObject);
-        VSC.execute();
+        CommandRegistry.getInstance().executeCommand(VSC);
+
         dialogStage.close();
     }
 

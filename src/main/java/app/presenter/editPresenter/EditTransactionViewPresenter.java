@@ -1,5 +1,6 @@
 package app.presenter.editPresenter;
 
+import app.command.CommandRegistry;
 import app.command.TransactionUpdateCommand;
 import app.dao.CompanyDAO;
 import app.model.*;
@@ -155,7 +156,8 @@ public class EditTransactionViewPresenter extends EditDialogPresenter {
         updateTransaction(company, cargoTypesMap, cargoUnitsMap,
                 from, destination, money, transactionDate);
         TransactionUpdateCommand TUC = new TransactionUpdateCommand(currentTransaction);
-        TUC.execute();
+        CommandRegistry.getInstance().executeCommand(TUC);
+
         dialogStage.close();
     }
 

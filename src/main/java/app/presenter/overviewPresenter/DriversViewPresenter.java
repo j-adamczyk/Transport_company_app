@@ -1,5 +1,6 @@
 package app.presenter.overviewPresenter;
 
+import app.command.CommandRegistry;
 import app.command.DriverDeleteCommand;
 import app.dao.DriverDAO;
 import app.model.Driver;
@@ -36,8 +37,9 @@ public class DriversViewPresenter extends SwitchPresenter {
     @FXML
     private Label returnLabel;
 
+    @Override
     @FXML
-    private void initialize(){
+    protected void initialize(){
         DriverDAO driverDAO = new DriverDAO();
         driverTableView.getSelectionModel().getTableView().getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         driverName.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getName()));
@@ -73,7 +75,8 @@ public class DriversViewPresenter extends SwitchPresenter {
     private void handleDeleteButtonAction(){
         Driver toRemove = driverTableView.getSelectionModel().getSelectedItem();
         DriverDeleteCommand ddc = new DriverDeleteCommand(toRemove.get_id());
-        ddc.execute();
+        CommandRegistry.getInstance().executeCommand(ddc);
+
         drivers.remove(toRemove);
 
         driverTableView.refresh();

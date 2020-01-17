@@ -1,5 +1,6 @@
 package app.presenter.selectedPresenter;
 
+import app.command.CommandRegistry;
 import app.command.DriverDeleteCommand;
 import app.dao.DriverDAO;
 import app.model.Driver;
@@ -101,7 +102,8 @@ public class SelectedDriverPresenter extends SelectedPresenter{
     private void handleDeleteButtonAction(){
         Driver toRemove = driverTableView.getSelectionModel().getSelectedItem();
         DriverDeleteCommand ddc = new DriverDeleteCommand(toRemove.get_id());
-        ddc.execute();
+        CommandRegistry.getInstance().executeCommand(ddc);
+
         drivers.remove(toRemove);
         driverTableView.refresh();
     }

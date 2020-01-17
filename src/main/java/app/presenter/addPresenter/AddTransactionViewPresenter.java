@@ -1,5 +1,6 @@
 package app.presenter.addPresenter;
 
+import app.command.CommandRegistry;
 import app.command.TransactionSaveCommand;
 import app.dao.CompanyDAO;
 import app.model.*;
@@ -133,7 +134,8 @@ public class AddTransactionViewPresenter extends DialogPresenter {
                 from, destination, money, transactionDate);
         addedObject = transaction;
         TransactionSaveCommand TSC = new TransactionSaveCommand(transaction);
-        TSC.execute();
+        CommandRegistry.getInstance().executeCommand(TSC);
+
         dialogStage.close();
     }
 

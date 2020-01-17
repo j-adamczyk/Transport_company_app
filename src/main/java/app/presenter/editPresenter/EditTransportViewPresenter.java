@@ -1,5 +1,6 @@
 package app.presenter.editPresenter;
 
+import app.command.CommandRegistry;
 import app.command.TransportSaveCommand;
 import app.command.TransportUpdateCommand;
 import app.dao.CurrentTransactionDAO;
@@ -114,7 +115,7 @@ public class EditTransportViewPresenter extends EditDialogPresenter{
         LocalDateTime dateTime = datePicker.getValue()
                 .atTime((Integer)hourSpinner.getValue(),(Integer) minuteSpinner.getValue());
         updateTransport(driver, dateTime);
-        new TransportUpdateCommand(transport).execute();
+        CommandRegistry.getInstance().executeCommand(new TransportUpdateCommand(transport));
         dialogStage.close();
     };
 

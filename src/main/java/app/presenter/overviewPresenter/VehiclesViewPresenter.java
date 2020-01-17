@@ -1,5 +1,6 @@
 package app.presenter.overviewPresenter;
 
+import app.command.CommandRegistry;
 import app.command.VehicleDeleteCommand;
 import app.dao.VehicleDAO;
 import app.model.Vehicle;
@@ -37,7 +38,7 @@ public class VehiclesViewPresenter extends SwitchPresenter {
     private Label returnLabel;
 
     @FXML
-    private void initialize(){
+    protected void initialize(){
         VehicleDAO vehicleDAO = new VehicleDAO();
         vehicleTableView.getSelectionModel().getTableView().getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         vehicleCargoVolume.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getCargoVolume().toString()));
@@ -70,7 +71,8 @@ public class VehiclesViewPresenter extends SwitchPresenter {
     private void handleDeleteButtonAction(){
         Vehicle toRemove = vehicleTableView.getSelectionModel().getSelectedItem();
         VehicleDeleteCommand vdc = new VehicleDeleteCommand(toRemove.get_id());
-        vdc.execute();
+        CommandRegistry.getInstance().executeCommand(vdc);
+
         vehicles.remove(toRemove);
 
         vehicleTableView.refresh();

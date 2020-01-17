@@ -1,5 +1,6 @@
 package app.presenter.editPresenter;
 
+import app.command.CommandRegistry;
 import app.command.CompanyUpdateCommand;
 import app.model.Address;
 import app.model.Company;
@@ -80,7 +81,8 @@ public class EditCompanyViewPresenter extends EditDialogPresenter {
         this.currentCompany.setMail(mail);
         this.currentCompany.setRepresentative(representative);
         CompanyUpdateCommand CUC = new CompanyUpdateCommand(currentCompany);
-        CUC.execute();
+        CommandRegistry.getInstance().executeCommand(CUC);
+
         dialogStage.close();
     }
 

@@ -1,5 +1,6 @@
 package app.presenter.editPresenter;
 
+import app.command.CommandRegistry;
 import app.command.VehicleUpdateCommand;
 import app.dao.VehicleDAO;
 import app.model.Vehicle;
@@ -66,8 +67,9 @@ public class EditVehicleViewPresenter extends EditDialogPresenter{
             currentVehicle.setCargoWeight(cargoWeight);
             currentVehicle.setManufactureDate(manufactureDate);
             VehicleUpdateCommand VUC = new VehicleUpdateCommand(currentVehicle);
-            VUC.execute();
-            dialogStage.close();
+        CommandRegistry.getInstance().executeCommand(VUC);
+
+        dialogStage.close();
     }
 
     @FXML

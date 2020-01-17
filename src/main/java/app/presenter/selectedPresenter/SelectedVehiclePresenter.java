@@ -1,5 +1,6 @@
 package app.presenter.selectedPresenter;
 
+import app.command.CommandRegistry;
 import app.command.VehicleDeleteCommand;
 import app.dao.VehicleDAO;
 import app.model.Vehicle;
@@ -101,7 +102,8 @@ public class SelectedVehiclePresenter extends SelectedPresenter{
     private void handleDeleteButtonAction(){
         Vehicle toRemove = vehicleTableView.getSelectionModel().getSelectedItem();
         VehicleDeleteCommand vdc = new VehicleDeleteCommand(toRemove.get_id());
-        vdc.execute();
+        CommandRegistry.getInstance().executeCommand(vdc);
+
         vehicles.remove(toRemove);
 
         vehicleTableView.refresh();

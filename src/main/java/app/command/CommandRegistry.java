@@ -52,9 +52,10 @@ public class CommandRegistry {
      * Undo last executed command and add it to undoCommandStack.
      */
     public void undo() {
+        System.out.println("Stack");
         if (commandStack.isEmpty())
             return;
-
+        System.out.println("Was not empty");
         Command lastCommand = commandStack.get(commandStack.size() - 1);
         commandStack.remove(commandStack.size() - 1);
 

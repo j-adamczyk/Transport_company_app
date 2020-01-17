@@ -1,5 +1,6 @@
 package app.presenter.addPresenter;
 
+import app.command.CommandRegistry;
 import app.command.TransportSaveCommand;
 import app.dao.CurrentTransactionDAO;
 import app.dao.DriverDAO;
@@ -97,7 +98,7 @@ public class AddTransportPresenter extends DialogPresenter {
         LocalDateTime dateTime = datePicker.getValue()
                 .atTime((Integer)hourSpinner.getValue(),(Integer) minuteSpinner.getValue());
         Transport transport = new Transport(currentTransaction, driver, vehicle, dateTime);
-        new TransportSaveCommand(transport).execute();
+        CommandRegistry.getInstance().executeCommand(new TransportSaveCommand(transport));
         addedObject = transport;
         dialogStage.close();
     };

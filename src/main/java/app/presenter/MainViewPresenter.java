@@ -46,7 +46,7 @@ public class MainViewPresenter extends SwitchPresenter {
     }
 
     @FXML
-    private void initialize(){
+    protected void initialize(){
         try {
             URL url = new URL(new URL("file:"), "src/logo.png");
             Image im = new Image(url.toString());

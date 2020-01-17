@@ -1,5 +1,6 @@
 package app.presenter.editPresenter;
 
+import app.command.CommandRegistry;
 import app.command.DriverUpdateCommand;
 import app.dao.DriverDAO;
 import app.model.Address;
@@ -88,7 +89,8 @@ public class EditDriverViewPresenter extends EditDialogPresenter{
         currentDriver.setBirthDate(birthDate);
         currentDriver.setHireDate(hireDate);
         DriverUpdateCommand DUC = new DriverUpdateCommand(currentDriver);
-        DUC.execute();
+        CommandRegistry.getInstance().executeCommand(DUC);
+
         dialogStage.close();
     }
 

@@ -1,5 +1,6 @@
 package app.presenter.addPresenter;
 
+import app.command.CommandRegistry;
 import app.command.DriverSaveCommand;
 import app.model.Address;
 import app.model.Driver;
@@ -63,7 +64,8 @@ public class AddDriverViewPresenter extends DialogPresenter {
         Address address = new Address(country, city, postalCode, street);
         addedObject = new Driver(name, birthDate, hireDate, phone, address, salary);
         DriverSaveCommand DSC = new DriverSaveCommand((Driver) addedObject);
-        DSC.execute();
+        CommandRegistry.getInstance().executeCommand(DSC);
+
         dialogStage.close();
     }
 

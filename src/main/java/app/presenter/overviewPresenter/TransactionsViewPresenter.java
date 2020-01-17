@@ -1,5 +1,6 @@
 package app.presenter.overviewPresenter;
 
+import app.command.CommandRegistry;
 import app.command.TransactionDeleteCommand;
 import app.dao.CurrentTransactionDAO;
 import app.dao.TransactionDAO;
@@ -62,7 +63,7 @@ public class TransactionsViewPresenter extends SwitchPresenter {
     private Label returnLabel;
 
     @FXML
-    private void initialize(){
+    protected void initialize(){
         TransactionDAO transactionDAO = new TransactionDAO();
         transactionTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         transactionContractorColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getContractor().toString()));
@@ -118,7 +119,8 @@ public class TransactionsViewPresenter extends SwitchPresenter {
     private void handleDeleteButtonAction(){
         Transaction toRemove = transactionTableView.getSelectionModel().getSelectedItem();
         TransactionDeleteCommand tdc = new TransactionDeleteCommand(toRemove.get_id());
-        tdc.execute();
+        CommandRegistry.getInstance().executeCommand(tdc);
+
         transactions.remove(toRemove);
         transactionTableView.refresh();
         selectedRaw = -1;

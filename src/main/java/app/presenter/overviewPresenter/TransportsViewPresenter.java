@@ -1,5 +1,6 @@
 package app.presenter.overviewPresenter;
 
+import app.command.CommandRegistry;
 import app.command.TransportDeleteCommand;
 import app.dao.TransportDAO;
 import app.model.Cargo;
@@ -80,7 +81,7 @@ public class TransportsViewPresenter extends SwitchPresenter {
 
 
     @FXML
-    private void initialize(){
+    protected void initialize(){
         transportsTable.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         TransportDAO transportDAO = new TransportDAO();
         dateColumn.setCellValueFactory(value -> new SimpleObjectProperty<>(value.getValue().getDepartureDate()));
@@ -208,7 +209,8 @@ public class TransportsViewPresenter extends SwitchPresenter {
             futureTransports.remove(toRemove);
         }
         TransportDeleteCommand tdc = new TransportDeleteCommand(toRemove.get_id());
-        tdc.execute();
+        CommandRegistry.getInstance().executeCommand(tdc);
+
         if (transports.contains(toRemove)) {
             transports.remove(toRemove);
         }
