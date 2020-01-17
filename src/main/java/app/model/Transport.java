@@ -49,7 +49,7 @@ public class  Transport {
         this.currentTransaction.getTransaction().addTransport(this);
     }
 
-    private void calculateExpectedTime() {
+    private void calculateExpectedTime() throws IllegalArgumentException {
         Address origin = currentTransaction.getTransaction().getOrigin();
         Address destination = currentTransaction.getTransaction().getDestination();
 

@@ -41,12 +41,11 @@ public class GoogleDistanceMatrix {
                 return new Duration(hours, minutes);
             }
             catch (NullPointerException e) {
-                MainAppPresenter.showErrorDialog(e, "Couldn't count time");
+                throw new IllegalArgumentException("Couldn't count time - check your addresses");
             }
         } catch (ApiException | InterruptedException | IOException e) {
-            MainAppPresenter.showErrorDialog(e, e.getMessage());
+            throw new IllegalArgumentException("Check your addresses or Internet connection");
         }
 
-        return null;
     }
 }
