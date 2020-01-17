@@ -18,13 +18,20 @@ public class TransportCompanyApp extends Application {
     }
 
     public static void main(String[] args) {
-        DbConnector.getInstance().setDbTypeAndLoad(true);
+        try {
+            DbConnector.getInstance().setDbTypeAndLoad(true);
+        } catch (Exception e) {
+            launch(args);
+            MainAppPresenter.showErrorDialog(e, "Cannot connect database - check internet connection");
+            return;
+        }
         MongoDatabase db = DbConnector.getDB();
         // will throw an exception if connection could not be made (= db is null)
         try {
             db.getName();
         } catch (Exception e) {
             e.printStackTrace();
+            launch(args);
             MainAppPresenter.showErrorDialog(e, "Cannot connect database - check internet connection");
             return;
         }
