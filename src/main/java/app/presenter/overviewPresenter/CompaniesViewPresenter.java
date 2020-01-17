@@ -41,7 +41,6 @@ public class CompaniesViewPresenter extends SwitchPresenter {
     @FXML
     private Label returnLabel;
 
-    @Override
     @FXML
     protected void initialize(){
         CompanyDAO companyDAO = new CompanyDAO();
@@ -55,7 +54,6 @@ public class CompaniesViewPresenter extends SwitchPresenter {
         companies.addAll(companyDAO.findAllCompanies());
         companyTableView.setItems(companies);
         companyTableView.refresh();
-        System.out.println("refreshed");
         editButton.disableProperty().bind(
                 Bindings.size(
                         companyTableView.getSelectionModel()
@@ -64,10 +62,15 @@ public class CompaniesViewPresenter extends SwitchPresenter {
                 Bindings.size(
                         companyTableView.getSelectionModel()
                                 .getSelectedItems()).isNotEqualTo(1));
-
-
     }
 
+    @Override
+    protected void afterUndoRedo() {
+        CompanyDAO companyDAO = new CompanyDAO();
+        this.companies.clear();
+        companies.addAll(companyDAO.findAllCompanies());
+        companyTableView.refresh();
+    }
 
     @FXML
     private void handleAddButtonAction(){

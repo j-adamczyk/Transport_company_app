@@ -37,7 +37,6 @@ public class DriversViewPresenter extends SwitchPresenter {
     @FXML
     private Label returnLabel;
 
-    @Override
     @FXML
     protected void initialize(){
         DriverDAO driverDAO = new DriverDAO();
@@ -91,5 +90,12 @@ public class DriversViewPresenter extends SwitchPresenter {
     @FXML
     private void handleReturnLabel() {
         appPresenter.showMainView();
+    }
+
+    @Override
+    protected void afterUndoRedo() {
+        DriverDAO driverDAO = new DriverDAO();
+        this.drivers.clear();
+        drivers.addAll(driverDAO.findAllDrivers());
     }
 }

@@ -38,7 +38,7 @@ public class VehiclesViewPresenter extends SwitchPresenter {
     private Label returnLabel;
 
     @FXML
-    protected void initialize(){
+    private void initialize(){
         VehicleDAO vehicleDAO = new VehicleDAO();
         vehicleTableView.getSelectionModel().getTableView().getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         vehicleCargoVolume.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getCargoVolume().toString()));
@@ -87,5 +87,12 @@ public class VehiclesViewPresenter extends SwitchPresenter {
     @FXML
     private void handleReturnLabel() {
         appPresenter.showMainView();
+    }
+
+    @Override
+    protected void afterUndoRedo() {
+        VehicleDAO vehicleDAO = new VehicleDAO();
+        this.vehicles.clear();
+        vehicles.addAll(vehicleDAO.findAllVehicles());
     }
 }

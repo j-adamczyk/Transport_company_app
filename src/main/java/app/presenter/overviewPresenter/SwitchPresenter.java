@@ -13,8 +13,7 @@ public abstract class SwitchPresenter {
     private KeyCombination keyCombinationUndo = new KeyCodeCombination(KeyCode.Z, KeyCombination.CONTROL_DOWN);
     private KeyCombination keyCombinationRedo = new KeyCodeCombination(KeyCode.Y, KeyCombination.CONTROL_DOWN);
 
-    @FXML
-    protected abstract void initialize();
+    protected abstract void afterUndoRedo();
 
 
     public void setAppPresenter(MainAppPresenter presenter){
@@ -23,11 +22,11 @@ public abstract class SwitchPresenter {
             if (keyCombinationRedo.match(event)) {
                 System.out.println("works redo");
                 CommandRegistry.getInstance().redo();
-                initialize();
+                afterUndoRedo();
             } else if (keyCombinationUndo.match(event)) {
                 System.out.println("works undo");
                 CommandRegistry.getInstance().undo();
-                initialize();
+                afterUndoRedo();
             }
         });
     }

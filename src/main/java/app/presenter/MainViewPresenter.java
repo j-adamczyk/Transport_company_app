@@ -46,7 +46,7 @@ public class MainViewPresenter extends SwitchPresenter {
     }
 
     @FXML
-    protected void initialize(){
+    private void initialize(){
         try {
             URL url = new URL(new URL("file:"), "src/logo.png");
             Image im = new Image(url.toString());
@@ -60,5 +60,9 @@ public class MainViewPresenter extends SwitchPresenter {
 
     public void setAppPresenter(MainAppPresenter presenter){
         this.appPresenter = presenter;
+    }
+
+    @Override
+    protected void afterUndoRedo() {
     }
 }

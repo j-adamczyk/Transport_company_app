@@ -63,7 +63,7 @@ public class TransactionsViewPresenter extends SwitchPresenter {
     private Label returnLabel;
 
     @FXML
-    protected void initialize(){
+    private void initialize(){
         TransactionDAO transactionDAO = new TransactionDAO();
         transactionTableView.getSelectionModel().setSelectionMode(SelectionMode.SINGLE);
         transactionContractorColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getContractor().toString()));
@@ -72,12 +72,14 @@ public class TransactionsViewPresenter extends SwitchPresenter {
         transactionToColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getDestination().toString()));
         transactionPurchaseColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getMoney().toString()));
         transactionIdColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().get_id().toString()));
+
         cargoNameColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getName()));
         cargoUnitsColumn.setCellValueFactory(value -> new SimpleStringProperty
                 (transactionTableView.getSelectionModel().getSelectedItem()==null ? ""
                         : transactionTableView.getSelectionModel().getSelectedItem().getCargo().get(value.getValue().getName()).toString()));
         cargoVolumeColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getVolume().toString()));
         cargoWeightColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getWeight().toString()));
+
         this.transactions = FXCollections.observableArrayList();
         this.cargo = FXCollections.observableArrayList();
         transactions.addAll(transactionDAO.findAllTransactions());
@@ -161,5 +163,13 @@ public class TransactionsViewPresenter extends SwitchPresenter {
             cargo.addAll(transactionSelected.getCargoTypes().values());
             cargoTable.refresh();
         }
+    }
+
+    @Override
+    protected void afterUndoRedo() {
+        TransactionDAO transactionDAO = new TransactionDAO();
+        this.transactions.clear();
+        this.cargo.clear();
+        transactions.addAll(transactionDAO.findAllTransactions());
     }
 }

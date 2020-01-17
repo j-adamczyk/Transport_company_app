@@ -93,6 +93,8 @@ public class TransportsViewPresenter extends SwitchPresenter {
                 value -> new SimpleStringProperty(value.getValue().getCurrentTransaction().getTransaction().getOrigin().toString()));
         destinationColumn.setCellValueFactory(
                 value -> new SimpleStringProperty(value.getValue().getCurrentTransaction().getTransaction().getDestination().toString()));
+
+
         cargoNameColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getName()));
         cargoUnitsColumn.setCellValueFactory(value -> new SimpleStringProperty
                 (transportsTable.getSelectionModel().getSelectedItem()==null ? ""
@@ -101,10 +103,12 @@ public class TransportsViewPresenter extends SwitchPresenter {
         cargoWeightColumn.setCellValueFactory(value -> new SimpleStringProperty(value.getValue().getWeight().toString()));
         this.cargo = FXCollections.observableArrayList();
         cargoTable.setItems(cargo);
+
+
         this.transports = FXCollections.observableArrayList();
         sortTransports();
 
-//        checkboxes
+        //        checkboxes
         pastCheckBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
             public void changed(ObservableValue<? extends Boolean> ov,
                                 Boolean old_val, Boolean new_val) {
@@ -138,6 +142,7 @@ public class TransportsViewPresenter extends SwitchPresenter {
 
         presentCheckBox.setSelected(true);
         futureCheckBox.setSelected(true);
+        pastCheckBox.setSelected(true);
 
         transportsTable.setItems(transports);
 
@@ -169,6 +174,19 @@ public class TransportsViewPresenter extends SwitchPresenter {
                 cargoTable.refresh();
             }
         });
+    }
+
+    @Override
+    protected void afterUndoRedo() {
+        this.transports.clear();
+        allTransports = null;
+        sortTransports();
+        pastCheckBox.setSelected(false);
+        futureCheckBox.setSelected(false);
+        presentCheckBox.setSelected(false);
+        presentCheckBox.setSelected(true);
+        futureCheckBox.setSelected(true);
+        pastCheckBox.setSelected(true);
     }
 
     @FXML
