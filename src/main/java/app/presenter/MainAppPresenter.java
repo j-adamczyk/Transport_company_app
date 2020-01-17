@@ -1,5 +1,6 @@
 package app.presenter;
 
+import app.command.CommandRegistry;
 import app.model.*;
 import app.presenter.addPresenter.DialogPresenter;
 import app.presenter.editPresenter.EditDialogPresenter;
@@ -142,6 +143,7 @@ public class MainAppPresenter {
             Scene scene = new Scene(page);
             primaryStage.setScene(scene);
             ((SwitchPresenter) loader.getController()).setAppPresenter(this);
+            CommandRegistry.getInstance().clear();
         }catch (IOException e){
             e.printStackTrace();
         }
