@@ -243,7 +243,7 @@ public class TransportsViewPresenter extends SwitchPresenter {
                     .isBefore(LocalDateTime.now())) {
                 pastTransports.add(transport);
             }
-            if(transport.getDepartureDate()
+            else if(transport.getDepartureDate()
                         .isAfter(LocalDateTime.now())) {
                     futureTransports.add(transport);
                 }

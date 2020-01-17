@@ -114,6 +114,10 @@ public class  Transport {
             }
         }
 
+        if (cargoUnitsTaken.size() == 0)
+            throw new IllegalArgumentException("Vehicle too small for this transport!");
+//      TODO method has to throw exception and then handle
+
         // take cargo units from currentTransaction (and possibly set Transaction as "done")
         this.currentTransaction.removeCargo(cargoUnitsTaken);
     }
