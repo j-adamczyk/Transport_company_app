@@ -173,4 +173,12 @@ public class SelectedTransactionPresenter extends SelectedPresenter{
         return this.selectedTransactionProperty.get();
     }
 
+    @Override
+    protected void afterUndoRedo() {
+        TransactionDAO transactionDAO = new TransactionDAO();
+        this.transactions.clear();
+        this.cargo.clear();
+        transactions.addAll(transactionDAO.findAllTransactions());
+    }
+
 }

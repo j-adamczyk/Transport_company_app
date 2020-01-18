@@ -114,4 +114,11 @@ public class SelectedDriverPresenter extends SelectedPresenter{
         driverTableView.refresh();
     }
 
+    @Override
+    protected void afterUndoRedo() {
+        DriverDAO driverDAO = new DriverDAO();
+        this.drivers.clear();
+        drivers.addAll(driverDAO.findAllDrivers());
+    }
+
 }

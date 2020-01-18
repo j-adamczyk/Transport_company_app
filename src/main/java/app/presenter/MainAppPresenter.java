@@ -228,10 +228,10 @@ public class MainAppPresenter {
             dialogStage.initOwner(owner);
 
             SelectedPresenter presenter = loader.getController();
+            dialogStage.setScene(scene);
             presenter.setDialogStage(dialogStage);
             presenter.setOldObject(oldObject);
             presenter.setAppPresenter(this);
-            dialogStage.setScene(scene);
             dialogStage.showAndWait();
             return presenter.getSelectedObject();
         }catch (IOException e){
