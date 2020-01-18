@@ -14,6 +14,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -42,8 +43,16 @@ public class MainAppPresenter {
 
             // add layout to a scene and show them all
             Scene scene = new Scene(rootLayout);
-            scene.getStylesheets().add(getClass().getResource("darkTheme.css").toExternalForm());//todo - dark mode
-            //scene.getStylesheets().add("darkTheme.css");//jedno z dwoch powinno działać, nie działa zadne, bo nie widzi tego cssa niiiigdzie
+//            scene.getStylesheets().add(getClass().getResource("main/resources/darkTheme.css").toExternalForm());//todo - dark mode
+//            URL url2 = new URL(new URL("resource:"), "src/main/resources/darkTheme.css");
+//            System.out.println(url2);
+//            URL url2 = this.getClass().getResource("/darkTheme.css");
+//            System.out.println(url2);
+//            scene.getStylesheets().add("/darkTheme.css");//jedno z dwoch powinno działać, nie działa zadne, bo nie widzi tego cssa niiiigdzie
+            URL url2 = new URL(new URL("file:"), "src/main/resources/darkTheme.css");
+            File f = new File(url2.getFile());
+            System.out.println(f.exists());
+            scene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
             primaryStage.setScene(scene);
             primaryStage.show();
 
