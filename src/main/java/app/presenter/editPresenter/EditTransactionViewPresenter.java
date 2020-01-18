@@ -17,6 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -185,6 +186,9 @@ public class EditTransactionViewPresenter extends EditDialogPresenter {
             loader.setLocation(url);
             Pane page = loader.load();
             Scene scene = new Scene(page);
+            URL url2 = new URL(new URL("file:"), "src/main/resources/darkTheme.css");
+            File f = new File(url2.getFile());
+            scene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 
             Stage dialogStage2 = new Stage();
             dialogStage2.setTitle("Transport Company Application - Add Transaction - Add Cargo");
@@ -222,6 +226,9 @@ public class EditTransactionViewPresenter extends EditDialogPresenter {
             presenter.setCargoTypes(cargoTypesMap);
             presenter.setOldObject(cargoTable.getSelectionModel().getSelectedItem());
             Scene scene = new Scene(page);
+            URL url2 = new URL(new URL("file:"), "src/main/resources/darkTheme.css");
+            File f = new File(url2.getFile());
+            scene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
             presenter.setDialogStage(dialogStage2);
             dialogStage2.setScene(scene);
             dialogStage2.showAndWait();

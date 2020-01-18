@@ -37,18 +37,11 @@ public class MainAppPresenter {
             URL url = new URL(new URL("file:"), "src/main/java/app/view/MainView.fxml");
             loader.setLocation(url);
             Pane rootLayout = loader.load();
-            //rootLayout.setStyle("-fx-base: rgba(60, 60, 60, 255);");
             MainViewPresenter presenter = loader.getController();
             presenter.setAppPresenter(this);
 
             // add layout to a scene and show them all
             Scene scene = new Scene(rootLayout);
-//            scene.getStylesheets().add(getClass().getResource("main/resources/darkTheme.css").toExternalForm());//todo - dark mode
-//            URL url2 = new URL(new URL("resource:"), "src/main/resources/darkTheme.css");
-//            System.out.println(url2);
-//            URL url2 = this.getClass().getResource("/darkTheme.css");
-//            System.out.println(url2);
-//            scene.getStylesheets().add("/darkTheme.css");//jedno z dwoch powinno działać, nie działa zadne, bo nie widzi tego cssa niiiigdzie
             URL url2 = new URL(new URL("file:"), "src/main/resources/darkTheme.css");
             File f = new File(url2.getFile());
             System.out.println(f.exists());
@@ -152,6 +145,9 @@ public class MainAppPresenter {
             loader.setLocation(url);
             Pane page = loader.load();
             Scene scene = new Scene(page);
+            URL url2 = new URL(new URL("file:"), "src/main/resources/darkTheme.css");
+            File f = new File(url2.getFile());
+            scene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
             primaryStage.setScene(scene);
             ((SwitchPresenter) loader.getController()).setAppPresenter(this);
         }catch (IOException e){
@@ -167,6 +163,9 @@ public class MainAppPresenter {
             loader.setLocation(url);
             Pane page = loader.load();
             Scene scene = new Scene(page);
+            URL url2 = new URL(new URL("file:"), "src/main/resources/darkTheme.css");
+            File f = new File(url2.getFile());
+            scene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle(TITLE + " - Add " + title);
@@ -192,6 +191,9 @@ public class MainAppPresenter {
             loader.setLocation(url);
             Pane page = loader.load();
             Scene scene = new Scene(page);
+            URL url2 = new URL(new URL("file:"), "src/main/resources/darkTheme.css");
+            File f = new File(url2.getFile());
+            scene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle(TITLE + " - Edit " + title);
@@ -216,6 +218,9 @@ public class MainAppPresenter {
             loader.setLocation(url);
             Pane page = loader.load();
             Scene scene = new Scene(page);
+            URL url2 = new URL(new URL("file:"), "src/main/resources/darkTheme.css");
+            File f = new File(url2.getFile());
+            scene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
 
             Stage dialogStage = new Stage();
             dialogStage.setTitle(TITLE + " - Selected " + title);
@@ -262,7 +267,11 @@ public class MainAppPresenter {
             loader.setLocation(url);
             Parent root = loader.load();
             ((ErrorViewPresenter)loader.getController()).setErrorText(message);
-            dialog.setScene(new Scene(root, 300, 200));
+            Scene scene = new Scene(root, 300, 200);
+            URL url2 = new URL(new URL("file:"), "src/main/resources/darkTheme.css");
+            File f = new File(url2.getFile());
+            scene.getStylesheets().add("file:///" + f.getAbsolutePath().replace("\\", "/"));
+            dialog.setScene(scene);
             dialog.show();
         } catch (IOException exc) {
             exc.printStackTrace();

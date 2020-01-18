@@ -118,7 +118,12 @@ public class AddTransportPresenter extends DialogPresenter {
 
     @FXML
     private void handleDatePickerAction(){
-//        TODO
+/*        LocalDateTime time = datePicker.getValue()
+                .atTime((Integer)hourSpinner.getValue(),(Integer) minuteSpinner.getValue());
+        for(Vehicle v: vehicleMap.values()){
+
+        }
+        vehicleChoiceBox.setItems();*///todo - zrobic tylko aktualne auta i kierowcow
     };
 
     @FXML
