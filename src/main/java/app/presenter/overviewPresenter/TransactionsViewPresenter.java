@@ -11,6 +11,7 @@ import app.model.Transaction;
 import javafx.beans.InvalidationListener;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.BooleanBinding;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
@@ -29,6 +30,7 @@ public class TransactionsViewPresenter extends SwitchPresenter {
     private Map<String, Cargo> cargoTypesMap = new HashMap<>();
     private Map<String, Integer> cargoUnitsMap = new HashMap<>();
     private int selectedRaw = -1;
+    private BooleanProperty done = new SimpleBooleanProperty();
 
     @FXML
     private TableView<Cargo> cargoTable;
@@ -95,9 +97,9 @@ public class TransactionsViewPresenter extends SwitchPresenter {
                 Bindings.size(
                         transactionTableView.getSelectionModel()
                                 .getSelectedItems()).isNotEqualTo(1));
-        /*editButton.disableProperty().bind(
-                value -> new SimpleBooleanProperty(transactionTableView.getSelectionModel().getSelectedItem().isEditable())
-        );*///todo - disable button when transaction is not editable
+        //done transactions cannot be edited or deleted
+        editButton.disableProperty().bind(done);
+        deleteButton.disableProperty().bind(done);
         deleteButton.disableProperty().bind(
                 Bindings.size(
                         transactionTableView.getSelectionModel()
@@ -170,6 +172,7 @@ public class TransactionsViewPresenter extends SwitchPresenter {
             Transaction transactionSelected = transactionTableView.getSelectionModel().getSelectedItem();
             cargo.addAll(transactionSelected.getCargoTypes().values());
             cargoTable.refresh();
+            done.setValue(transactionTableView.getSelectionModel().getSelectedItem().isDone());
         }
     }
 
