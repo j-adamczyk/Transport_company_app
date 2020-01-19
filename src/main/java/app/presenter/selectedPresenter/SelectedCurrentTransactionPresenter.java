@@ -1,5 +1,6 @@
 package app.presenter.selectedPresenter;
 
+import app.dao.CompanyDAO;
 import app.dao.TransportDAO;
 import app.model.Cargo;
 import app.model.CurrentTransaction;
@@ -95,5 +96,9 @@ public class SelectedCurrentTransactionPresenter extends SelectedPresenter {
     @FXML
     private void handleTransportButtonAction(){
         appPresenter.showSelectedTransport(transportTableView.getSelectionModel().getSelectedItem(), dialogStage);
+    }
+
+    @Override
+    protected void afterUndoRedo() {
     }
 }

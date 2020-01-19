@@ -115,4 +115,11 @@ public class SelectedVehiclePresenter extends SelectedPresenter{
         vehicleTableView.refresh();
     }
 
+    @Override
+    protected void afterUndoRedo() {
+        VehicleDAO vehicleDAO = new VehicleDAO();
+        this.vehicles.clear();
+        vehicles.addAll(vehicleDAO.findAllVehicles());
+    }
+
 }

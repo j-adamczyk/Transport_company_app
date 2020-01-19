@@ -297,4 +297,17 @@ public class SelectedTransportPresenter extends SelectedPresenter{
         futureCheckBox.setSelected(!futureCheckBox.isSelected());
         futureCheckBox.setSelected(!futureCheckBox.isSelected());
     }
+
+    @Override
+    protected void afterUndoRedo() {
+        this.transports.clear();
+        allTransports = null;
+        sortTransports();
+        pastCheckBox.setSelected(false);
+        futureCheckBox.setSelected(false);
+        presentCheckBox.setSelected(false);
+        presentCheckBox.setSelected(true);
+        futureCheckBox.setSelected(true);
+        pastCheckBox.setSelected(true);
+    }
 }

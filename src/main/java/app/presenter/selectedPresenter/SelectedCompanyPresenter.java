@@ -105,4 +105,12 @@ public class SelectedCompanyPresenter extends SelectedPresenter{
         appPresenter.showEditCompanyView(companyTableView.getSelectionModel().getSelectedItem());
         companyTableView.refresh();
     }
+
+    @Override
+    protected void afterUndoRedo() {
+        CompanyDAO companyDAO = new CompanyDAO();
+        this.companies.clear();
+        companies.addAll(companyDAO.findAllCompanies());
+        companyTableView.refresh();
+    }
 }
