@@ -22,9 +22,9 @@ public class DbConnector
     private boolean dbType = true;
 
     private MongoClient mainMongoClient = MongoClients.create(
-            "mongodb+srv://mainuser:MainUser10@maincluster-af4rk.gcp.mongodb.net/test?retryWrites=true&w=majority");
+            "");
     private MongoClient testMongoClient = MongoClients.create(
-            "mongodb+srv://mainuser:MainUser10@testcluster-5qtaz.gcp.mongodb.net/test?retryWrites=true&w=majority");
+            "");
 
     private CodecRegistry pojoCodecRegistry = fromRegistries(MongoClientSettings.getDefaultCodecRegistry(),
             fromProviders(PojoCodecProvider.builder().automatic(true).build()));
