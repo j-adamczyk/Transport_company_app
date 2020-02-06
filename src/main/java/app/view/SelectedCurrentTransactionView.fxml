@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="app.presenter.selectedPresenter.SelectedCurrentTransactionPresenter"
+            prefHeight="600.0" prefWidth="500.0">
+    <top>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="15" bottom="12" left="15" right="12" />
+            </padding>
+            <Label fx:id="transactionLabel" text="Transaction ID: ">
+                <font>
+                    <Font name="System Bold" size="16"/>
+                </font>
+            </Label>
+            <Label fx:id="companyLabel" text="Company: " onMouseClicked="#handleCompanyLabelAction" underline="true"/>
+            <Label fx:id="fromLabel" text="From: "/>
+            <Label fx:id="destinationLabel" text="Destination: "/>
+            <Label fx:id="transactionDateLabel" text="TransactionDate: "/>
+            <Label fx:id="transactionPurchaseLabel" text="Purchase: "/>
+            <Label text="Cargo">
+                <font>
+                    <Font name="System Bold" size="13"/>
+                </font>
+            </Label>
+        </VBox>
+    </top>
+    <center>
+        <VBox spacing="10">
+        <padding>
+            <Insets bottom="12" left="15" right="12" />
+        </padding>
+            <TableView fx:id="cargoTable" prefHeight="150">
+                <columns>
+                    <TableColumn fx:id="cargoNameColumn" text="Name" prefWidth="75.0"/>
+                    <TableColumn fx:id="cargoUnitsColumn" text="Units" prefWidth="75.0"/>
+                    <TableColumn fx:id="cargoVolumeColumn" text="Volume" prefWidth="75.0"/>
+                    <TableColumn fx:id="cargoWeightColumn" text="Weight" prefWidth="75.0"/>
+                    <TableColumn fx:id="cargoLeftColumn" text="Units Left" prefWidth="75.0"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+    <bottom>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="12" bottom="20" left="15" right="12" />
+            </padding>
+            <HBox spacing="250">
+                <Label text="Transports">
+                    <font>
+                        <Font name="System Bold" size="13"/>
+                    </font>
+                </Label>
+                <VBox alignment="TOP_RIGHT">
+                    <Button fx:id="transportButton" text="See Transport" onAction="#handleTransportButtonAction"/>
+                </VBox>
+            </HBox>
+            <TableView fx:id="transportTableView" prefHeight="150">
+                <columns>
+                    <TableColumn fx:id="transportIdColumn" text="Id" prefWidth="75.0"/>
+                    <TableColumn fx:id="transportDateColumn" text="Date" prefWidth="75.0"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </bottom>
+
+</BorderPane>

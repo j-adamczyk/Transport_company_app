@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="app.presenter.addPresenter.AddDriverViewPresenter"
+            prefHeight="570.0" prefWidth="300.0">
+    <center>
+        <VBox spacing="5">
+            <padding>
+                <Insets top="12" bottom="12" right="12" left="12"/>
+            </padding>
+            <Label text="Name and surname"/>
+            <TextField fx:id="nameField"/>
+            <Label text="Phone"/>
+            <TextField fx:id="phoneField"/>
+            <Label text="Salary"/>
+            <TextField fx:id="salaryField"/>
+            <Label text="Address:"/>
+            <Label text="Street"/>
+            <TextField fx:id="streetField"/>
+            <Label text="City"/>
+            <TextField fx:id="cityField"/>
+            <Label text="Postal Code"/>
+            <TextField fx:id="postalCodeField"/>
+            <Label text="Country"/>
+            <TextField fx:id="countryField"/>
+            <Label text="Birth Date"/>
+            <DatePicker fx:id="birthDatePicker"/>
+            <Label text="Hire Date"/>
+            <DatePicker fx:id="hireDatePicker"/>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox spacing="20" alignment="BASELINE_RIGHT">
+            <padding>
+                <Insets top="12" bottom="12" right="12" left="12"/>
+            </padding>
+            <Button fx:id="acceptButton" onAction="#handleAcceptButtonAction" text="Accept" prefWidth="75"/>
+            <Button fx:id="cancelButton" onAction="#handleCancelButtonAction" text="Cancel" prefWidth="75"/>
+        </HBox>
+    </bottom>
+</BorderPane>

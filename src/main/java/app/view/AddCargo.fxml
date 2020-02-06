@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="app.presenter.addPresenter.AddCargoPresenter"
+            prefHeight="400.0" prefWidth="600.0">
+    <center>
+        <VBox spacing="5">
+            <padding>
+                <Insets top="12" bottom="12" right="12" left="12"/>
+            </padding>
+            <Label text="Name"/>
+            <TextField fx:id="name"/>
+            <Label text="Units"/>
+            <TextField fx:id="units"/>
+            <Label text="Volume [l]"/>
+            <TextField fx:id="volume"/>
+            <Label text="Weight[kg]"/>
+            <TextField fx:id="weight"/>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox spacing="20" alignment="BASELINE_RIGHT">
+            <padding>
+                <Insets top="12" bottom="12" right="12" left="12"/>
+            </padding>
+            <Button fx:id="acceptButton" onAction="#handleAcceptButtonAction" text="Accept" prefWidth="75"/>
+            <Button fx:id="cancelButton" onAction="#handleCancelButtonAction" text="Cancel" prefWidth="75"/>
+        </HBox>
+    </bottom>
+</BorderPane>

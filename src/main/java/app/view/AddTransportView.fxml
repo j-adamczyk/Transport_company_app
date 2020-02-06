@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="app.presenter.addPresenter.AddTransportPresenter"
+            prefHeight="400.0" prefWidth="320.0">
+    <center>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="12" bottom="12" right="12" left="12"/>
+            </padding>
+            <Label text="Current Transaction ID"/>
+            <HBox spacing="20">
+                <ChoiceBox fx:id="currentTransactionIdChoiceBox" prefWidth="240"/>
+                <Label fx:id="viewCurrentTransactionsLabel" text="view..." onMouseClicked="#handleViewCurrTransLabelAction" textFill="darkblue"/>
+            </HBox>
+            <Label text="Departure Date"/>
+            <DatePicker fx:id="datePicker" onAction="#handleDatePickerAction"/>
+            <HBox spacing="20">
+                <Spinner fx:id="hourSpinner"/>
+                <Spinner fx:id="minuteSpinner"/>
+            </HBox>
+            <Label text="Driver"/>
+            <HBox spacing="20">
+                <ChoiceBox fx:id="driverChoiceBox" prefWidth="240"/>
+                <Label fx:id="viewDriversLabel" onMouseClicked="#handleViewDriversLabelAction" text="view..." textFill="darkblue"/>
+            </HBox>
+            <Label text="Vehicle"/>
+            <HBox spacing="20">
+                <ChoiceBox fx:id="vehicleChoiceBox" prefWidth="240"/>
+                <Label fx:id="viewVehiclesLabel" onMouseClicked="#handleViewVehiclesLabelAction" text="view..." textFill="darkblue"/>
+            </HBox>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox spacing="20">
+            <padding>
+                <Insets top="12" bottom="12" right="12" left="12"/>
+            </padding>
+            <Button fx:id="acceptButton" onAction="#handleAcceptButtonAction" text="Accept" prefWidth="75"/>
+            <Button fx:id="cancelButton" onAction="#handleCancelButtonAction" text="Cancel" prefWidth="75"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

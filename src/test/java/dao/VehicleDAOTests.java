@@ -1,11 +1,11 @@
 package dao;
 
+import app.dao.DbConnector;
+import app.dao.VehicleDAO;
 import com.mongodb.client.MongoDatabase;
-import model.Address;
-import model.Vehicle;
+import app.model.Vehicle;
 import org.bson.Document;
 import org.junit.*;
-import org.junit.runners.MethodSorters;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -28,7 +28,9 @@ public class VehicleDAOTests {
 
     @Before
     public void setupDatabase() {
+        DbConnector.getInstance().setDbTypeAndLoad(false);
         this.db = DbConnector.getDB();
+        db.getCollection("vehicles").deleteMany(new Document());
 
         v1 = new Vehicle("bmw", "123",
                 LocalDate.of(2010, 10, 10), 1000.0, 1000.0);
@@ -45,42 +47,42 @@ public class VehicleDAOTests {
     }
 
     @Test
-    public void testUpdate(){
+    public void testUpdate() {
         v1.setModel("ferrari");
         vehicleDAO.update(v1.get_id(), v1);
         Assert.assertEquals(vehicleDAO.find(v1.get_id()).getModel(), "ferrari");
         v1.setCargoVolume(10.0);
         vehicleDAO.update(v1.get_id(), v1);
-        Assert.assertEquals((double) vehicleDAO.find(v1.get_id()).getCargoVolume(), 10.0, 0);
+        Assert.assertEquals(vehicleDAO.find(v1.get_id()).getCargoVolume(), 10.0, 0);
     }
 
     @Test
-    public void testFindAllVehicles(){
+    public void testFindAllVehicles() {
         List<Vehicle> actual = vehicleDAO.findAllVehicles();
-        Assert.assertEquals(actual.size(), 1);
+        Assert.assertEquals(1, actual.size());
         Assert.assertEquals(actual, Collections.singletonList(v1));
         vehicleDAO.save(v2);
         actual = vehicleDAO.findAllVehicles();
         List<Vehicle> expected = Arrays.asList(v1, v2);
-        Assert.assertEquals(actual.size(), 2);
+        Assert.assertEquals(2, actual.size());
         Assert.assertEquals(actual, expected);
     }
 
     @Test
-    public void testFindVehicleModel(){
-        //todo
+    public void testFindVehicleModel() {
+        //TODO: write this test
     }
 
     @Test
-    public void testDelete(){
+    public void testDelete() {
         vehicleDAO.delete(v2.get_id());
-        Assert.assertEquals(Arrays.asList(v1), vehicleDAO.findAllVehicles());
+        Assert.assertEquals(Collections.singletonList(v1), vehicleDAO.findAllVehicles());
         vehicleDAO.delete(v1.get_id());
         Assert.assertTrue(vehicleDAO.findAllVehicles().isEmpty());
     }
 
     @After
-    public void cleanDatabase(){
+    public void cleanDatabase() {
         for (String collectionName: db.listCollectionNames())
             db.getCollection(collectionName).deleteMany(new Document());
     }

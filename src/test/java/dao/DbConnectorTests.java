@@ -1,5 +1,6 @@
 package dao;
 
+import app.dao.DbConnector;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import org.junit.After;
@@ -19,6 +20,7 @@ public class DbConnectorTests {
 
     @After
     public void setupDatabase() {
+        DbConnector.getInstance().setDbTypeAndLoad(false);
         this.db = DbConnector.getDB();
         // clear all collections with empty Document filter
         for (String collectionName: db.listCollectionNames())
@@ -26,5 +28,7 @@ public class DbConnectorTests {
     }
 
     @Test
-    public void tmp() {}
+    public void test(){
+
+    }
 }

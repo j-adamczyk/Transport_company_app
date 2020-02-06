@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.text.Font?>
+<?import javafx.geometry.Insets?>
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="app.presenter.selectedPresenter.SelectedTransactionPresenter"
+            prefHeight="400.0" prefWidth="600.0">
+    <center>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="15" bottom="12" left="15" right="12" />
+            </padding>
+            <Label text="Transactions">
+                <font>
+                    <Font name="System Bold" size="13"/>
+                </font>
+            </Label>
+            <TableView fx:id="transactionTableView" prefHeight="150">
+                <columns>
+                    <TableColumn fx:id="transactionIdColumn" text="Id" prefWidth="75.0"/>
+                    <TableColumn fx:id="transactionDateColumn" text="Date" prefWidth="75.0"/>
+                    <TableColumn fx:id="transactionContractorColumn" text="Contractor" prefWidth="75.0"/>
+                    <TableColumn fx:id="transactionFromColumn" text="From" prefWidth="75.0"/>
+                    <TableColumn fx:id="transactionToColumn" text="To" prefWidth="75.0"/>
+                    <TableColumn fx:id="transactionPurchaseColumn" text="Purchase" prefWidth="75.0"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+    <right>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="15" bottom="12" left="15" right="12" />
+            </padding>
+            <Button text="Add" prefWidth="70" onAction="#handleAddButtonAction" fx:id="addButton"/>
+            <Button text="Delete" prefWidth="70" onAction="#handleDeleteButtonAction" fx:id="deleteButton"/>
+            <Button text="Edit" prefWidth="70" onAction="#handleEditButtonAction" fx:id="editButton"/>
+            <Button text="Company" prefWidth="70" onAction="#handleSeeCompanyButtonAction" fx:id="seeCompanyButton"/>
+            <Button text="See state" prefWidth="70" onAction="#handleSeeCurrentTransactionButtonAction" fx:id="seeCurrentStateButton"/>
+        </VBox>
+    </right>
+    <bottom>
+        <VBox spacing="10">
+            <padding>
+                <Insets top="15" bottom="12" left="15" right="12" />
+            </padding>
+            <Label text="Cargo">
+                <font>
+                    <Font name="System Bold" size="13"/>
+                </font>
+            </Label>
+            <TableView fx:id="cargoTable" prefHeight="150">
+                <columns>
+                    <TableColumn fx:id="cargoNameColumn" text="Name" prefWidth="75.0"/>
+                    <TableColumn fx:id="cargoUnitsColumn" text="Units" prefWidth="75.0"/>
+                    <TableColumn fx:id="cargoVolumeColumn" text="Volume" prefWidth="75.0"/>
+                    <TableColumn fx:id="cargoWeightColumn" text="Weight" prefWidth="75.0"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </bottom>
+
+</BorderPane>
