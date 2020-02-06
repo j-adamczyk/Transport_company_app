@@ -18,7 +18,7 @@ import java.io.IOException;
  */
 public class GoogleDistanceMatrix {
     private static final String BASE_URI = "https://maps.googleapis.com/maps/api";
-    private static final String API_KEY = "AIzaSyCJxtKw7n1MwZyXkpdZx5bWJXQWQ42ZTlI";
+    private static final String API_KEY = "";
 
     private static final GeoApiContext context = new GeoApiContext.Builder()
             .apiKey(API_KEY)
